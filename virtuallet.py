@@ -39,7 +39,7 @@ class Database:
         self.con.commit()
 
     def insert_into_ledger(self, description, amount):
-        self.cur.execute("INSERT INTO ledger (description, amount, auto_income, created_at, modified_at) VALUES (?, ?, ?, ?, ?)", (description, amount, 0, datetime.now(), None))
+        self.cur.execute("INSERT INTO ledger (description, amount, auto_income, created_at) VALUES (?, ?, ?, ?)", (description, amount, 0, datetime.now()))
         self.con.commit()
 
     def balance(self):
@@ -80,7 +80,7 @@ class Database:
     def insert_auto_income(self, month, year):
         description = "%s %02d/%d" % (self.__income_description(), month, year)
         amount = self.__income_amount()
-        self.cur.execute("INSERT INTO ledger (description, amount, auto_income, created_at, modified_at) VALUES (?, ?, ?, ?, ?)", (description, amount, 1, datetime.now(), None))
+        self.cur.execute("INSERT INTO ledger (description, amount, auto_income, created_at) VALUES (?, ?, ?, ?)", (description, amount, 1, datetime.now()))
         self.con.commit()
 
     def has_auto_income_for_month(self, month, year):
@@ -136,23 +136,18 @@ class Loop:
         print(TextResources.error_omg())
 
     def __handle_add(self):
-        description = input(TextResources.enter_description())
-        amount = Util.float_val(input(TextResources.enter_amount()))
-        if amount > 0:
-            self.db.insert_into_ledger(description, amount)
-            print(TextResources.income_booked())
-        elif amount < 0:
-            print(TextResources.error_negative_amount())
-        else:
-            print(TextResources.error_zero_or_invalid_amount())
+        self.__add_to_ledger(-1, TextResources.income_booked());
 
     def __handle_sub(self):
+        self.__add_to_ledger(-1, TextResources.expense_booked());
+
+    def __add_to_ledger(self, signum, success_message):
         description = input(TextResources.enter_description())
         amount = Util.float_val(input(TextResources.enter_amount()))
         if amount > 0:
             if self.db.is_expense_acceptable(amount):
-                self.db.insert_into_ledger(description, amount * -1)
-                print(TextResources.expense_booked())
+                self.db.insert_into_ledger(description, amount * signum)
+                print(success_message)
             else:
                 print(TextResources.error_too_expensive())
         elif amount < 0:
@@ -226,6 +221,8 @@ class TextResources:
       |   |      ,_  _|_         __,  | | | |  _ _|_ 
       |   |  |  /  |  |  |   |  /  |  |/  |/  |/  |  
        \_/   |_/   |_/|_/ \_/|_/\_/|_/|__/|__/|__/|_/
+                                                     
+    Python 3 Edition                                                 
                                                      
         """
 

@@ -1,0 +1,14 @@
+# intellij
+.idea
+*.iml
+out
+
+# dependencies
+*.jar
+
+# compiled files
+*.class
+
+# runtime files
+*.bak
+*.db
