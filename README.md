@@ -11,11 +11,12 @@ It offers the following features:
  * displays the current balance and (up to) the last 30 transactions
  * a configurable overdraft and a validation to prevent entering expenses that exceed your current credit balance
  * stores everything in a sqlite database file which can be freely accessed using a sqlite shell or browser
+
 It does not and probably will never offer the following:
  * reporting (use a sqlite browser for that)
  * a server component
  * multi user support
- * currencies (your managed money is just decimals)
+ * currencies (your managed money is just plain numbers)
  * other advanced concepts like categories for expenses
  * update/delete actions for existing data (use a sqlite browser for that)
 
@@ -24,7 +25,7 @@ I myself use it to manage my personal digital pocket money which I have negotiat
 Since I pay for most of my personal expenses online I figured a tiny tool to manage my pocket money was in order.
 
 Virtuallet should hopefully be self explanatory. You will get a quick help right when you start it and can get
-more details by entering '?' (a question mark) and then enter. From the menu everything is accessed by pressing
+more details by pressing the '?' key (question mark) and then enter. From the menu everything is accessed by pressing
 one key and then enter and Virtuallet will ask for further input when necessary,
 for example to enter a description and an amount when you want to add an expense.
 
@@ -40,12 +41,12 @@ and if you actually want to use this tiny but really handy tool, you can choose 
 It certainly doesn't hurt to have some "computer knowledge" if you want to use this tool
 but you probably have if you found this gitlab project.
 
-This project does not only offer implementations in several programming languages but also a shell script
+This project does not only offer implementations in several programming languages but also a shell script `virtuallet.sh`
 which randomly chooses an implementation. In that file you will also see how to get a specific implementation running.
 Keep in mind that you probably want to have a look at that script before you accept it blindly. For example you can
 run the Python 3 implementation by running `python3 virtuallet.py` but only if python3 is in your path. First of all
 a Python 3 runtime must be installed on your system and then it might not be available under that name, maybe you want
-to specify the path instead and should actually invoke something like `/usr/bin/python3`. Just keep that in mind for any
+to specify the path instead and should actually invoke something like `/usr/bin/python3 virtuallet.py`. Just keep that in mind for any
 implementation you would like to run. You can simply edit the shell script to reflect these changes. Also the shell script
 is so simple that even without programming experience you can probably just edit it to exclude specific implementations
 you don't want to execute. By the way every implementation can be easily identified by a unique subtitle under the
