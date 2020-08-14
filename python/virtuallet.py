@@ -4,7 +4,7 @@ import sqlite3 as sql
 from os import path
 from datetime import datetime
 
-DB_FILE = 'db_virtuallet.db'
+DB_FILE = '../db_virtuallet.db'
 CONF_INCOME_DESCRIPTION = 'income_description'
 CONF_INCOME_AMOUNT = 'income_amount'
 CONF_OVERDRAFT = "overdraft"
