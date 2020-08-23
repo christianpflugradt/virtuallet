@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 import sqlite3 as sql
-from os import path
+from os import path, getcwd
 from datetime import datetime
 
 DB_FILE = '../db_virtuallet.db'
@@ -85,11 +85,10 @@ class Database:
 
     def has_auto_income_for_month(self, month, year):
         self.cur.execute("""
-            SELECT EXISTS(
-                SELECT auto_income FROM ledger 
-                WHERE CAST(strftime('%%m', created_at) AS DECIMAL) = %d
-                AND CAST(strftime('%%Y', created_at) AS DECIMAL) = %d
-                AND auto_income = 1)""" % (month, year))
+            SELECT EXISTS( 
+                SELECT auto_income FROM ledger
+                WHERE auto_income = 1
+                AND description LIKE '%s')""" % ("%% %02d/%d" % (month, year)))
         return self.cur.fetchone()[0] > 0
 
 
@@ -124,7 +123,7 @@ class Loop:
                 Loop.__handle_help()
             elif inp == self.KEY_QUIT:
                 looping = False
-            elif inp[0] in [self.KEY_ADD, self.KEY_SUB]:
+            elif len(inp) > 0 and inp[0] in [self.KEY_ADD, self.KEY_SUB]:
                 Loop.__omg()
             else:
                 Loop.__handle_info()
@@ -145,7 +144,7 @@ class Loop:
         description = input(TextResources.enter_description())
         amount = Util.float_val(input(TextResources.enter_amount()))
         if amount > 0:
-            if self.db.is_expense_acceptable(amount):
+            if signum == 1 or self.db.is_expense_acceptable(amount):
                 self.db.insert_into_ledger(description, amount * signum)
                 print(success_message)
             else:
@@ -369,6 +368,7 @@ setup = Setup(db)
 loop = Loop(db)
 
 if __name__ == '__main__':
+    print("cwd " + getcwd())
     print(TextResources.banner())
     setup.setup_on_first_run()
     loop.loop()
