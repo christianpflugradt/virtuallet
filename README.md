@@ -52,6 +52,23 @@ is so simple that even without programming experience you can probably just edit
 you don't want to execute. By the way every implementation can be easily identified by a unique subtitle under the
 Virtuallet banner that is displayed upon starting the program. For Python 3 the subtitle is *Python 3 Edition*.
 
+### Implementation challenges ###
+
+This is a list of of aspects that must be considered when implementing Virtuallet in an arbitrary programming language. These aspects can be more or less challenging depending on the language and how experienced one is with it.
+ * opening a connection to a sqlite database
+ * executing parametrized statements against a sqlite database
+ * querying multiple rows from a sqlite database
+ * determining if a file exists
+ * reading from stdin
+ * converting a string to a real number
+ * formatting and rounding real numbers
+ * formatting the current date as iso string
+ * obtaining the current month and year
+ * working with an array of tuples
+ * reversing an array
+
+ Virtuallet can be implemented in any language as long as these aspects can be implemented in that language, most importantly that language should have a sqlite binding and support reading from stdin.
+
 ## Implementations ##
 
 Currently available:
