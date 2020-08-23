@@ -8,6 +8,8 @@ out
 
 # compiled files
 *.class
+*.o
+*.out
 
 # runtime files
 *.bak
