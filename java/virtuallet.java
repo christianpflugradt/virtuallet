@@ -15,7 +15,7 @@ import java.util.Scanner;
 
 public class virtuallet {
 
-    static final String DB_FILE = "db_virtuallet.db";
+    static final String DB_FILE = "../db_virtuallet.db";
     static final String CONF_INCOME_DESCRIPTION = "income_description";
     static final String CONF_INCOME_AMOUNT = "income_amount";
     static final String CONF_OVERDRAFT = "overdraft";
@@ -58,11 +58,11 @@ class Database {
 
     void createTables() throws SQLException {
         executeStatement(" CREATE TABLE ledger ( "
-                    + "description TEXT, "
-                    + "amount REAL NOT NULL, "
-                    + "auto_income INTEGER NOT NULL, "
-                    + "created_at TIMESTAMP NOT NULL, "
-                    + "modified_at TIMESTAMP) ");
+                    + " description TEXT, "
+                    + " amount REAL NOT NULL, "
+                    + " auto_income INTEGER NOT NULL, "
+                    + " created_at TIMESTAMP NOT NULL, "
+                    + " modified_at TIMESTAMP) ");
         executeStatement(" CREATE TABLE configuration (k TEXT NOT NULL, v TEXT NOT NULL) ");
     }
 
@@ -166,9 +166,8 @@ class Database {
             final var result = statement.executeQuery(String.format(
                     " SELECT EXISTS( "
                             + " SELECT auto_income FROM ledger "
-                            + " WHERE CAST(strftime('%%m', created_at) AS DECIMAL) = %d "
-                            + " AND CAST(strftime('%%Y', created_at) AS DECIMAL) = %d "
-                            + " AND auto_income = 1) ", month, year));
+                            + " WHERE auto_income = 1 "
+                            + " AND description LIKE '%s')", String.format("%% %02d/%d", month, year)));
             return result.next() && result.getBigDecimal(1).signum() == 1;
         }
     }
@@ -233,7 +232,7 @@ class Loop {
         final var description = Util.input(TextResources.enterDescription());
         final var amount = new BigDecimal(Util.input(TextResources.enterAmount()));
         if (amount.signum() == 1) {
-            if (database.isExpenseAcceptable(amount)) {
+            if (signum == 1 || database.isExpenseAcceptable(amount)) {
                 database.insertIntoLedger(description, amount.multiply(BigDecimal.valueOf(signum)));
                 Util.print(successMessage);
             } else {
@@ -342,8 +341,7 @@ class TextResources {
                 + "       \\_/   |_/   |_/|_/ \\_/|_/\\_/|_/|__/|__/|__/|_/\n"
                 + "\n"
                 + "    Java 11 Edition\n"
-                + "\n"
-                + "\n";
+                + "\n\n";
     }
 
     static String info() {
@@ -392,7 +390,7 @@ class TextResources {
     static String setupPreDatabase() {
         return "\n"
                 + "        Database file not found.\n"
-                + "        Database will be initialized. This may take a while... NOT.\n";
+                + "        Database will be initialized. This may take a while... NOT.";
     }
 
     static String setupPostDatabase() {
@@ -458,8 +456,7 @@ class TextResources {
                 + "\n"
                 + "        last transactions (up to 30)\n"
                 + "        ----------------------------\n"
-                + "%s\n"
-                + "\n", balance, formattedLastTransactions);
+                + "%s\n", balance, formattedLastTransactions);
     }
 
     static String setupDescription() {
