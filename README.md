@@ -57,16 +57,17 @@ Virtuallet banner that is displayed upon starting the program. For Python 3 the 
 Currently available:
  * Python 3
  * Java 11
+ * C GNU89
 
 Planned:
  * Ada
- * C
  * C++
  * Clojure
  * Cobol
  * D
  * Elixir
  * Erlang
+ * Fortran
  * Go
  * Groovy
  * Haskell
