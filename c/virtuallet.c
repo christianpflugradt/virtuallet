@@ -246,7 +246,7 @@ int currentYear() {
 char * nowIso() {
     const int ISO_LENGTH = 30;
     char *iso = malloc(ISO_LENGTH);
-    strftime(iso, ISO_LENGTH, "%Y-%m-%d %H:%M:%S.000", now());
+    strftime(iso, ISO_LENGTH, "%Y-%m-%d %H:%M:%S.000000", now());
     return iso;
 }
 
