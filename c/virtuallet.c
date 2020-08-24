@@ -210,8 +210,8 @@ bool isBlankOrNull(const char* c) {
 }
 
 
-char * input(const void (*print)()) {
-    print();
+char * input(void (*printInfo)()) {
+    printInfo();
     printf(" > ");
     char *line = NULL;
     size_t len = 0;
@@ -220,12 +220,12 @@ char * input(const void (*print)()) {
     return line;
 }
 
-char * inputWithDefault(const void (*print)(), const char* standard) {
-    print();
+char * inputWithDefault(void (*printInfo)(), const char* standard) {
+    printInfo();
     printf(" [default: ");
     printf(standard);
     printf("]");
-    return input(*doNothing);
+    return input(doNothing);
 }
 
 struct tm * now() {
@@ -453,13 +453,13 @@ void setup() {
     const char descriptionDefault[] = "pocket money";
     const char amountDefault[] = "100";
     const char overdraftDefault[] = "200";
-    char *descriptionInput = inputWithDefault(*printSetupDescription, descriptionDefault);
+    char *descriptionInput = inputWithDefault(printSetupDescription, descriptionDefault);
     insertConfiguration(CONF_INCOME_DESCRIPTION, isBlankOrNull(descriptionInput) ? descriptionDefault : descriptionInput);
     free(descriptionInput);
-    char *amountInput = inputWithDefault(*printSetupIncome, amountDefault);
+    char *amountInput = inputWithDefault(printSetupIncome, amountDefault);
     insertConfiguration(CONF_INCOME_AMOUNT, isBlankOrNull(amountInput) ? amountDefault : amountInput);
     free(amountInput);
-    char *overdraftInput = inputWithDefault(*printSetupOverdraft, overdraftDefault);
+    char *overdraftInput = inputWithDefault(printSetupOverdraft, overdraftDefault);
     insertConfiguration(CONF_OVERDRAFT, isBlankOrNull(overdraftInput) ? overdraftDefault : overdraftInput);
     free(overdraftInput);
     Payday payday;
@@ -489,7 +489,7 @@ void setupOnFirstRun() {
 ##########
 */
 
-void addToLedger(const int signum, const void (*printSuccessMessage)()) {
+void addToLedger(const int signum, void (*printSuccessMessage)()) {
     char *description = input(printEnterDescription);
     char *amountStr = input(printEnterAmount);
     float amount = toRoundedFloat(amountStr);
@@ -541,7 +541,7 @@ void loop() {
     printInfo();
     bool looping = true;
     while(looping) {
-        char *inp = input(*printEnterInput);
+        char *inp = input(printEnterInput);
         if (strlen(inp) <= 1) {
             if (isBlankOrNull(inp)) {
                 handleInfo();
