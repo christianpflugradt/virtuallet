@@ -39,7 +39,7 @@ class Database:
         self.con.commit()
 
     def insert_into_ledger(self, description, amount):
-        self.cur.execute("INSERT INTO ledger (description, amount, auto_income, created_at) VALUES (?, ?, ?, ?)", (description, amount, 0, datetime.now()))
+        self.cur.execute("INSERT INTO ledger (description, amount, auto_income, created_at) VALUES (?, ROUND(?, 2), ?, ?)", (description, amount, 0, datetime.now()))
         self.con.commit()
 
     def balance(self):
@@ -48,7 +48,7 @@ class Database:
         return 0 if res is None else float(res)
 
     def transactions(self):
-        self.cur.execute("SELECT created_at, amount, description FROM ledger ORDER BY created_at DESC LIMIT 30")
+        self.cur.execute("SELECT created_at, CAST(amount AS TEXT), description FROM ledger ORDER BY created_at DESC LIMIT 30")
         res = self.cur.fetchall()
         return '\n'.join([''.join(['\t{:3}'.format(col) for col in row]) for row in res])
 
@@ -80,7 +80,7 @@ class Database:
     def insert_auto_income(self, month, year):
         description = "%s %02d/%d" % (self.__income_description(), month, year)
         amount = self.__income_amount()
-        self.cur.execute("INSERT INTO ledger (description, amount, auto_income, created_at) VALUES (?, ?, ?, ?)", (description, amount, 1, datetime.now()))
+        self.cur.execute("INSERT INTO ledger (description, amount, auto_income, created_at) VALUES (?, ROUND(?, 2), ?, ?)", (description, amount, 1, datetime.now()))
         self.con.commit()
 
     def has_auto_income_for_month(self, month, year):
@@ -333,13 +333,13 @@ class TextResources:
     @staticmethod
     def current_balance(balance):
         return """
-        current balance: %s
+        current balance: %.02f
         """ % balance
 
     @staticmethod
     def formatted_balance(balance, formatted_last_transactions):
         return """
-        current balance: %s
+        current balance: %.02f
 
         last transactions (up to 30)
         ----------------------------
