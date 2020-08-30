@@ -39,7 +39,7 @@ class Database:
         self.con.commit()
 
     def insert_into_ledger(self, description, amount):
-        self.cur.execute("INSERT INTO ledger (description, amount, auto_income, created_at) VALUES (?, ROUND(?, 2), ?, ?)", (description, amount, 0, datetime.now()))
+        self.cur.execute("INSERT INTO ledger (description, amount, auto_income, created_at) VALUES (?, ROUND(?, 2), ?, datetime('now'))", (description, amount, 0))
         self.con.commit()
 
     def balance(self):
@@ -80,7 +80,7 @@ class Database:
     def insert_auto_income(self, month, year):
         description = "%s %02d/%d" % (self.__income_description(), month, year)
         amount = self.__income_amount()
-        self.cur.execute("INSERT INTO ledger (description, amount, auto_income, created_at) VALUES (?, ROUND(?, 2), ?, ?)", (description, amount, 1, datetime.now()))
+        self.cur.execute("INSERT INTO ledger (description, amount, auto_income, created_at) VALUES (?, ROUND(?, 2), ?, datetime('now'))", (description, amount, 1))
         self.con.commit()
 
     def has_auto_income_for_month(self, month, year):

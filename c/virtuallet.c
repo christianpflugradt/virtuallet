@@ -243,13 +243,6 @@ int currentYear() {
     return now()->tm_year + 1900;
 }
 
-char * nowIso() {
-    const int ISO_LENGTH = 30;
-    char *iso = malloc(ISO_LENGTH);
-    strftime(iso, ISO_LENGTH, "%Y-%m-%d %H:%M:%S.000000", now());
-    return iso;
-}
-
 float toRoundedFloat(const char *amount) {
     return roundf(atof(amount) * 100) / 100;
 }
@@ -296,16 +289,12 @@ void insertConfiguration(const char *key, const char *value) {
 }
 
 void insertIntoLedger(const char *description, const float amount) {
-    char *isoDatetime = nowIso();
     sqlite3_stmt *stmt;
-    sqlite3_prepare_v2(db, " INSERT INTO ledger (description, amount, auto_income, created_at) VALUES (?, ROUND(?, 2), ?, ?) ", -1, &stmt, 0);
+    sqlite3_prepare_v2(db, " INSERT INTO ledger (description, amount, auto_income, created_at) VALUES (?, ROUND(?, 2), 0, datetime('now')) ", -1, &stmt, 0);
     sqlite3_bind_text(stmt, 1, description, strlen(description), NULL);
     sqlite3_bind_double(stmt, 2, amount);
-    sqlite3_bind_int(stmt, 3, 0);
-    sqlite3_bind_text(stmt, 4, isoDatetime, strlen(isoDatetime), NULL);
     sqlite3_step(stmt);
     sqlite3_finalize(stmt);
-    free(isoDatetime);
 }
 
 float balance() {
@@ -390,17 +379,13 @@ void insertAutoIncome(const Payday payday) {
     snprintf(dateInfo, requiredSize, " %02d/%d", payday.month, payday.year);
     strcat(description, dateInfo);
     float amount = incomeAmount();
-    char *isoDatetime = nowIso();
     sqlite3_stmt *stmt;
-    sqlite3_prepare_v2(db, " INSERT INTO ledger (description, amount, auto_income, created_at) VALUES (?, ROUND(?, 2), ?, ?) ", -1, &stmt, 0);
+    sqlite3_prepare_v2(db, " INSERT INTO ledger (description, amount, auto_income, created_at) VALUES (?, ROUND(?, 2), 1, datetime('now')) ", -1, &stmt, 0);
     sqlite3_bind_text(stmt, 1, description, strlen(description), NULL);
     sqlite3_bind_double(stmt, 2, amount);
-    sqlite3_bind_int(stmt, 3, 1);
-    sqlite3_bind_text(stmt, 4, isoDatetime, strlen(isoDatetime), NULL);
     sqlite3_step(stmt);
     sqlite3_finalize(stmt);
     free(description);
-    free(isoDatetime);
 }
 
 bool hasAutoIncomeForMonth(const Payday payday) {

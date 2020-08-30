@@ -71,9 +71,9 @@ class Database {
     }
 
     void insertIntoLedger(final String description, final BigDecimal amount) throws SQLException {
-        executeStatement(String.format(" INSERT INTO ledger (description, amount, auto_income, created_at, modified_at) "
-                        + " VALUES ('%s', %f, %d, '%s', '%s')",
-                description, amount.doubleValue(), 0, Util.isoDateString(LocalDateTime.now()), null));
+        executeStatement(String.format(" INSERT INTO ledger (description, amount, auto_income, created_at) "
+                        + " VALUES ('%s', %f, 0, datetime('now'))",
+                description, amount.doubleValue()));
     }
 
     BigDecimal balance() throws SQLException {
@@ -155,7 +155,7 @@ class Database {
             final var description = String.format("%s %02d/%d", incomeDescription(), month, year);
             final var amount = incomeAmount();
             executeStatement(String.format(" INSERT INTO ledger (description, amount, auto_income, created_at) "
-                    + "VALUES ('%s', %f, %d, '%s') ", description, amount.doubleValue(), 1, Util.isoDateStringNow()));
+                    + "VALUES ('%s', %f, 1, datetime('now')) ", description, amount.doubleValue()));
         } catch (SQLException throwables) {
             throw new RuntimeException(throwables);
         }
@@ -318,14 +318,6 @@ class Util {
 
     static boolean firstCharMatches(final String str1, final String str2) {
         return str1 != null && str2 != null && !str1.isEmpty() && !str2.isEmpty() && str1.charAt(0) == str2.charAt(0);
-    }
-
-    static String isoDateStringNow() {
-        return isoDateString(LocalDateTime.now());
-    }
-
-    static String isoDateString(final LocalDateTime dateTime) {
-        return dateTime.format(DateTimeFormatter.ISO_DATE_TIME);
     }
 
     static String readConfigInput(final String description, final Object standard) {
