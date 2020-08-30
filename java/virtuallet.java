@@ -78,7 +78,7 @@ class Database {
 
     BigDecimal balance() throws SQLException {
         try (var statement = connection.createStatement()) {
-            final var result = statement.executeQuery(" SELECT SUM(amount) FROM ledger ");
+            final var result = statement.executeQuery(" SELECT ROUND(COALESCE(SUM(amount), 0), 2) FROM ledger ");
             return result.next() ? result.getBigDecimal(1).setScale(2, RoundingMode.HALF_UP) : BigDecimal.ZERO;
         }
     }

@@ -43,7 +43,7 @@ SQL
   end
 
   def balance
-    (@db.get_first_row 'SELECT COALESCE(SUM(amount), 0) FROM ledger').at(0)
+    (@db.get_first_row 'SELECT ROUND(COALESCE(SUM(amount), 0), 2) FROM ledger').at(0)
   end
 
   def transactions

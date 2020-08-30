@@ -43,7 +43,7 @@ class Database:
         self.con.commit()
 
     def balance(self):
-        self.cur.execute("SELECT SUM(amount) FROM ledger")
+        self.cur.execute("SELECT ROUND(COALESCE(SUM(amount), 0), 2) FROM ledger")
         res = self.cur.fetchone()[0]
         return 0 if res is None else float(res)
 

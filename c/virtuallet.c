@@ -310,7 +310,7 @@ void insertIntoLedger(const char *description, const float amount) {
 
 float balance() {
     sqlite3_stmt *stmt;
-    sqlite3_prepare_v2(db, " SELECT ROUND(SUM(amount), 2) FROM ledger ", -1, &stmt, 0);
+    sqlite3_prepare_v2(db, " SELECT ROUND(COALESCE(SUM(amount), 0), 2) FROM ledger ", -1, &stmt, 0);
     sqlite3_step(stmt);
     float balance = sqlite3_column_double(stmt, 0);
     sqlite3_finalize(stmt);
