@@ -368,7 +368,6 @@ setup = Setup(db)
 loop = Loop(db)
 
 if __name__ == '__main__':
-    print("cwd " + getcwd())
     print(TextResources.banner())
     setup.setup_on_first_run()
     loop.loop()
