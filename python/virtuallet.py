@@ -48,7 +48,7 @@ class Database:
         return 0 if res is None else float(res)
 
     def transactions(self):
-        self.cur.execute("SELECT created_at, CAST(amount AS TEXT), description FROM ledger ORDER BY created_at DESC LIMIT 30")
+        self.cur.execute("SELECT created_at, CAST(amount AS TEXT), description FROM ledger ORDER BY ROWID DESC LIMIT 30")
         res = self.cur.fetchall()
         return '\n'.join([''.join(['\t{:3}'.format(col) for col in row]) for row in res])
 

@@ -86,7 +86,7 @@ class Database {
     String transactions() throws SQLException {
         try (var statement = connection.createStatement()) {
             final var result = statement.executeQuery(
-                    " SELECT created_at, amount, description FROM ledger ORDER BY created_at DESC LIMIT 30 ");
+                    " SELECT created_at, amount, description FROM ledger ORDER BY ROWID DESC LIMIT 30 ");
             final var rows = new ArrayList<String>();
             while (result.next()) {
                 rows.add("        " + String.join("\t", Arrays.asList(

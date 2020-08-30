@@ -336,7 +336,7 @@ char * formatCurrentRow(sqlite3_stmt *stmt) {
 char * transactions() {
     char allRows[9000] = "";
     sqlite3_stmt *stmt;
-    sqlite3_prepare_v2(db, " SELECT created_at, amount, description FROM ledger ORDER BY created_at DESC LIMIT 30 ", -1, &stmt, 0);
+    sqlite3_prepare_v2(db, " SELECT created_at, amount, description FROM ledger ORDER BY ROWID DESC LIMIT 30 ", -1, &stmt, 0);
     while (sqlite3_step(stmt) == SQLITE_ROW) {
         char *currentRow = formatCurrentRow(stmt);
         strcat(allRows, currentRow);
