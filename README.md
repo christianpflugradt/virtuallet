@@ -75,6 +75,7 @@ Currently available:
  * Python 3
  * Java 11
  * C GNU89
+ * Ruby
 
 Planned:
  * Ada
@@ -101,7 +102,6 @@ Planned:
  * Pike
  * R
  * Racket
- * Ruby
  * Rust
  * Scala
  * Smalltalk
