@@ -230,7 +230,7 @@ class Loop {
 
     private void addToLedger(final int signum, final String successMessage) throws SQLException {
         final var description = Util.input(TextResources.enterDescription());
-        final var amount = new BigDecimal(Util.input(TextResources.enterAmount()));
+        final var amount = new BigDecimal(Util.inputOrDefault(TextResources.enterAmount(), "0"));
         if (amount.signum() == 1) {
             if (signum == 1 || database.isExpenseAcceptable(amount)) {
                 database.insertIntoLedger(description, amount.multiply(BigDecimal.valueOf(signum)));
@@ -309,6 +309,11 @@ class Util {
     static String input(final String message) {
         print(message);
         return in.nextLine();
+    }
+
+    static String inputOrDefault(final String message, final String standard) {
+        final var result = input(message);
+        return result == null || result.isBlank() ? standard : result;
     }
 
     static boolean firstCharMatches(final String str1, final String str2) {
