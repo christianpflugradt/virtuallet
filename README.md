@@ -61,8 +61,6 @@ This is a list of of aspects that must be considered when implementing Virtualle
  * determining if a file exists
  * reading from stdin
  * converting a string to a real number
- * formatting and rounding real numbers
- * formatting the current date as iso string
  * obtaining the current month and year
  * working with an array of tuples
  * reversing an array
