@@ -75,7 +75,7 @@ Currently available:
  * Python 3
  * Java 11
  * C GNU89
- * Ruby
+ * Ruby 2.7
 
 Planned:
  * Ada
