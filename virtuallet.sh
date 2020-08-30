@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 RND=$$
-EDITIONS_COUNT=3
+EDITIONS_COUNT=4
 SELECTED_EDITION=$(($(($RND%$EDITIONS_COUNT))+1))
 
 if [ $SELECTED_EDITION == 1 ]; then
@@ -15,4 +15,7 @@ elif [ $SELECTED_EDITION == 3 ]; then
   cd c
   gcc -std=gnu89 virtuallet.c -o virtuallet.out -lsqlite3 -lm
   ./virtuallet.out
+elif [ $SELECTED_EDITION == 4 ]; then
+  cd ruby
+  ruby virtuallet.rb
 fi
