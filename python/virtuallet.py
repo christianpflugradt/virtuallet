@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 import sqlite3 as sql
-from os import path, getcwd
+from os import path
 from datetime import datetime
 
 DB_FILE = '../db_virtuallet.db'
