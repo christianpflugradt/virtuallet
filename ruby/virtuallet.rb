@@ -7,6 +7,7 @@ DB_FILE = '../db_virtuallet.db'
 CONF_INCOME_DESCRIPTION = 'income_description'
 CONF_INCOME_AMOUNT = 'income_amount'
 CONF_OVERDRAFT = 'overdraft'
+TAB = '<TAB>'
 
 class Database
 
@@ -115,7 +116,7 @@ class Loop
   def loop
     @database.connect
     @database.insert_all_due_incomes
-    puts TextResources.current_balance @database.balance
+    Util.prnt TextResources.current_balance @database.balance
     handle_info
     looping = true
     while looping
@@ -137,11 +138,11 @@ class Loop
       end
     end
     @database.disconnect
-    puts TextResources.bye
+    Util.prnt TextResources.bye
   end
 
   def omg
-    puts TextResources.error_omg
+    Util.prnt TextResources.error_omg
   end
 
   def handle_add
@@ -158,27 +159,27 @@ class Loop
     if amount > 0
         if signum == 1 or @database.is_expense_acceptable amount
           @database.insert_into_ledger description, amount * signum
-          puts success_message
+          Util.prnt success_message
         else
-          puts TextResources.error_too_expensive
+          Util.prnt TextResources.error_too_expensive
         end
     elsif amount < 0
-      puts TextResources.error_negative_amount
+      Util.prnt TextResources.error_negative_amount
     else
-      puts TextResources.error_zero_or_invalid_amount
+      Util.prnt TextResources.error_zero_or_invalid_amount
     end
   end
 
   def handle_show
-    puts TextResources.formatted_balance @database.balance, @database.transactions
+    Util.prnt TextResources.formatted_balance @database.balance, @database.transactions
   end
 
   def handle_info
-    puts TextResources.info
+    Util.prnt TextResources.info
   end
 
   def handle_help
-    puts TextResources.help
+    Util.prnt TextResources.help
   end
 
 end
@@ -208,17 +209,21 @@ class Setup
   end
 
   def setup
-    puts TextResources.setup_pre_database
+    Util.prnt TextResources.setup_pre_database
     @database.connect
     @database.create_tables
-    puts TextResources.setup_post_database
+    Util.prnt TextResources.setup_post_database
     configure
-    puts TextResources.setup_complete
+    Util.prnt TextResources.setup_complete
   end
 
 end
 
 class Util
+
+  def self.prnt(str)
+    puts str.gsub TAB, "\t"
+  end
 
   def self.input(prefix)
     print "#{prefix} > "
@@ -237,13 +242,13 @@ class TextResources
   def self.banner
     <<TEXT
 
-     _                                 _   _         
-    (_|   |_/o                        | | | |        
-      |   |      ,_  _|_         __,  | | | |  _ _|_ 
-      |   |  |  /  |  |  |   |  /  |  |/  |/  |/  |  
-       \_/   |_/   |_/|_/ \_/|_/\_/|_/|__/|__/|__/|_/
+<TAB> _                                 _   _         
+<TAB>(_|   |_/o                        | | | |        
+<TAB>  |   |      ,_  _|_         __,  | | | |  _ _|_ 
+<TAB>  |   |  |  /  |  |  |   |  /  |  |/  |/  |/  |  
+<TAB>   \_/   |_/   |_/|_/ \_/|_/\_/|_/|__/|__/|__/|_/
                                                      
-    Ruby 2.7 Edition                                                 
+<TAB>Ruby 2.7 Edition                                                 
 
 
 TEXT
@@ -252,12 +257,12 @@ TEXT
   def self.info
     <<TEXT
 
-        Commands:
-        - press plus (+) to add an irregular income
-        - press minus (-) to add an expense
-        - press equals (=) to show balance and last transactions
-        - press question mark (?) for even more info about this program
-        - press colon (:) to exit
+<TAB>Commands:
+<TAB>- press plus (+) to add an irregular income
+<TAB>- press minus (-) to add an expense
+<TAB>- press equals (=) to show balance and last transactions
+<TAB>- press question mark (?) for even more info about this program
+<TAB>- press colon (:) to exit
 
 TEXT
   end
@@ -265,54 +270,54 @@ TEXT
   def self.help
     <<TEXT
 
-        Virtuallet is a tool to act as your virtual wallet. Wow...
-        Virtuallet is accessible via terminal and uses a Sqlite database to store all its data.
-        On first start Virtuallet will be configured and requires some input
-        but you already know that unless you are currently studying the source code.
+<TAB>Virtuallet is a tool to act as your virtual wallet. Wow...
+<TAB>Virtuallet is accessible via terminal and uses a Sqlite database to store all its data.
+<TAB>On first start Virtuallet will be configured and requires some input
+<TAB>but you already know that unless you are currently studying the source code.
 
-        Virtuallet follows two important design principles:
+<TAB>Virtuallet follows two important design principles:
 
-        - shit in shit out
-        - UTFSB (Use The F**king Sqlite Browser)
+<TAB>- shit in shit out
+<TAB>- UTFSB (Use The F**king Sqlite Browser)
 
-        As a consequence everything in the database is considered valid.
-        Program behaviour is unspecified for any database content being invalid. Ouch...
+<TAB>As a consequence everything in the database is considered valid.
+<TAB>Program behaviour is unspecified for any database content being invalid. Ouch...
 
-        As its primary feature Virtuallet will auto-add the configured income on start up
-        for all days in the past since the last registered regular income.
-        So if you have specified a monthly income and haven't run Virtuallet for three months
-        it will auto-create three regular incomes when you boot it the next time if you like it or not.
+<TAB>As its primary feature Virtuallet will auto-add the configured income on start up
+<TAB>for all days in the past since the last registered regular income.
+<TAB>So if you have specified a monthly income and haven't run Virtuallet for three months
+<TAB>it will auto-create three regular incomes when you boot it the next time if you like it or not.
 
-        Virtuallet will also allow you to add irregular incomes and expenses manually.
-        It can also display the current balance and the 30 most recent transactions.
+<TAB>Virtuallet will also allow you to add irregular incomes and expenses manually.
+<TAB>It can also display the current balance and the 30 most recent transactions.
 
-        The configured overdraft will be considered if an expense is registered.
-        For instance if your overdraft equals the default value of 200
-        you won't be able to add an expense if the balance would be less than -200 afterwards.
+<TAB>The configured overdraft will be considered if an expense is registered.
+<TAB>For instance if your overdraft equals the default value of 200
+<TAB>you won't be able to add an expense if the balance would be less than -200 afterwards.
 
-        Virtuallet does not feature any fancy reports and you are indeed encouraged to use a Sqlite-Browser
-        to view and even edit the database. When making updates please remember the shit in shit out principle.
+<TAB>Virtuallet does not feature any fancy reports and you are indeed encouraged to use a Sqlite-Browser
+<TAB>to view and even edit the database. When making updates please remember the shit in shit out principle.
 
-        As a free gift to you I have added a modified_at field in the ledger table. Feel free to make use of it.
+<TAB>As a free gift to you I have added a modified_at field in the ledger table. Feel free to make use of it.
 
 TEXT
   end
 
   def self.setup_pre_database
     <<TEXT
-        Database file not found.
-        Database will be initialized. This may take a while... NOT.
+<TAB>Database file not found.
+<TAB>Database will be initialized. This may take a while... NOT.
 
 TEXT
   end
 
   def self.setup_post_database
     <<TEXT
-        Database initialized.
-        Are you prepared for some configuration? If not I don't care. There is no way to exit, muhahahar.
-        Press enter to accept the default or input something else. There is no validation
-        because I know you will not make a mistake. No second chances. If you f**k up,
-        you will have to either delete the database file or edit it using a sqlite database browser.
+<TAB>Database initialized.
+<TAB>Are you prepared for some configuration? If not I don't care. There is no way to exit, muhahahar.
+<TAB>Press enter to accept the default or input something else. There is no validation
+<TAB>because I know you will not make a mistake. No second chances. If you f**k up,
+<TAB>you will have to either delete the database file or edit it using a sqlite database browser.
 
 TEXT
   end
@@ -369,8 +374,8 @@ TEXT
     <<TEXT
 #{current_balance balance}
 
-        last transactions (up to 30)
-        ----------------------------
+<TAB>last transactions (up to 30)
+<TAB>----------------------------
 #{formatted_last_transactions}
 TEXT
   end
@@ -393,7 +398,7 @@ TEXT
 
 end
 
-puts TextResources.banner
+Util.prnt TextResources.banner
 database = Database.new
 setup = Setup.new database
 loop = Loop.new database
