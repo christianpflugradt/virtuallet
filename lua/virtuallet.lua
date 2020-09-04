@@ -2,6 +2,7 @@ local DB_FILE <const> = '../db_virtuallet.db'
 local CONF_INCOME_DESCRIPTION <const> = 'income_description'
 local CONF_INCOME_AMOUNT <const> = 'income_amount'
 local CONF_OVERDRAFT <const> = 'overdraft'
+local TAB <const> = '<TAB>'
 
 -- database
 
@@ -251,7 +252,7 @@ function input(printFunction)
     if printFunction ~= nil then
         printFunction()
     end
-    io.write(' > ')
+    prnt(' > ')
     return io.read()
 end
 
@@ -265,167 +266,175 @@ function inputWithDefault(printFunction, default)
     end
 end
 
+function prnt(str)
+    io.write(({string.gsub(str, TAB, '\t')})[1])
+end
+
+function prntln(str)
+    print(({string.gsub(str, TAB, '\t')})[1])
+end
+
 -- print functions
 
 function printBanner()
-    io.write([[
+    prnt([[
 
-     _                                 _   _
-    (_|   |_/o                        | | | |
-      |   |      ,_  _|_         __,  | | | |  _ _|_
-      |   |  |  /  |  |  |   |  /  |  |/  |/  |/  |
-       \_/   |_/   |_/|_/ \_/|_/\_/|_/|__/|__/|__/|_/
+<TAB> _                                 _   _
+<TAB>(_|   |_/o                        | | | |
+<TAB>  |   |      ,_  _|_         __,  | | | |  _ _|_
+<TAB>  |   |  |  /  |  |  |   |  /  |  |/  |/  |/  |
+<TAB>   \_/   |_/   |_/|_/ \_/|_/\_/|_/|__/|__/|__/|_/
 
-    Lua 5.4 Edition
+<TAB>Lua 5.4 Edition
 
 
 ]])
 end
 
 function printInfo()
-    io.write([[
+    prnt([[
 
-        Commands:
-        - press plus (+) to add an irregular income
-        - press minus (-) to add an expense
-        - press equals (=) to show balance and last transactions
-        - press question mark (?) for even more info about this program
-        - press colon (:) to exit
+<TAB>Commands:
+<TAB>- press plus (+) to add an irregular income
+<TAB>- press minus (-) to add an expense
+<TAB>- press equals (=) to show balance and last transactions
+<TAB>- press question mark (?) for even more info about this program
+<TAB>- press colon (:) to exit
 
 ]])
 end
 
 function printHelp()
-    io.write([[
+    prnt([[
 
-        Virtuallet is a tool to act as your virtual wallet. Wow...
-        Virtuallet is accessible via terminal and uses a Sqlite database to store all its data.
-        On first start Virtuallet will be configured and requires some input
-        but you already know that unless you are currently studying the source code.
+<TAB>Virtuallet is a tool to act as your virtual wallet. Wow...
+<TAB>Virtuallet is accessible via terminal and uses a Sqlite database to store all its data.
+<TAB>On first start Virtuallet will be configured and requires some input
+<TAB>but you already know that unless you are currently studying the source code.
 
-        Virtuallet follows two important design principles:
+<TAB>Virtuallet follows two important design principles:
 
-        - shit in shit out
-        - UTFSB (Use The F**king Sqlite Browser)
+<TAB>- shit in shit out
+<TAB>- UTFSB (Use The F**king Sqlite Browser)
 
-        As a consequence everything in the database is considered valid.
-        Program behaviour is unspecified for any database content being invalid. Ouch...
+<TAB>As a consequence everything in the database is considered valid.
+<TAB>Program behaviour is unspecified for any database content being invalid. Ouch...
 
-        As its primary feature Virtuallet will auto-add the configured income on start up
-        for all days in the past since the last registered regular income.
-        So if you have specified a monthly income and haven't run Virtuallet for three months
-        it will auto-create three regular incomes when you boot it the next time if you like it or not.
+<TAB>As its primary feature Virtuallet will auto-add the configured income on start up
+<TAB>for all days in the past since the last registered regular income.
+<TAB>So if you have specified a monthly income and haven't run Virtuallet for three months
+<TAB>it will auto-create three regular incomes when you boot it the next time if you like it or not.
 
-        Virtuallet will also allow you to add irregular incomes and expenses manually.
-        It can also display the current balance and the 30 most recent transactions.
+<TAB>Virtuallet will also allow you to add irregular incomes and expenses manually.
+<TAB>It can also display the current balance and the 30 most recent transactions.
 
-        The configured overdraft will be considered if an expense is registered.
-        For instance if your overdraft equals the default value of 200
-        you won't be able to add an expense if the balance would be less than -200 afterwards.
+<TAB>The configured overdraft will be considered if an expense is registered.
+<TAB>For instance if your overdraft equals the default value of 200
+<TAB>you won't be able to add an expense if the balance would be less than -200 afterwards.
 
-        Virtuallet does not feature any fancy reports and you are indeed encouraged to use a Sqlite-Browser
-        to view and even edit the database. When making updates please remember the shit in shit out principle.
+<TAB>Virtuallet does not feature any fancy reports and you are indeed encouraged to use a Sqlite-Browser
+<TAB>to view and even edit the database. When making updates please remember the shit in shit out principle.
 
-        As a free gift to you I have added a modified_at field in the ledger table. Feel free to make use of it.
+<TAB>As a free gift to you I have added a modified_at field in the ledger table. Feel free to make use of it.
 
 ]])
 end
 
 function printSetupPreDatabase()
-   io.write([[
+   prnt([[
 
-        Database file not found.
-        Database will be initialized. This may take a while... NOT.
+<TAB>Database file not found.
+<TAB>Database will be initialized. This may take a while... NOT.
 
 ]])
 end
 
 function printSetupPostDatabase()
-    io.write([[
-        Database initialized.
-        Are you prepared for some configuration? If not I don't care. There is no way to exit, muhahahar.
-        Press enter to accept the default or input something else. There is no validation
-        because I know you will not make a mistake. No second chances. If you f**k up,
-        you will have to either delete the database file or edit it using a sqlite database browser.
+    prnt([[
+<TAB>Database initialized.
+<TAB>Are you prepared for some configuration? If not I don't care. There is no way to exit, muhahahar.
+<TAB>Press enter to accept the default or input something else. There is no validation
+<TAB>because I know you will not make a mistake. No second chances. If you f**k up,
+<TAB>you will have to either delete the database file or edit it using a sqlite database browser.
 
 ]])
 end
 
 function printErrorZeroOrInvalidAmount()
-    print('amount is zero or invalid -> action aborted')
+    prntln('amount is zero or invalid -> action aborted')
 end
 
 function printErrorNegativeAmount()
-    print('amount must be positive -> action aborted')
+    prntln('amount must be positive -> action aborted')
 end
 
 function printIncomeBooked()
-    print('income booked')
+    prntln('income booked')
 end
 
 function printExpenseBooked()
-    print('expense booked successfully')
+    prntln('expense booked successfully')
 end
 
 function printErrorTooExpensive()
-    print('sorry, too expensive -> action aborted')
+    prntln('sorry, too expensive -> action aborted')
 end
 
 function printErrorOmg()
-    print('OMFG RTFM YOU FOOL you are supposed to only enter + or - not anything else after that')
+    prntln('OMFG RTFM YOU FOOL you are supposed to only enter + or - not anything else after that')
 end
 
 function printEnterInput()
-    io.write('input')
+    prnt('input')
 end
 
 function printEnterDescription()
-    io.write('description (optional)')
+    prnt('description (optional)')
 end
 
 function printEnterAmount()
-    io.write('amount')
+    prnt('amount')
 end
 
 function printSetupComplete()
-    print('setup complete, have fun')
+    prntln('setup complete, have fun')
 end
 
 function printBye()
-    print('see ya')
+    prntln('see ya')
 end
 
 function printCurrentBalance(balance)
-    print(string.format([[
+    prntln(string.format([[
 
-        current balance: %s
+<TAB>current balance: %s
         ]], balance))
 end
 
 function printFormattedBalance(balance, formattedTransactions)
     printCurrentBalance(balance)
-    io.write(string.format([[
-        last transactions (up to 30)
-        ----------------------------
+    prnt(string.format([[
+<TAB>last transactions (up to 30)
+<TAB>----------------------------
 %s
 ]], formattedTransactions))
 end
 
 function printSetupDescription()
-    io.write('enter description for regular income')
+    prnt('enter description for regular income')
 end
 
 function printSetupIncome()
-    io.write('enter regular income')
+    prnt('enter regular income')
 end
 
 function printSetupOverdraft()
-    io.write('enter overdraft')
+    prnt('enter overdraft')
 end
 
 function printSetupTemplate(printFunction, default)
     printFunction()
-    io.write(string.format(' [default: %s]', default))
+    prnt(string.format(' [default: %s]', default))
 end
 
 -- main
