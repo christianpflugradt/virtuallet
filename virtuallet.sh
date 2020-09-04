@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 RND=$$
-EDITIONS_COUNT=4
+EDITIONS_COUNT=5
 SELECTED_EDITION=$(($(($RND%$EDITIONS_COUNT))+1))
 
 if [ $SELECTED_EDITION == 1 ]; then
@@ -18,4 +18,7 @@ elif [ $SELECTED_EDITION == 3 ]; then
 elif [ $SELECTED_EDITION == 4 ]; then
   cd ruby
   ruby virtuallet.rb
+elif [ $SELECTED_EDITION == 5 ]; then
+  cd lua
+  lua virtuallet.lua
 fi

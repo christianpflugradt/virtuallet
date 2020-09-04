@@ -31,6 +31,35 @@ for example to enter a description and an amount when you want to add an expense
 
 Read further to understand how to start this tool.
 
+### installing dependencies ###
+
+Besides a compiler or runtime environment some languages require further dependencies to be installed, usually a sqlite3 binding.
+The necessary steps to get an implementation running will be documented here. Please have a look at the file `virtuallet.sh`
+for details how to compile / run each implementation. 
+
+#### implementations without dependencies ####
+
+The following implementations do not have any further dependencies, which means sqlite3 is part of the language's system library.
+ * Python 3
+ * C GNU89
+
+#### Java 11 dependencies ####
+
+You must have a sqlite3 jdbc driver in your classpath.
+I used this one, which is also available on Maven Central: https://github.com/xerial/sqlite-jdbc
+
+#### Ruby 2.7 dependencies ####
+
+You must have sqlite3 gem installed which can be done using RubyGems package manager: `gem install sqlite3`.
+See also: https://rubygems.org/gems/sqlite3
+
+#### Lua 5.4 dependencies ####
+
+You need to install a specific sqlite3 driver. You can install it using LuaRocks package manager 
+but at the time of my implementation it was not yet officially compatible with Lua 5.4, 
+so I had to compile it manually using `make` which fortunately worked for me without any further configuration.
+You can download it here: http://lua.sqlite.org/index.cgi/home
+
 ## About this project ##
 
 Virtuallet is very simple on purpose not only because it is all I need to manage my personal pocket money
@@ -74,6 +103,7 @@ Currently available:
  * Java 11
  * C GNU89
  * Ruby 2.7
+ * Lua 5.4
 
 Planned:
  * Ada
@@ -91,7 +121,6 @@ Planned:
  * Julia
  * Kotlin
  * Lisp
- * Lua
  * Nim
  * OCaml
  * Pascal
