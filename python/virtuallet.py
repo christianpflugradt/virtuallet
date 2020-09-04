@@ -8,6 +8,7 @@ DB_FILE = '../db_virtuallet.db'
 CONF_INCOME_DESCRIPTION = 'income_description'
 CONF_INCOME_AMOUNT = 'income_amount'
 CONF_OVERDRAFT = "overdraft"
+TAB = "<TAB>"
 
 
 class Database:
@@ -108,7 +109,7 @@ class Loop:
     def loop(self):
         self.db.connect()
         self.db.insert_all_due_incomes()
-        print(TextResources.current_balance(self.db.balance()))
+        Util.prnt(TextResources.current_balance(self.db.balance()))
         self.__handle_info()
         looping = True
         while looping:
@@ -128,11 +129,11 @@ class Loop:
             else:
                 Loop.__handle_info()
         db.disconnect()
-        print(TextResources.bye())
+        Util.prnt(TextResources.bye())
 
     @staticmethod
     def __omg():
-        print(TextResources.error_omg())
+        Util.prnt(TextResources.error_omg())
 
     def __handle_add(self):
         self.__add_to_ledger(-1, TextResources.income_booked());
@@ -146,24 +147,24 @@ class Loop:
         if amount > 0:
             if signum == 1 or self.db.is_expense_acceptable(amount):
                 self.db.insert_into_ledger(description, amount * signum)
-                print(success_message)
+                Util.prnt(success_message)
             else:
-                print(TextResources.error_too_expensive())
+                Util.prnt(TextResources.error_too_expensive())
         elif amount < 0:
-            print(TextResources.error_negative_amount())
+            Util.prnt(TextResources.error_negative_amount())
         else:
-            print(TextResources.error_zero_or_invalid_amount())
+            Util.prnt(TextResources.error_zero_or_invalid_amount())
 
     def __handle_show(self):
-        print(TextResources.formatted_balance(self.db.balance(), self.db.transactions()))
+        Util.prnt(TextResources.formatted_balance(self.db.balance(), self.db.transactions()))
 
     @staticmethod
     def __handle_info():
-        print(TextResources.info())
+        Util.prnt(TextResources.info())
 
     @staticmethod
     def __handle_help():
-        print(TextResources.help())
+        Util.prnt(TextResources.help())
 
 
 class Setup:
@@ -178,12 +179,12 @@ class Setup:
             self.__initialize()
 
     def __initialize(self):
-        print(TextResources.setup_pre_database())
+        Util.prnt(TextResources.setup_pre_database())
         self.db.connect()
         self.db.create_tables()
-        print(TextResources.setup_post_database())
+        Util.prnt(TextResources.setup_post_database())
         self.__setup()
-        print(TextResources.setup_complete())
+        Util.prnt(TextResources.setup_complete())
 
     def __setup(self):
         income_description = Util.read_config_input(TextResources.setup_description(), 'pocket money')
@@ -208,82 +209,85 @@ class Util:
     def read_config_input(description, default):
         inp = input(TextResources.setup_template(description, default))
         return str(default) if inp == '' else inp
-
+    
+    @staticmethod
+    def prnt(str):
+        print(str.replace(TAB, '\t'))
 
 class TextResources:
 
     @staticmethod
     def banner():
         return """
-     _                                 _   _         
-    (_|   |_/o                        | | | |        
-      |   |      ,_  _|_         __,  | | | |  _ _|_ 
-      |   |  |  /  |  |  |   |  /  |  |/  |/  |/  |  
-       \_/   |_/   |_/|_/ \_/|_/\_/|_/|__/|__/|__/|_/
+<TAB> _                                 _   _         
+<TAB>(_|   |_/o                        | | | |        
+<TAB>  |   |      ,_  _|_         __,  | | | |  _ _|_ 
+<TAB>  |   |  |  /  |  |  |   |  /  |  |/  |/  |/  |  
+<TAB>   \_/   |_/   |_/|_/ \_/|_/\_/|_/|__/|__/|__/|_/
                                                      
-    Python 3 Edition                                                 
+<TAB>Python 3 Edition                                                 
                                                      
         """
 
     @staticmethod
     def info():
         return """
-        Commands:
-        - press plus (+) to add an irregular income
-        - press minus (-) to add an expense
-        - press equals (=) to show balance and last transactions
-        - press question mark (?) for even more info about this program
-        - press colon (:) to exit
+<TAB>Commands:
+<TAB>- press plus (+) to add an irregular income
+<TAB>- press minus (-) to add an expense
+<TAB>- press equals (=) to show balance and last transactions
+<TAB>- press question mark (?) for even more info about this program
+<TAB>- press colon (:) to exit
         """
 
     @staticmethod
     def help():
         return """
-        Virtuallet is a tool to act as your virtual wallet. Wow...
-        Virtuallet is accessible via terminal and uses a Sqlite database to store all its data.
-        On first start Virtuallet will be configured and requires some input 
-        but you already know that unless you are currently studying the source code.
+<TAB>Virtuallet is a tool to act as your virtual wallet. Wow...
+<TAB>Virtuallet is accessible via terminal and uses a Sqlite database to store all its data.
+<TAB>On first start Virtuallet will be configured and requires some input 
+<TAB>but you already know that unless you are currently studying the source code.
 
-        Virtuallet follows two important design principles:
+<TAB>Virtuallet follows two important design principles:
 
-        - shit in shit out
-        - UTFSB (Use The F**king Sqlite Browser)
+<TAB>- shit in shit out
+<TAB>- UTFSB (Use The F**king Sqlite Browser)
 
-        As a consequence everything in the database is considered valid.
-        Program behaviour is unspecified for any database content being invalid. Ouch...
+<TAB>As a consequence everything in the database is considered valid.
+<TAB>Program behaviour is unspecified for any database content being invalid. Ouch...
 
-        As its primary feature Virtuallet will auto-add the configured income on start up
-        for all days in the past since the last registered regular income.
-        So if you have specified a monthly income and haven't run Virtuallet for three months
-        it will auto-create three regular incomes when you boot it the next time if you like it or not.
+<TAB>As its primary feature Virtuallet will auto-add the configured income on start up
+<TAB>for all days in the past since the last registered regular income.
+<TAB>So if you have specified a monthly income and haven't run Virtuallet for three months
+<TAB>it will auto-create three regular incomes when you boot it the next time if you like it or not.
 
-        Virtuallet will also allow you to add irregular incomes and expenses manually.
-        It can also display the current balance and the 30 most recent transactions.
+<TAB>Virtuallet will also allow you to add irregular incomes and expenses manually.
+<TAB>It can also display the current balance and the 30 most recent transactions.
 
-        The configured overdraft will be considered if an expense is registered.
-        For instance if your overdraft equals the default value of 200 
-        you won't be able to add an expense if the balance would be less than -200 afterwards.
+<TAB>The configured overdraft will be considered if an expense is registered.
+<TAB>For instance if your overdraft equals the default value of 200 
+<TAB>you won't be able to add an expense if the balance would be less than -200 afterwards.
 
-        Virtuallet does not feature any fancy reports and you are indeed encouraged to use a Sqlite-Browser
-        to view and even edit the database. When making updates please remember the shit in shit out principle.
+<TAB>Virtuallet does not feature any fancy reports and you are indeed encouraged to use a Sqlite-Browser
+<TAB>to view and even edit the database. When making updates please remember the shit in shit out principle.
 
-        As a free gift to you I have added a modified_at field in the ledger table. Feel free to make use of it.
+<TAB>As a free gift to you I have added a modified_at field in the ledger table. Feel free to make use of it.
 """
 
     @staticmethod
     def setup_pre_database():
         return """
-        Database file not found.
-        Database will be initialized. This may take a while... NOT."""
+<TAB>Database file not found.
+<TAB>Database will be initialized. This may take a while... NOT."""
 
     @staticmethod
     def setup_post_database():
         return """
-        Database initialized.
-        Are you prepared for some configuration? If not I don't care. There is no way to exit, muhahahar.
-        Press enter to accept the default or input something else. There is no validation 
-        because I know you will not make a mistake. No second chances. If you f**k up, 
-        you will have to either delete the database file or edit it using a sqlite database browser.
+<TAB>Database initialized.
+<TAB>Are you prepared for some configuration? If not I don't care. There is no way to exit, muhahahar.
+<TAB>Press enter to accept the default or input something else. There is no validation 
+<TAB>because I know you will not make a mistake. No second chances. If you f**k up, 
+<TAB>you will have to either delete the database file or edit it using a sqlite database browser.
         """
 
     @staticmethod
@@ -333,16 +337,16 @@ class TextResources:
     @staticmethod
     def current_balance(balance):
         return """
-        current balance: %.02f
+<TAB>current balance: %.02f
         """ % balance
 
     @staticmethod
     def formatted_balance(balance, formatted_last_transactions):
         return """
-        current balance: %.02f
+<TAB>current balance: %.02f
 
-        last transactions (up to 30)
-        ----------------------------
+<TAB>last transactions (up to 30)
+<TAB>----------------------------
 %s
         """ % (balance, formatted_last_transactions)
 
@@ -368,6 +372,6 @@ setup = Setup(db)
 loop = Loop(db)
 
 if __name__ == '__main__':
-    print(TextResources.banner())
+    Util.prnt(TextResources.banner())
     setup.setup_on_first_run()
     loop.loop()
