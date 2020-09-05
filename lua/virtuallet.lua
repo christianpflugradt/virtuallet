@@ -210,6 +210,7 @@ function Loop:addToLedger(signum, printSuccessFunction)
         if signum == 1 or self.database:isExpenseAcceptable(amount) then
             self.database:insertIntoLedger(description, amount * signum)
             printSuccessFunction()
+            printCurrentBalance(self.database:balance())
         else
             printErrorTooExpensive()
         end

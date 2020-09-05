@@ -247,6 +247,7 @@ func (loop *Loop) addToLedger(signum int, printSuccessFunction printFunction) {
 		if signum == 1 || loop.database.isExpenseAcceptable(float32(amount)) {
 			loop.database.insertIntoLedger(description, float32(amount))
 			printSuccessFunction()
+			printCurrentBalance(loop.database.balance())
 		} else {
 			printErrorTooExpensive()
 		}
