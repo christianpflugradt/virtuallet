@@ -29,6 +29,7 @@ class Database
       description TEXT,
       amount REAL NOT NULL,
       auto_income INTEGER NOT NULL,
+      created_by TEXT,
       created_at TIMESTAMP NOT NULL,
       modified_at TIMESTAMP)
 SQL
@@ -40,7 +41,7 @@ SQL
   end
 
   def insert_into_ledger(description, amount)
-    @db.execute 'INSERT INTO ledger (description, amount, auto_income, created_at) VALUES (?, ROUND(?, 2), 0, datetime(\'now\'))', [description, amount]
+    @db.execute 'INSERT INTO ledger (description, amount, auto_income, created_at, created_by) VALUES (?, ROUND(?, 2), 0, datetime(\'now\'), \'Ruby 2.7 Edition\')', [description, amount]
   end
 
   def balance
@@ -84,7 +85,7 @@ SQL
   def insert_auto_income(month, year)
     description = "#{self.income_description} #{'%02d' % month}/#{year}"
     amount = income_amount
-    @db.execute 'INSERT INTO ledger (description, amount, auto_income, created_at) VALUES (?, ROUND(?, 2), 1, datetime(\'now\'))', [description, amount]
+    @db.execute 'INSERT INTO ledger (description, amount, auto_income, created_at, created_by) VALUES (?, ROUND(?, 2), 1, datetime(\'now\'), \'Ruby 2.7 Edition\')', [description, amount]
   end
 
   def has_auto_income_for_month(month, year)

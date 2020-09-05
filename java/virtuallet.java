@@ -61,6 +61,7 @@ class Database {
                     + " description TEXT, "
                     + " amount REAL NOT NULL, "
                     + " auto_income INTEGER NOT NULL, "
+                    + " created_by TEXT, "
                     + " created_at TIMESTAMP NOT NULL, "
                     + " modified_at TIMESTAMP) ");
         executeStatement(" CREATE TABLE configuration (k TEXT NOT NULL, v TEXT NOT NULL) ");
@@ -71,8 +72,8 @@ class Database {
     }
 
     void insertIntoLedger(final String description, final BigDecimal amount) throws SQLException {
-        executeStatement(String.format(" INSERT INTO ledger (description, amount, auto_income, created_at) "
-                        + " VALUES ('%s', %f, 0, datetime('now'))",
+        executeStatement(String.format(" INSERT INTO ledger (description, amount, auto_income, created_at, created_by) "
+                        + " VALUES ('%s', %f, 0, datetime('now'), 'Java 11 Edition')",
                 description, amount.doubleValue()));
     }
 
@@ -154,8 +155,8 @@ class Database {
         try {
             final var description = String.format("%s %02d/%d", incomeDescription(), month, year);
             final var amount = incomeAmount();
-            executeStatement(String.format(" INSERT INTO ledger (description, amount, auto_income, created_at) "
-                    + "VALUES ('%s', %f, 1, datetime('now')) ", description, amount.doubleValue()));
+            executeStatement(String.format(" INSERT INTO ledger (description, amount, auto_income, created_at, created_by) "
+                    + "VALUES ('%s', %f, 1, datetime('now'), 'Java 11 Edition') ", description, amount.doubleValue()));
         } catch (SQLException throwables) {
             throw new RuntimeException(throwables);
         }
@@ -345,7 +346,7 @@ class TextResources {
                 + "\t  |   |  |  /  |  |  |   |  /  |  |/  |/  |/  |\n"
                 + "\t   \\_/   |_/   |_/|_/ \\_/|_/\\_/|_/|__/|__/|__/|_/\n"
                 + "\n"
-                + "\tJava 11 Edition\n"
+                + "\tJava 11 Edition"
                 + "\n\n";
     }
 
@@ -393,8 +394,7 @@ class TextResources {
     }
 
     static String setupPreDatabase() {
-        return "\n"
-                + "\tDatabase file not found.\n"
+        return "\tDatabase file not found.\n"
                 + "\tDatabase will be initialized. This may take a while... NOT.";
     }
 
@@ -452,7 +452,7 @@ class TextResources {
     }
 
     static String currentBalance(final BigDecimal balance) {
-        return String.format("\tcurrent balance: %s\n", balance);
+        return String.format("\n\tcurrent balance: %s\n", balance);
     }
 
     static String formattedBalance(final BigDecimal balance, final String formattedLastTransactions) {

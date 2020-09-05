@@ -39,7 +39,7 @@ end
 function Database:createTables()
     self:execute([=[
         CREATE TABLE ledger (description TEXT, amount REAL NOT NULL, auto_income INTEGER NOT NULL,
-            created_at TIMESTAMP NOT NULL, modified_at TIMESTAMP);
+            created_by TEXT, created_at TIMESTAMP NOT NULL, modified_at TIMESTAMP);
         CREATE TABLE configuration (k TEXT NOT NULL, v TEXT NOT NULL);
     ]=])
 end
@@ -50,8 +50,8 @@ end
 
 function Database:insertIntoLedger(description, amount)
     self:execute(string.format([[
-        INSERT INTO ledger (description, amount, auto_income, created_at)
-        VALUES ('%s', ROUND(%s, 2), 0, datetime('now'))]],
+        INSERT INTO ledger (description, amount, auto_income, created_at, created_by)
+        VALUES ('%s', ROUND(%s, 2), 0, datetime('now'), 'Lua 5.4 Edition')]],
         description, amount))
 end
 
@@ -59,8 +59,8 @@ function Database:insertAutoIncome(month, year)
     local description = string.format("%s %02d/%s", self:incomeDescription(), tonumber(month), year)
     local amount = self:incomeAmount()
     self:execute(string.format([[
-        INSERT INTO ledger (description, amount, auto_income, created_at)
-        VALUES ('%s', ROUND(%s, 2), 1, datetime('now'))]],
+        INSERT INTO ledger (description, amount, auto_income, created_at, created_by)
+        VALUES ('%s', ROUND(%s, 2), 1, datetime('now'), 'Lua 5.4 Edition')]],
         description, amount))
 end
 

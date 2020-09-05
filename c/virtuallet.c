@@ -274,6 +274,7 @@ void createTables() {
                         "description TEXT, "\
                         "amount REAL NOT NULL, "\
                         "auto_income INTEGER NOT NULL, "\
+                        "created_by TEXT, "\
                         "created_at TIMESTAMP NOT NULL, "\
                         "modified_at TIMESTAMP) ");
     executeStatement(" CREATE TABLE configuration (k TEXT NOT NULL, v TEXT NOT NULL) ");
@@ -290,7 +291,7 @@ void insertConfiguration(const char *key, const char *value) {
 
 void insertIntoLedger(const char *description, const float amount) {
     sqlite3_stmt *stmt;
-    sqlite3_prepare_v2(db, " INSERT INTO ledger (description, amount, auto_income, created_at) VALUES (?, ROUND(?, 2), 0, datetime('now')) ", -1, &stmt, 0);
+    sqlite3_prepare_v2(db, " INSERT INTO ledger (description, amount, auto_income, created_at, created_by) VALUES (?, ROUND(?, 2), 0, datetime('now'), 'C GNU89 Edition') ", -1, &stmt, 0);
     sqlite3_bind_text(stmt, 1, description, strlen(description), NULL);
     sqlite3_bind_double(stmt, 2, amount);
     sqlite3_step(stmt);
@@ -380,7 +381,7 @@ void insertAutoIncome(const Payday payday) {
     strcat(description, dateInfo);
     float amount = incomeAmount();
     sqlite3_stmt *stmt;
-    sqlite3_prepare_v2(db, " INSERT INTO ledger (description, amount, auto_income, created_at) VALUES (?, ROUND(?, 2), 1, datetime('now')) ", -1, &stmt, 0);
+    sqlite3_prepare_v2(db, " INSERT INTO ledger (description, amount, auto_income, created_at, created_by) VALUES (?, ROUND(?, 2), 1, datetime('now'), 'C GNU89 Edition') ", -1, &stmt, 0);
     sqlite3_bind_text(stmt, 1, description, strlen(description), NULL);
     sqlite3_bind_double(stmt, 2, amount);
     sqlite3_step(stmt);
