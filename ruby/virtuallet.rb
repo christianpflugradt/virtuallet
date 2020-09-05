@@ -376,7 +376,6 @@ TEXT
   def self.formatted_balance(balance, formatted_last_transactions)
     <<TEXT
 #{current_balance balance}
-
 <TAB>last transactions (up to 30)
 <TAB>----------------------------
 #{formatted_last_transactions}
