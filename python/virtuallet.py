@@ -149,6 +149,7 @@ class Loop:
             if signum == 1 or self.db.is_expense_acceptable(amount):
                 self.db.insert_into_ledger(description, amount * signum)
                 Util.prnt(success_message)
+                Util.prnt(TextResources.current_balance(self.db.balance()))
             else:
                 Util.prnt(TextResources.error_too_expensive())
         elif amount < 0:

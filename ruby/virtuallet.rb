@@ -164,6 +164,7 @@ class Loop
         if signum == 1 or @database.is_expense_acceptable amount
           @database.insert_into_ledger description, amount * signum
           Util.prnt success_message
+          Util.prnt TextResources.current_balance @database.balance
         else
           Util.prnt TextResources.error_too_expensive
         end

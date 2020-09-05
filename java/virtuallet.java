@@ -244,6 +244,7 @@ class Loop {
             if (signum == 1 || database.isExpenseAcceptable(amount)) {
                 database.insertIntoLedger(description, amount.multiply(BigDecimal.valueOf(signum)));
                 Util.print(successMessage);
+                Util.printLine(TextResources.currentBalance(database.balance()));
             } else {
                 Util.print(TextResources.errorTooExpensive());
             }

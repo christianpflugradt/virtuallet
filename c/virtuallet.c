@@ -483,6 +483,7 @@ void addToLedger(const int signum, void (*printSuccessMessage)()) {
         if (signum == 1 || isExpenseAcceptable(amount)) {
             insertIntoLedger(description, amount * signum);
             printSuccessMessage();
+            printCurrentBalance(balance());
         } else {
             printErrorTooExpensive();
         }
