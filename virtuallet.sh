@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 RND=$$
-EDITIONS_COUNT=5
+EDITIONS_COUNT=6
 SELECTED_EDITION=$(($(($RND%$EDITIONS_COUNT))+1))
 
 if [ $SELECTED_EDITION == 1 ]; then
@@ -21,4 +21,7 @@ elif [ $SELECTED_EDITION == 4 ]; then
 elif [ $SELECTED_EDITION == 5 ]; then
   cd lua
   lua virtuallet.lua
+elif [ $SELECTED_EDITION == 6 ]; then
+  cd go
+  go run virtuallet.go
 fi
