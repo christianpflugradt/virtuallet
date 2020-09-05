@@ -31,13 +31,34 @@ for example to enter a description and an amount when you want to add an expense
 
 Read further to understand how to start this tool.
 
-### installing dependencies ###
+## About this project ##
+
+Virtuallet is very simple on purpose not only because it is all I need to manage my personal pocket money
+but also because I use it as an opportunity to get to know other programming languages I never had the chance to use before.
+
+For that second reason I will provide an implementation of Virtuallet in several programming languages
+and if you actually want to use this tiny but really handy tool, you can choose an implementation you feel comfortable with.
+It certainly doesn't hurt to have some "computer knowledge" if you want to use this tool
+but you probably have if you found this gitlab project.
+
+This project does not only offer implementations in several programming languages but also a shell script `virtuallet.sh`
+which randomly chooses an implementation. In that file you will also see how to get a specific implementation running.
+Keep in mind that you probably want to have a look at that script before you accept it blindly. For example you can
+run the Python 3 implementation by running `python3 virtuallet.py` but only if python3 is in your path. First of all
+a Python 3 runtime must be installed on your system and then it might not be available under that name, maybe you want
+to specify the path instead and should actually invoke something like `/usr/bin/python3 virtuallet.py`. Just keep that in mind for any
+implementation you would like to run. You can simply edit the shell script to reflect these changes. Also the shell script
+is so simple that even without programming experience you can probably just edit it to exclude specific implementations
+you don't want to execute. By the way every implementation can be easily identified by a unique subtitle under the
+Virtuallet banner that is displayed upon starting the program. For Python 3 the subtitle is *Python 3 Edition*.
+
+### Installing dependencies ###
 
 Besides a compiler or runtime environment some languages require further dependencies to be installed, usually a sqlite3 binding.
 The necessary steps to get an implementation running will be documented here. Please have a look at the file `virtuallet.sh`
 for details how to compile / run each implementation. 
 
-#### implementations without dependencies ####
+#### Implementations without dependencies ####
 
 The following implementations do not have any further dependencies, which means sqlite3 is part of the language's system library.
  * Python 3
@@ -60,27 +81,6 @@ but at the time of my implementation it was not yet officially compatible with L
 so I had to compile it manually using `make` which fortunately worked for me without any further configuration.
 You can download it here: http://lua.sqlite.org/index.cgi/home
 
-## About this project ##
-
-Virtuallet is very simple on purpose not only because it is all I need to manage my personal pocket money
-but also because I use it as an opportunity to get to know other programming languages I never had the chance to use before.
-
-For that second reason I will provide an implementation of Virtuallet in several programming languages
-and if you actually want to use this tiny but really handy tool, you can choose an implementation you feel comfortable with.
-It certainly doesn't hurt to have some "computer knowledge" if you want to use this tool
-but you probably have if you found this gitlab project.
-
-This project does not only offer implementations in several programming languages but also a shell script `virtuallet.sh`
-which randomly chooses an implementation. In that file you will also see how to get a specific implementation running.
-Keep in mind that you probably want to have a look at that script before you accept it blindly. For example you can
-run the Python 3 implementation by running `python3 virtuallet.py` but only if python3 is in your path. First of all
-a Python 3 runtime must be installed on your system and then it might not be available under that name, maybe you want
-to specify the path instead and should actually invoke something like `/usr/bin/python3 virtuallet.py`. Just keep that in mind for any
-implementation you would like to run. You can simply edit the shell script to reflect these changes. Also the shell script
-is so simple that even without programming experience you can probably just edit it to exclude specific implementations
-you don't want to execute. By the way every implementation can be easily identified by a unique subtitle under the
-Virtuallet banner that is displayed upon starting the program. For Python 3 the subtitle is *Python 3 Edition*.
-
 ### Implementation challenges ###
 
 This is a list of of aspects that must be considered when implementing Virtuallet in an arbitrary programming language. These aspects can be more or less challenging depending on the language and how experienced one is with it.
@@ -94,11 +94,11 @@ This is a list of of aspects that must be considered when implementing Virtualle
  * working with an array of tuples
  * reversing an array
 
- Virtuallet can be implemented in any language as long as these aspects can be implemented in that language, most importantly that language should have a sqlite binding and support reading from stdin.
+Virtuallet can be implemented in any language as long as these aspects can be implemented in that language, most importantly that language should have a sqlite binding and support reading from stdin.
 
 ## Implementations ##
 
-Currently available:
+Implemented:
  * Python 3
  * Java 11
  * C GNU89
@@ -108,12 +108,18 @@ Currently available:
 Planned:
  * Ada
  * C++
+ * C#
  * Clojure
  * Cobol
+ * Crystal
  * D
+ * Dart
+ * Eiffel
  * Elixir
  * Erlang
  * Fortran
+ * FreeBASIC
+ * F#
  * Go
  * Groovy
  * Haskell
@@ -122,13 +128,33 @@ Planned:
  * Kotlin
  * Lisp
  * Nim
+ * Objective-C
  * OCaml
  * Pascal
  * Perl
  * PHP
  * Pike
+ * Prolog
  * R
  * Racket
+ * Raku
  * Rust
+ * S-Lang
  * Scala
+ * Seed7
  * Smalltalk
+ * Swift
+ * Vala
+ * VB
+ * VB.NET
+
+To Be Evaluated
+ * Limbo
+ * Oberon
+ * QBASIC
+
+Not Planned
+ * ABAP
+ * Algol family
+ * Apex
+ * Matlab
