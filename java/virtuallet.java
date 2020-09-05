@@ -196,20 +196,28 @@ class Loop {
         var looping = true;
         while (looping) {
             final var input = Util.input(TextResources.enterInput());
-            if (KEY_ADD.equals(input)) {
-                handleAdd();
-            } else if (KEY_SUB.equals(input)) {
-                handleSub();
-            } else if (KEY_SHOW.equals(input)) {
-                handleShow();
-            } else if (KEY_HELP.equals(input)) {
-                handleHelp();
-            } else if (KEY_QUIT.equals(input)) {
-                looping = false;
-            } else if (Util.firstCharMatches(input, KEY_ADD) || Util.firstCharMatches(input, KEY_SUB)) {
-                omg();
-            } else {
-                handleInfo();
+            switch(input) {
+                case KEY_ADD:
+                    handleAdd();
+                    break;
+                case KEY_SUB:
+                    handleSub();
+                    break;
+                case KEY_SHOW:
+                    handleShow();
+                    break;
+                case KEY_HELP:
+                    handleHelp();
+                    break;
+                case KEY_QUIT:
+                    looping = false;
+                    break;
+                default:
+                    if (Util.firstCharMatches(input, KEY_ADD) || Util.firstCharMatches(input, KEY_SUB)) {
+                        omg();
+                    } else {
+                        handleInfo();
+                    }
             }
         }
         database.disconnect();
@@ -217,7 +225,7 @@ class Loop {
     }
 
     private static void omg() {
-        Util.printLine(TextResources.errorOmg());
+        Util.print(TextResources.errorOmg());
     }
 
     private void handleAdd() throws SQLException {

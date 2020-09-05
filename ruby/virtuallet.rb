@@ -121,20 +121,23 @@ class Loop
     looping = true
     while looping
       input = Util.input TextResources.enter_input
-      if input == KEY_ADD
+      case input
+      when KEY_ADD
         handle_add
-      elsif input == KEY_SUB
+      when KEY_SUB
         handle_sub
-      elsif input == KEY_SHOW
+      when KEY_SHOW
         handle_show
-      elsif input == KEY_HELP
+      when KEY_HELP
         handle_help
-      elsif input == KEY_QUIT
-          looping = false
-      elsif not input.empty? and [KEY_ADD, KEY_SUB].include? input[0]
-        omg
+      when KEY_QUIT
+        looping = false
       else
-        handle_info
+        if not input.empty? and [KEY_ADD, KEY_SUB].include? input[0]
+          omg
+        else
+          handle_info
+        end
       end
     end
     @database.disconnect
