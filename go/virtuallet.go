@@ -37,7 +37,7 @@ func (db *Database) Disconnect() {
 func (db *Database) CreateTables() {
 	db.con.Exec(`
 		CREATE TABLE ledger (description TEXT, amount REAL NOT NULL, auto_income INTEGER NOT NULL,
-				created_at TIMESTAMP NOT NULL, modified_at TIMESTAMP)`)
+				created_by TEXT, created_at TIMESTAMP NOT NULL, modified_at TIMESTAMP)`)
 	db.con.Exec("CREATE TABLE configuration (k TEXT NOT NULL, v TEXT NOT NULL)")
 }
 
@@ -46,15 +46,15 @@ func (db *Database) insertIntoConfiguration(key string, value string) {
 }
 
 func (db *Database) insertIntoLedger(description string, amount float32) {
-	db.con.Exec(`INSERT INTO ledger (description, amount, auto_income, created_at) VALUES
-							(?, ROUND(?, 2), 0, datetime('now'))`, description, amount)
+	db.con.Exec(`INSERT INTO ledger (description, amount, auto_income, created_at, created_by) VALUES
+							(?, ROUND(?, 2), 0, datetime('now'), 'Go 1.15 Edition')`, description, amount)
 }
 
 func (db *Database) insertAutoIncome(month int, year int) {
 	description := fmt.Sprintf("%s %02d/%d", db.description(), month, year)
 	amount := db.amount()
-	db.con.Exec(`INSERT INTO ledger (description, amount, auto_income, created_at) VALUES
-							(?, ROUND(?, 2), 1, datetime('now'))`, description, amount)
+	db.con.Exec(`INSERT INTO ledger (description, amount, auto_income, created_at, created_by) VALUES
+							(?, ROUND(?, 2), 1, datetime('now'), 'Go 1.15 Edition')`, description, amount)
 }
 
 func (db *Database) balance() float32 {

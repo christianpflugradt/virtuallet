@@ -31,6 +31,7 @@ class Database:
                 description TEXT,
                 amount REAL NOT NULL, 
                 auto_income INTEGER NOT NULL,
+                created_by TEXT, 
                 created_at TIMESTAMP NOT NULL, 
                 modified_at TIMESTAMP)""")
         self.cur.execute("CREATE TABLE configuration (k TEXT NOT NULL, v TEXT NOT NULL)")
@@ -40,7 +41,7 @@ class Database:
         self.con.commit()
 
     def insert_into_ledger(self, description, amount):
-        self.cur.execute("INSERT INTO ledger (description, amount, auto_income, created_at) VALUES (?, ROUND(?, 2), ?, datetime('now'))", (description, amount, 0))
+        self.cur.execute("INSERT INTO ledger (description, amount, auto_income, created_at, created_by) VALUES (?, ROUND(?, 2), ?, datetime('now'), 'Python 3 Edition')", (description, amount, 0))
         self.con.commit()
 
     def balance(self):
@@ -81,7 +82,7 @@ class Database:
     def insert_auto_income(self, month, year):
         description = "%s %02d/%d" % (self.__income_description(), month, year)
         amount = self.__income_amount()
-        self.cur.execute("INSERT INTO ledger (description, amount, auto_income, created_at) VALUES (?, ROUND(?, 2), ?, datetime('now'))", (description, amount, 1))
+        self.cur.execute("INSERT INTO ledger (description, amount, auto_income, created_at, created_by) VALUES (?, ROUND(?, 2), ?, datetime('now'), 'Python 3 Edition')", (description, amount, 1))
         self.con.commit()
 
     def has_auto_income_for_month(self, month, year):
@@ -136,7 +137,7 @@ class Loop:
         Util.prnt(TextResources.error_omg())
 
     def __handle_add(self):
-        self.__add_to_ledger(-1, TextResources.income_booked());
+        self.__add_to_ledger(1, TextResources.income_booked());
 
     def __handle_sub(self):
         self.__add_to_ledger(-1, TextResources.expense_booked());
