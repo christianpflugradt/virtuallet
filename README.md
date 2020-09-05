@@ -81,6 +81,10 @@ but at the time of my implementation it was not yet officially compatible with L
 so I had to compile it manually using `make` which fortunately worked for me without any further configuration.
 You can download it here: http://lua.sqlite.org/index.cgi/home
 
+#### Go 1.15 dependencies ####
+
+You need to install the sqlite3 driver using go get: `go get github.com/mattn/go-sqlite3`
+
 ### Implementation challenges ###
 
 This is a list of of aspects that must be considered when implementing Virtuallet in an arbitrary programming language. These aspects can be more or less challenging depending on the language and how experienced one is with it.
@@ -104,6 +108,7 @@ Implemented:
  * C GNU89
  * Ruby 2.7
  * Lua 5.4
+ * Go 1.15
 
 Planned:
  * Ada
@@ -120,7 +125,6 @@ Planned:
  * Fortran
  * FreeBASIC
  * F#
- * Go
  * Groovy
  * Haskell
  * Javascript

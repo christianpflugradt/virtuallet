@@ -5,6 +5,7 @@ out
 
 # dependencies
 *.jar
+go/*/*
 
 # compiled files
 *.class
