@@ -7,11 +7,11 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Scanner;
+
 
 public class virtuallet {
 
@@ -146,9 +146,9 @@ class Database {
             dueDate = new MonthAndYear(
                     dueDate.month > 1 ? dueDate.month - 1 : 12,
                     dueDate.month > 1 ? dueDate.year : dueDate.year - 1);
-            Collections.reverse(dueDates);
-            dueDates.forEach(due -> insertAutoIncome(due.month, due.year));
         }
+        Collections.reverse(dueDates);
+        dueDates.forEach(due -> insertAutoIncome(due.month, due.year));
     }
 
     void insertAutoIncome(final int month, final int year) {
