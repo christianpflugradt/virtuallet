@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 RND=$$
-EDITIONS_COUNT=6
+EDITIONS_COUNT=7
 SELECTED_EDITION=$(($(($RND%$EDITIONS_COUNT))+1))
 
 if [ $SELECTED_EDITION == 1 ]; then
@@ -24,4 +24,7 @@ elif [ $SELECTED_EDITION == 5 ]; then
 elif [ $SELECTED_EDITION == 6 ]; then
   cd go
   go run virtuallet.go
+elif [ $SELECTED_EDITION == 7 ]; then
+  cd javascript
+  node virtuallet.js
 fi

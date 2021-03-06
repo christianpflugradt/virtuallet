@@ -85,6 +85,11 @@ You can download it here: http://lua.sqlite.org/index.cgi/home
 
 You need to install the sqlite3 driver using go get: `go get github.com/mattn/go-sqlite3`
 
+#### Node.js v15.10.0 dependencies ####
+
+You need to install the sqlite3 driver via node package manager: `npm install sqlite3`
+Additionally you need to install readline-sync via node package manager: `npm install readline-sync`
+
 ### Implementation challenges ###
 
 This is a list of of aspects that must be considered when implementing Virtuallet in an arbitrary programming language. These aspects can be more or less challenging depending on the language and how experienced one is with it.
@@ -109,6 +114,7 @@ Implemented:
  * Ruby 2.7
  * Lua 5.4
  * Go 1.15
+ * Node.js v15.10.0
 
 Planned:
  * Ada
@@ -127,7 +133,6 @@ Planned:
  * F#
  * Groovy
  * Haskell
- * Javascript
  * Julia
  * Kotlin
  * Lisp
