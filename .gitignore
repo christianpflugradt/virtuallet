@@ -6,6 +6,9 @@ out
 # dependencies
 *.jar
 go/*/*
+package.json
+package-lock.json
+node_modules
 
 # compiled files
 *.class
