@@ -23,6 +23,7 @@ elif [ $SELECTED_EDITION == 5 ]; then
   lua virtuallet.lua
 elif [ $SELECTED_EDITION == 6 ]; then
   cd go
+  export GO111MODULE=off
   go run virtuallet.go
 elif [ $SELECTED_EDITION == 7 ]; then
   cd javascript
