@@ -10,14 +10,6 @@ our $CONF_INCOME_AMOUNT = 'income_amount';
 our $CONF_OVERDRAFT = 'overdraft';
 our $TAB = '<TAB>';
 
-my $db = database->new();
-my $setup = setup->new($db);
-my $loop = loop->new($db);
-
-say text_resources::banner();
-$setup->setup_on_first_run();
-$loop->loop();
-
 package util;
 
 sub untab {
@@ -474,3 +466,13 @@ sub setup_template {
     my $default = shift;
     "$description [default: $default] > ";
 }
+
+package main;
+
+my $db = database->new();
+my $setup = setup->new($db);
+my $loop = loop->new($db);
+
+say text_resources::banner();
+$setup->setup_on_first_run();
+$loop->loop();
