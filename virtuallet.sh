@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 RND=$$
-EDITIONS_COUNT=7
+EDITIONS_COUNT=8
 SELECTED_EDITION=$(($(($RND%$EDITIONS_COUNT))+1))
 
 if [ $SELECTED_EDITION == 1 ]; then
@@ -28,4 +28,7 @@ elif [ $SELECTED_EDITION == 6 ]; then
 elif [ $SELECTED_EDITION == 7 ]; then
   cd javascript
   node virtuallet.js
+elif [ $SELECTED_EDITION == 8 ]; then
+  cd perl
+  perl virtuallet.pl
 fi
