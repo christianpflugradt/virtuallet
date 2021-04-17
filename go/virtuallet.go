@@ -17,6 +17,44 @@ const confIncomeAmount = "income_amount"
 const confOverdraft = "overdraft"
 const tab = "<TAB>"
 
+// utility functions
+
+type printFunction func()
+
+type dueDate struct {
+	month int
+	year int
+}
+
+func prntln(str string) {
+	prnt(str)
+	prnt("\n")
+}
+
+func prnt(str string) {
+	fmt.Print(strings.ReplaceAll(str, tab, "\t"))
+}
+
+func inputOrDefault(printFunction printFunction, standard string) string {
+	printSetupTemplate(printFunction, standard)
+	input := input(nil)
+	if len(strings.TrimSpace(input)) > 0 {
+		return input
+	} else {
+		return standard
+	}
+}
+
+func input(printFunction printFunction) string {
+	if printFunction != nil {
+		printFunction()
+	}
+	prnt(" > ")
+	scanner := bufio.NewScanner(os.Stdin)
+	scanner.Scan()
+	return scanner.Text()
+}
+
 // database
 
 type Database struct {
@@ -268,44 +306,6 @@ func (loop *Loop) handleInfo() {
 
 func (loop *Loop) handleHelp() {
 	printHelp()
-}
-
-// utility functions
-
-type printFunction func()
-
-type dueDate struct {
-	month int
-	year int
-}
-
-func prntln(str string) {
-	prnt(str)
-	prnt("\n")
-}
-
-func prnt(str string) {
-	fmt.Print(strings.ReplaceAll(str, tab, "\t"))
-}
-
-func inputOrDefault(printFunction printFunction, standard string) string {
-	printSetupTemplate(printFunction, standard)
-	input := input(nil)
-	if len(strings.TrimSpace(input)) > 0 {
-		return input
-	} else {
-		return standard
-	}
-}
-
-func input(printFunction printFunction) string {
-	if printFunction != nil {
-		printFunction()
-	}
-	prnt(" > ")
-	scanner := bufio.NewScanner(os.Stdin)
-	scanner.Scan()
-	return scanner.Text()
 }
 
 // print functions

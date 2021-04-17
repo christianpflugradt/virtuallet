@@ -9,6 +9,24 @@ CONF_INCOME_AMOUNT = 'income_amount'
 CONF_OVERDRAFT = 'overdraft'
 TAB = '<TAB>'
 
+class Util
+
+  def self.prnt(str)
+    puts str.gsub TAB, "\t"
+  end
+
+  def self.input(prefix)
+    print "#{prefix} > "
+    STDIN.gets.chomp.strip
+  end
+
+  def self.read_config_input(prefix, default)
+    result = input TextResources.setup_template prefix, default
+    result.empty? ? default.to_s : result
+  end
+
+end
+
 class Database
 
   @db = nil
@@ -100,6 +118,41 @@ SQL
 
 end
 
+class Setup
+
+  @database = nil
+
+  def initialize(database)
+    @database = database
+  end
+
+  def setup_on_first_run
+    unless File.exist?(DB_FILE)
+      setup
+    end
+  end
+
+  def configure
+    income_description = Util.read_config_input TextResources.setup_description, 'pocket money'
+    income_amount = Util.read_config_input TextResources.setup_income, 100
+    overdraft = Util.read_config_input TextResources.setup_overdraft, 200
+    @database.insert_configuration CONF_INCOME_DESCRIPTION, income_description
+    @database.insert_configuration CONF_INCOME_AMOUNT, income_amount
+    @database.insert_configuration CONF_OVERDRAFT, overdraft
+    @database.insert_auto_income Time.new.month, Time.new.year
+  end
+
+  def setup
+    Util.prnt TextResources.setup_pre_database
+    @database.connect
+    @database.create_tables
+    Util.prnt TextResources.setup_post_database
+    configure
+    Util.prnt TextResources.setup_complete
+  end
+
+end
+
 class Loop
 
   KEY_ADD = '+'
@@ -185,59 +238,6 @@ class Loop
 
   def handle_help
     Util.prnt TextResources.help
-  end
-
-end
-
-class Setup
-
-  @database = nil
-
-  def initialize(database)
-    @database = database
-  end
-
-  def setup_on_first_run
-    unless File.exist?(DB_FILE)
-      setup
-    end
-  end
-
-  def configure
-    income_description = Util.read_config_input TextResources.setup_description, 'pocket money'
-    income_amount = Util.read_config_input TextResources.setup_income, 100
-    overdraft = Util.read_config_input TextResources.setup_overdraft, 200
-    @database.insert_configuration CONF_INCOME_DESCRIPTION, income_description
-    @database.insert_configuration CONF_INCOME_AMOUNT, income_amount
-    @database.insert_configuration CONF_OVERDRAFT, overdraft
-    @database.insert_auto_income Time.new.month, Time.new.year
-  end
-
-  def setup
-    Util.prnt TextResources.setup_pre_database
-    @database.connect
-    @database.create_tables
-    Util.prnt TextResources.setup_post_database
-    configure
-    Util.prnt TextResources.setup_complete
-  end
-
-end
-
-class Util
-
-  def self.prnt(str)
-    puts str.gsub TAB, "\t"
-  end
-
-  def self.input(prefix)
-    print "#{prefix} > "
-    STDIN.gets.chomp.strip
-  end
-
-  def self.read_config_input(prefix, default)
-    result = input TextResources.setup_template prefix, default
-    result.empty? ? default.to_s : result
   end
 
 end

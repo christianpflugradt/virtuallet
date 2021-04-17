@@ -4,6 +4,48 @@ local CONF_INCOME_AMOUNT <const> = 'income_amount'
 local CONF_OVERDRAFT <const> = 'overdraft'
 local TAB <const> = '<TAB>'
 
+-- utility functions
+
+function databaseFileExists()
+    local result = false
+    local file <const> = io.open(DB_FILE, 'r')
+    if file ~= nil then
+        io.close(file)
+        result = true
+    end
+    return result
+end
+
+function isNullOrBlank(str)
+    return str == nil or str:match('%S') == nil
+end
+
+function input(printFunction)
+    if printFunction ~= nil then
+        printFunction()
+    end
+    prnt(' > ')
+    return io.read()
+end
+
+function inputWithDefault(printFunction, default)
+    printSetupTemplate(printFunction, default)
+    local input = input(nil)
+    if not isNullOrBlank(input) then
+        return input
+    else
+        return default
+    end
+end
+
+function prnt(str)
+    io.write(({string.gsub(str, TAB, '\t')})[1])
+end
+
+function prntln(str)
+    print(({string.gsub(str, TAB, '\t')})[1])
+end
+
 -- database
 
 Database = { sqlite3 = nil, con = nil }
@@ -231,48 +273,6 @@ end
 
 function Loop:handleHelp()
     printHelp()
-end
-
--- utility functions
-
-function databaseFileExists()
-    local result = false
-    local file <const> = io.open(DB_FILE, 'r')
-    if file ~= nil then
-        io.close(file)
-        result = true
-    end
-    return result
-end
-
-function isNullOrBlank(str)
-    return str == nil or str:match('%S') == nil
-end
-
-function input(printFunction)
-    if printFunction ~= nil then
-        printFunction()
-    end
-    prnt(' > ')
-    return io.read()
-end
-
-function inputWithDefault(printFunction, default)
-    printSetupTemplate(printFunction, default)
-    local input = input(nil)
-    if not isNullOrBlank(input) then
-        return input
-    else
-        return default
-    end
-end
-
-function prnt(str)
-    io.write(({string.gsub(str, TAB, '\t')})[1])
-end
-
-function prntln(str)
-    print(({string.gsub(str, TAB, '\t')})[1])
 end
 
 -- print functions
