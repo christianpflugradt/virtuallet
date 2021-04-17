@@ -90,6 +90,13 @@ You need to install the sqlite3 driver using go get: `go get github.com/mattn/go
 You need to install the sqlite3 driver via node package manager: `npm install sqlite3`
 Additionally you need to install readline-sync via node package manager: `npm install readline-sync`
 
+#### Perl v5.32.1 dependencies ####
+
+Perl is already installed on most Unix-like operating systems and usually comes bundled with SQLite.
+However the installed version of SQLite might be old and not support `CREATE TABLE IF EXISTS`
+which will result in the following error: `DBD::SQLite::db do failed: not an error(21) at dbdimp.c line 398`
+To resolve the problem, update SQLite using cpan: `cpan DBD::SQLite`
+
 ### Implementation challenges ###
 
 This is a list of of aspects that must be considered when implementing Virtuallet in an arbitrary programming language. These aspects can be more or less challenging depending on the language and how experienced one is with it.
@@ -115,6 +122,7 @@ Implemented:
  * Lua 5.4
  * Go 1.15
  * Node.js v15.10.0
+ * Perl v5.32
 
 Planned:
  * Ada
@@ -140,7 +148,6 @@ Planned:
  * Objective-C
  * OCaml
  * Pascal
- * Perl
  * PHP
  * Pike
  * Prolog
