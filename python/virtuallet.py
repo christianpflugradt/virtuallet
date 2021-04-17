@@ -10,6 +10,23 @@ CONF_INCOME_AMOUNT = 'income_amount'
 CONF_OVERDRAFT = "overdraft"
 TAB = "<TAB>"
 
+class Util:
+
+    @staticmethod
+    def float_val(string):
+        try:
+            return float(string)
+        except:
+            return 0
+
+    @staticmethod
+    def read_config_input(description, default):
+        inp = input(TextResources.setup_template(description, default))
+        return str(default) if inp == '' else inp
+
+    @staticmethod
+    def prnt(str):
+        print(str.replace(TAB, '\t'))
 
 class Database:
 
@@ -93,6 +110,33 @@ class Database:
                 AND description LIKE '%s')""" % ("%% %02d/%d" % (month, year)))
         return self.cur.fetchone()[0] > 0
 
+class Setup:
+
+    db = None
+
+    def __init__(self, database):
+        self.db = database
+
+    def setup_on_first_run(self):
+        if not path.exists(DB_FILE):
+            self.__initialize()
+
+    def __initialize(self):
+        Util.prnt(TextResources.setup_pre_database())
+        self.db.connect()
+        self.db.create_tables()
+        Util.prnt(TextResources.setup_post_database())
+        self.__setup()
+        Util.prnt(TextResources.setup_complete())
+
+    def __setup(self):
+        income_description = Util.read_config_input(TextResources.setup_description(), 'pocket money')
+        income_amount = Util.read_config_input(TextResources.setup_income(), 100)
+        overdraft = Util.read_config_input(TextResources.setup_overdraft(), 200)
+        self.db.insert_configuration(CONF_INCOME_DESCRIPTION, income_description)
+        self.db.insert_configuration(CONF_INCOME_AMOUNT, income_amount)
+        self.db.insert_configuration(CONF_OVERDRAFT, overdraft)
+        self.db.insert_auto_income(datetime.today().month, datetime.today().year)
 
 class Loop:
 
@@ -167,54 +211,6 @@ class Loop:
     @staticmethod
     def __handle_help():
         Util.prnt(TextResources.help())
-
-
-class Setup:
-
-    db = None
-
-    def __init__(self, database):
-        self.db = database
-
-    def setup_on_first_run(self):
-        if not path.exists(DB_FILE):
-            self.__initialize()
-
-    def __initialize(self):
-        Util.prnt(TextResources.setup_pre_database())
-        self.db.connect()
-        self.db.create_tables()
-        Util.prnt(TextResources.setup_post_database())
-        self.__setup()
-        Util.prnt(TextResources.setup_complete())
-
-    def __setup(self):
-        income_description = Util.read_config_input(TextResources.setup_description(), 'pocket money')
-        income_amount = Util.read_config_input(TextResources.setup_income(), 100)
-        overdraft = Util.read_config_input(TextResources.setup_overdraft(), 200)
-        self.db.insert_configuration(CONF_INCOME_DESCRIPTION, income_description)
-        self.db.insert_configuration(CONF_INCOME_AMOUNT, income_amount)
-        self.db.insert_configuration(CONF_OVERDRAFT, overdraft)
-        self.db.insert_auto_income(datetime.today().month, datetime.today().year)
-
-
-class Util:
-
-    @staticmethod
-    def float_val(string):
-        try:
-            return float(string)
-        except:
-            return 0
-
-    @staticmethod
-    def read_config_input(description, default):
-        inp = input(TextResources.setup_template(description, default))
-        return str(default) if inp == '' else inp
-    
-    @staticmethod
-    def prnt(str):
-        print(str.replace(TAB, '\t'))
 
 class TextResources:
 
@@ -367,7 +363,6 @@ class TextResources:
     @staticmethod
     def setup_template(description, default):
         return "%s [default: %s] > " % (description, default)
-
 
 db = Database()
 setup = Setup(db)

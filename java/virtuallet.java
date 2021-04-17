@@ -13,25 +13,35 @@ import java.util.Collections;
 import java.util.Scanner;
 
 
-public class virtuallet {
+class Util {
 
-    static final String DB_FILE = "../db_virtuallet.db";
-    static final String CONF_INCOME_DESCRIPTION = "income_description";
-    static final String CONF_INCOME_AMOUNT = "income_amount";
-    static final String CONF_OVERDRAFT = "overdraft";
+    private static final Scanner in = new Scanner(System.in);
 
-    public static void main(String... args) {
-        final var database = new Database();
-        final var setup = new Setup(database);
-        final var loop = new Loop(database);
-        Util.printLine(TextResources.banner());
-        try {
-            setup.setupOnFirstRun();
-            loop.loop();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            Util.print("Ouch that hurt...");
-        }
+    static void print(final String message) {
+        System.out.print(message);
+    }
+
+    static void printLine(final String message) {
+        print(String.format("%s%s", message, System.lineSeparator()));
+    }
+
+    static String input(final String message) {
+        print(message);
+        return in.nextLine();
+    }
+
+    static String inputOrDefault(final String message, final String standard) {
+        final var result = input(message);
+        return result == null || result.isBlank() ? standard : result;
+    }
+
+    static boolean firstCharMatches(final String str1, final String str2) {
+        return str1 != null && str2 != null && !str1.isEmpty() && !str2.isEmpty() && str1.charAt(0) == str2.charAt(0);
+    }
+
+    static String readConfigInput(final String description, final Object standard) {
+        final var input = input(TextResources.setupTemplate(description, standard.toString()));
+        return input.isBlank() ? standard.toString() : input;
     }
 
 }
@@ -175,6 +185,41 @@ class Database {
 
 }
 
+class Setup {
+
+    private final Database database;
+
+    Setup(final Database database) {
+        this.database = database;
+    }
+
+    void setupOnFirstRun() throws SQLException {
+        if (Files.notExists(Paths.get(virtuallet.DB_FILE))) {
+            initialize();
+        }
+    }
+
+    private void initialize() throws SQLException {
+        Util.printLine(TextResources.setupPreDatabase());
+        database.connect();
+        database.createTables();
+        Util.printLine(TextResources.setupPostDatabase());
+        setup();
+        Util.printLine(TextResources.setupComplete());
+    }
+
+    private void setup() throws SQLException {
+        final var incomeDescription = Util.readConfigInput(TextResources.setupDescription(), "pocket money");
+        final var incomeAmount = Util.readConfigInput(TextResources.setupIncome(), 100);
+        final var overdraft = Util.readConfigInput(TextResources.setupOverdraft(), 200);
+        database.insertConfiguration(virtuallet.CONF_INCOME_DESCRIPTION, incomeDescription);
+        database.insertConfiguration(virtuallet.CONF_INCOME_AMOUNT, incomeAmount);
+        database.insertConfiguration(virtuallet.CONF_OVERDRAFT, overdraft);
+        database.insertAutoIncome(LocalDate.now().getMonthValue(), LocalDate.now().getYear());
+    }
+
+}
+
 class Loop {
 
     private static final String KEY_ADD = "+";
@@ -265,74 +310,6 @@ class Loop {
 
     private static void handleHelp() {
         Util.printLine(TextResources.help());
-    }
-
-}
-
-class Setup {
-
-    private final Database database;
-
-    Setup(final Database database) {
-        this.database = database;
-    }
-
-    void setupOnFirstRun() throws SQLException {
-        if (Files.notExists(Paths.get(virtuallet.DB_FILE))) {
-            initialize();
-        }
-    }
-
-    private void initialize() throws SQLException {
-        Util.printLine(TextResources.setupPreDatabase());
-        database.connect();
-        database.createTables();
-        Util.printLine(TextResources.setupPostDatabase());
-        setup();
-        Util.printLine(TextResources.setupComplete());
-    }
-
-    private void setup() throws SQLException {
-        final var incomeDescription = Util.readConfigInput(TextResources.setupDescription(), "pocket money");
-        final var incomeAmount = Util.readConfigInput(TextResources.setupIncome(), 100);
-        final var overdraft = Util.readConfigInput(TextResources.setupOverdraft(), 200);
-        database.insertConfiguration(virtuallet.CONF_INCOME_DESCRIPTION, incomeDescription);
-        database.insertConfiguration(virtuallet.CONF_INCOME_AMOUNT, incomeAmount);
-        database.insertConfiguration(virtuallet.CONF_OVERDRAFT, overdraft);
-        database.insertAutoIncome(LocalDate.now().getMonthValue(), LocalDate.now().getYear());
-    }
-
-}
-
-class Util {
-
-    private static final Scanner in = new Scanner(System.in);
-
-    static void print(final String message) {
-        System.out.print(message);
-    }
-
-    static void printLine(final String message) {
-        print(String.format("%s%s", message, System.lineSeparator()));
-    }
-
-    static String input(final String message) {
-        print(message);
-        return in.nextLine();
-    }
-
-    static String inputOrDefault(final String message, final String standard) {
-        final var result = input(message);
-        return result == null || result.isBlank() ? standard : result;
-    }
-
-    static boolean firstCharMatches(final String str1, final String str2) {
-        return str1 != null && str2 != null && !str1.isEmpty() && !str2.isEmpty() && str1.charAt(0) == str2.charAt(0);
-    }
-
-    static String readConfigInput(final String description, final Object standard) {
-        final var input = input(TextResources.setupTemplate(description, standard.toString()));
-        return input.isBlank() ? standard.toString() : input;
     }
 
 }
@@ -483,3 +460,25 @@ class TextResources {
 
 }
 
+public class virtuallet {
+
+    static final String DB_FILE = "../db_virtuallet.db";
+    static final String CONF_INCOME_DESCRIPTION = "income_description";
+    static final String CONF_INCOME_AMOUNT = "income_amount";
+    static final String CONF_OVERDRAFT = "overdraft";
+
+    public static void main(String... args) {
+        final var database = new Database();
+        final var setup = new Setup(database);
+        final var loop = new Loop(database);
+        Util.printLine(TextResources.banner());
+        try {
+            setup.setupOnFirstRun();
+            loop.loop();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            Util.print("Ouch that hurt...");
+        }
+    }
+
+}

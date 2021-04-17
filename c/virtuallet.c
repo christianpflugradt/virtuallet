@@ -8,6 +8,31 @@
 #include <sys/stat.h>
 #include <time.h>
 
+void printBanner();
+void setupOnFirstRun();
+void loop();
+void printBanner();
+void printInfo();
+void printHelp();
+void printSetupPreDatabase();
+void printSetupPostDatabase();
+void printSetupComplete();
+void printErrorOmg();
+void printErrorZeroOrInvalidAmount();
+void printErrorNegativeAmount();
+void printIncomeBooked();
+void printExpenseBooked();
+void printErrorTooExpensive();
+void printEnterInput();
+void printEnterDescription();
+void printEnterAmount();
+void printBye();
+void printCurrentBalance(float);
+void printFormattedBalance(const char *formattedBalance);
+void printSetupDescription();
+void printSetupIncome();
+void printSetupOverdraft();
+
 const char *CONF_INCOME_DESCRIPTION = "income_description";
 const char *CONF_INCOME_AMOUNT = "income_amount";
 const char *CONF_OVERDRAFT = "overdraft";
@@ -22,170 +47,24 @@ const char KEY_QUIT = ':';
 
 /*
 layout of this unit (ctrl+f to jump to the respective section)
- - ## Structures ## (structs used)
- - ## TextResources ## (functions that print text)
  - ## Util ## (utility functions)
  - ## Database ## (functions that interact with the sqlite database)
  - ## Setup ## (routine for setting up the database)
  - ## Loop ## (main program)
+ - ## TextResources ## (functions that print text)
  - ## Entry Point ## (main function)
 */
-
-/*
-################
-## Structures ##
-################
-*/
-
-typedef struct {
-    int month;
-    int year;
-} Payday;
-
-/*
-###################
-## TextResources ##
-###################
-*/
-
-void printBanner() {
-    printf("\n"\
-        "\t _                                 _   _\n"\
-        "\t(_|   |_/o                        | | | |\n"\
-        "\t  |   |      ,_  _|_         __,  | | | |  _ _|_\n"\
-        "\t  |   |  |  /  |  |  |   |  /  |  |/  |/  |/  |\n"\
-        "\t   \\_/   |_/   |_/|_/ \\_/|_/\\_/|_/|__/|__/|__/|_/\n\n"\
-        "\tC GNU89 Edition\n\n\n");
-}
-
-void printInfo() {
-    printf("\n"\
-        "\tCommands:\n"\
-        "\t- press plus (+) to add an irregular income\n"\
-        "\t- press minus (-) to add an expense\n"\
-        "\t- press equals (=) to show balance and last transactions\n"\
-        "\t- press question mark (?) for even more info about this program\n"\
-        "\t- press colon (:) to exit\n\n");
-}
-
-void printHelp() {
-    printf("\n"\
-        "\tVirtuallet is a tool to act as your virtual wallet. Wow...\n"\
-        "\tVirtuallet is accessible via terminal and uses a Sqlite database to store all its data.\n"\
-        "\tOn first start Virtuallet will be configured and requires some input\n"\
-        "\tbut you already know that unless you are currently studying the source code.\n"\
-        "\n"\
-        "\tVirtuallet follows two important design principles:\n"\
-        "\n"\
-        "\t- shit in shit out\n"\
-        "\t- UTFSB (Use The F**king Sqlite Browser)\n"\
-        "\n"\
-        "\tAs a consequence everything in the database is considered valid.\n"\
-        "\tProgram behaviour is unspecified for any database content being invalid. Ouch...\n"\
-        "\n"\
-        "\tAs its primary feature Virtuallet will auto-add the configured income on start up\n"\
-        "\tfor all days in the past since the last registered regular income.\n"\
-        "\tSo if you have specified a monthly income and haven't run Virtuallet for three months\n"\
-        "\tit will auto-create three regular incomes when you boot it the next time if you like it or not.\n"\
-        "\n"\
-        "\tVirtuallet will also allow you to add irregular incomes and expenses manually.\n"\
-        "\tIt can also display the current balance and the 30 most recent transactions.\n"\
-        "\n"\
-        "\tThe configured overdraft will be considered if an expense is registered.\n"\
-        "\tFor instance if your overdraft equals the default value of 200\n"\
-        "\tyou won't be able to add an expense if the balance would be less than -200 afterwards.\n"\
-        "\n"\
-        "\tVirtuallet does not feature any fancy reports and you are indeed encouraged to use a Sqlite-Browser\n"\
-        "\tto view and even edit the database. When making updates please remember the shit in shit out principle.\n"\
-        "\n"\
-        "\tAs a free gift to you I have added a modified_at field in the ledger table. Feel free to make use of it.\n\n");
-}
-
-void printSetupPreDatabase() {
-    printf("\tDatabase file not found.\n"\
-           "\tDatabase will be initialized. This may take a while... NOT.\n\n");
-}
-
-void printSetupPostDatabase() {
-    printf("\tDatabase initialized.\n"\
-           "\tAre you prepared for some configuration? If not I don't care. There is no way to exit, muhahahar.\n"\
-           "\tPress enter to accept the default or input something else. There is no validation\n"\
-           "\tbecause I know you will not make a mistake. No second chances. If you f**k up,\n"\
-           "\tyou will have to either delete the database file or edit it using a sqlite database browser.\n\n");
-}
-
-void printSetupComplete() {
-    printf("setup complete, have fun\n");
-}
-
-void printErrorOmg() {
-    printf("OMFG RTFM YOU FOOL you are supposed to only enter + or - not anything else after that\n");
-}
-
-void printErrorZeroOrInvalidAmount() {
-    printf("amount is zero or invalid -> action aborted\n");
-}
-
-void printErrorNegativeAmount() {
-    printf("amount must be positive -> action aborted\n");
-}
-
-void printIncomeBooked() {
-    printf("income booked\n");
-}
-
-void printExpenseBooked() {
-    printf("expense booked successfully\n");
-}
-
-void printErrorTooExpensive() {
-    printf("sorry, too expensive -> action aborted\n");
-}
-
-void printEnterInput() {
-    printf("input");
-}
-
-void printEnterDescription() {
-    printf("description (optional)");
-}
-
-void printEnterAmount() {
-    printf("amount");
-}
-
-void printBye() {
-    printf("see ya\n");
-}
-
-void printCurrentBalance(const float value) {
-    printf("\n\tcurrent balance: %.2f\n\n", value);
-}
-
-void printFormattedBalance(const char *formattedBalance) {
-    printf("\tlast transactions (up to 30)\n");
-    printf("\t----------------------------\n");
-    printf(formattedBalance);
-    printf("\n");
-}
-
-void printSetupDescription() {
-    printf("enter description for regular income");
-}
-
-void printSetupIncome() {
-    printf("enter regular income");
-}
-
-void printSetupOverdraft() {
-    printf("enter overdraft");
-}
 
 /*
 ##########
 ## Util ##
 ##########
 */
+
+typedef struct {
+    int month;
+    int year;
+} Payday;
 
 void doNothing() {
 }
@@ -208,7 +87,6 @@ bool isBlankOrNull(const char* c) {
     }
     return res;
 }
-
 
 char * input(void (*printInfo)()) {
     printInfo();
@@ -551,6 +429,145 @@ void loop() {
     }
     disconnect();
     printBye();
+}
+
+/*
+###################
+## TextResources ##
+###################
+*/
+
+void printBanner() {
+    printf("\n"\
+        "\t _                                 _   _\n"\
+        "\t(_|   |_/o                        | | | |\n"\
+        "\t  |   |      ,_  _|_         __,  | | | |  _ _|_\n"\
+        "\t  |   |  |  /  |  |  |   |  /  |  |/  |/  |/  |\n"\
+        "\t   \\_/   |_/   |_/|_/ \\_/|_/\\_/|_/|__/|__/|__/|_/\n\n"\
+        "\tC GNU89 Edition\n\n\n");
+}
+
+void printInfo() {
+    printf("\n"\
+        "\tCommands:\n"\
+        "\t- press plus (+) to add an irregular income\n"\
+        "\t- press minus (-) to add an expense\n"\
+        "\t- press equals (=) to show balance and last transactions\n"\
+        "\t- press question mark (?) for even more info about this program\n"\
+        "\t- press colon (:) to exit\n\n");
+}
+
+void printHelp() {
+    printf("\n"\
+        "\tVirtuallet is a tool to act as your virtual wallet. Wow...\n"\
+        "\tVirtuallet is accessible via terminal and uses a Sqlite database to store all its data.\n"\
+        "\tOn first start Virtuallet will be configured and requires some input\n"\
+        "\tbut you already know that unless you are currently studying the source code.\n"\
+        "\n"\
+        "\tVirtuallet follows two important design principles:\n"\
+        "\n"\
+        "\t- shit in shit out\n"\
+        "\t- UTFSB (Use The F**king Sqlite Browser)\n"\
+        "\n"\
+        "\tAs a consequence everything in the database is considered valid.\n"\
+        "\tProgram behaviour is unspecified for any database content being invalid. Ouch...\n"\
+        "\n"\
+        "\tAs its primary feature Virtuallet will auto-add the configured income on start up\n"\
+        "\tfor all days in the past since the last registered regular income.\n"\
+        "\tSo if you have specified a monthly income and haven't run Virtuallet for three months\n"\
+        "\tit will auto-create three regular incomes when you boot it the next time if you like it or not.\n"\
+        "\n"\
+        "\tVirtuallet will also allow you to add irregular incomes and expenses manually.\n"\
+        "\tIt can also display the current balance and the 30 most recent transactions.\n"\
+        "\n"\
+        "\tThe configured overdraft will be considered if an expense is registered.\n"\
+        "\tFor instance if your overdraft equals the default value of 200\n"\
+        "\tyou won't be able to add an expense if the balance would be less than -200 afterwards.\n"\
+        "\n"\
+        "\tVirtuallet does not feature any fancy reports and you are indeed encouraged to use a Sqlite-Browser\n"\
+        "\tto view and even edit the database. When making updates please remember the shit in shit out principle.\n"\
+        "\n"\
+        "\tAs a free gift to you I have added a modified_at field in the ledger table. Feel free to make use of it.\n\n");
+}
+
+void printSetupPreDatabase() {
+    printf("\tDatabase file not found.\n"\
+           "\tDatabase will be initialized. This may take a while... NOT.\n\n");
+}
+
+void printSetupPostDatabase() {
+    printf("\tDatabase initialized.\n"\
+           "\tAre you prepared for some configuration? If not I don't care. There is no way to exit, muhahahar.\n"\
+           "\tPress enter to accept the default or input something else. There is no validation\n"\
+           "\tbecause I know you will not make a mistake. No second chances. If you f**k up,\n"\
+           "\tyou will have to either delete the database file or edit it using a sqlite database browser.\n\n");
+}
+
+void printSetupComplete() {
+    printf("setup complete, have fun\n");
+}
+
+void printErrorOmg() {
+    printf("OMFG RTFM YOU FOOL you are supposed to only enter + or - not anything else after that\n");
+}
+
+void printErrorZeroOrInvalidAmount() {
+    printf("amount is zero or invalid -> action aborted\n");
+}
+
+void printErrorNegativeAmount() {
+    printf("amount must be positive -> action aborted\n");
+}
+
+void printIncomeBooked() {
+    printf("income booked\n");
+}
+
+void printExpenseBooked() {
+    printf("expense booked successfully\n");
+}
+
+void printErrorTooExpensive() {
+    printf("sorry, too expensive -> action aborted\n");
+}
+
+void printEnterInput() {
+    printf("input");
+}
+
+void printEnterDescription() {
+    printf("description (optional)");
+}
+
+void printEnterAmount() {
+    printf("amount");
+}
+
+void printBye() {
+    printf("see ya\n");
+}
+
+void printCurrentBalance(const float value) {
+    printf("\n\tcurrent balance: %.2f\n\n", value);
+}
+
+void printFormattedBalance(const char *formattedBalance) {
+    printf("\tlast transactions (up to 30)\n");
+    printf("\t----------------------------\n");
+    printf(formattedBalance);
+    printf("\n");
+}
+
+void printSetupDescription() {
+    printf("enter description for regular income");
+}
+
+void printSetupIncome() {
+    printf("enter regular income");
+}
+
+void printSetupOverdraft() {
+    printf("enter overdraft");
 }
 
 /*

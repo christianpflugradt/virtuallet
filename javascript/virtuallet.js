@@ -4,154 +4,6 @@ const CONF_INCOME_AMOUNT = 'income_amount'
 const CONF_OVERDRAFT = 'overdraft'
 const TAB = '<TAB>'
 
-const textResources = function () {
-
-    this.banner = function () {
-        return `
-<TAB> _                                 _   _         
-<TAB>(_|   |_/o                        | | | |        
-<TAB>  |   |      ,_  _|_         __,  | | | |  _ _|_ 
-<TAB>  |   |  |  /  |  |  |   |  /  |  |/  |/  |/  |  
-<TAB>   \_/   |_/   |_/|_/ \_/|_/\_/|_/|__/|__/|__/|_/
-                                                     
-<TAB>Node.js v15.10.0 Edition                                                 
-                                                     
-        `;
-    }
-
-    this.info = function () {
-        return `
-<TAB>Commands:
-<TAB>- press plus (+) to add an irregular income
-<TAB>- press minus (-) to add an expense
-<TAB>- press equals (=) to show balance and last transactions
-<TAB>- press question mark (?) for even more info about this program
-<TAB>- press colon (:) to exit
-        `;
-    }
-
-    this.help = function () {
-        return `
-<TAB>Virtuallet is a tool to act as your virtual wallet. Wow...
-<TAB>Virtuallet is accessible via terminal and uses a Sqlite database to store all its data.
-<TAB>On first start Virtuallet will be configured and requires some input 
-<TAB>but you already know that unless you are currently studying the source code.
-
-<TAB>Virtuallet follows two important design principles:
-
-<TAB>- shit in shit out
-<TAB>- UTFSB (Use The F**king Sqlite Browser)
-
-<TAB>As a consequence everything in the database is considered valid.
-<TAB>Program behaviour is unspecified for any database content being invalid. Ouch...
-
-<TAB>As its primary feature Virtuallet will auto-add the configured income on start up
-<TAB>for all days in the past since the last registered regular income.
-<TAB>So if you have specified a monthly income and haven't run Virtuallet for three months
-<TAB>it will auto-create three regular incomes when you boot it the next time if you like it or not.
-
-<TAB>Virtuallet will also allow you to add irregular incomes and expenses manually.
-<TAB>It can also display the current balance and the 30 most recent transactions.
-
-<TAB>The configured overdraft will be considered if an expense is registered.
-<TAB>For instance if your overdraft equals the default value of 200 
-        `;
-    }
-
-    this.setupPreDatabase = function () {
-        return `
-<TAB>Database file not found.
-<TAB>Database will be initialized. This may take a while... NOT.`;
-    }
-
-    this.setupPostDatabase = function () {
-        return `
-<TAB>Database initialized.
-<TAB>Are you prepared for some configuration? If not I don't care. There is no way to exit, muhahahar.
-<TAB>Press enter to accept the default or input something else. There is no validation
-<TAB>because I know you will not make a mistake. No second chances. If you f**k up,
-<TAB>you will have to either delete the database file or edit it using a sqlite database browser.
-        `;
-    }
-
-    this.errorZeroOrInvalidAmount = function () {
-        return 'amount is zero or invalid -> action aborted';
-    }
-
-    this.errorNegativeAmount = function () {
-        return 'amount must be positive -> action aborted';
-    }
-
-    this.incomeBooked = function () {
-        return 'income booked';
-    }
-
-    this.expenseBooked = function () {
-        return 'expense booked successfully';
-    }
-
-    this.errorTooExpensive = function () {
-        return 'sorry, too expensive -> action aborted';
-    }
-
-    this.errorOmg = function () {
-        return 'OMFG RTFM YOU FOOL you are supposed to only enter + or - not anything else after that';
-    }
-
-    this.enterInput = function () {
-        return 'input > ';
-    }
-
-    this.enterDescription = function () {
-        return 'description (optional) > ';
-    }
-
-    this.enterAmount = function () {
-        return 'amount > ';
-    }
-
-    this.setupComplete = function () {
-        return 'setup complete, have fun';
-    }
-
-    this.bye = function () {
-        return 'see ya';
-    }
-
-    this.currentBalance = function (balance) {
-        return `
-<TAB>current balance: ${balance.toFixed(2)}
-        `;
-    }
-
-    this.formattedBalance = function (balance, formattedLastTransactions) {
-        return `
-<TAB>current balance: ${Number(balance).toFixed(2)}
-
-<TAB>last transactions (up to 30)
-<TAB>----------------------------
-${formattedLastTransactions}
-    `
-    }
-
-    this.setupDescription = function () {
-        return 'enter description for regular income';
-    }
-
-    this.setupIncome = function () {
-        return 'enter regular income';
-    }
-
-    this.setupOverdraft = function () {
-        return 'enter overdraft';
-    }
-
-    this.setupTemplate = function (description, standard) {
-        return `${description} [default: ${standard}}] > `;
-    }
-
-}
-
 const util = function () {
 
     this.readline = require('readline-sync')
@@ -173,6 +25,11 @@ const util = function () {
         return !!str1 && !!str2 ? str1.charAt(0) === str2.charAt(0) : false;
     }
 
+}
+
+const dueDate = function (month, year) {
+    this.month = month;
+    this.year = year;
 }
 
 const database = function () {
@@ -448,9 +305,152 @@ const loop = function (database) {
 
 }
 
-const dueDate = function (month, year) {
-    this.month = month;
-    this.year = year;
+const textResources = function () {
+
+    this.banner = function () {
+        return `
+<TAB> _                                 _   _         
+<TAB>(_|   |_/o                        | | | |        
+<TAB>  |   |      ,_  _|_         __,  | | | |  _ _|_ 
+<TAB>  |   |  |  /  |  |  |   |  /  |  |/  |/  |/  |  
+<TAB>   \_/   |_/   |_/|_/ \_/|_/\_/|_/|__/|__/|__/|_/
+                                                     
+<TAB>Node.js v15.10.0 Edition                                                 
+                                                     
+        `;
+    }
+
+    this.info = function () {
+        return `
+<TAB>Commands:
+<TAB>- press plus (+) to add an irregular income
+<TAB>- press minus (-) to add an expense
+<TAB>- press equals (=) to show balance and last transactions
+<TAB>- press question mark (?) for even more info about this program
+<TAB>- press colon (:) to exit
+        `;
+    }
+
+    this.help = function () {
+        return `
+<TAB>Virtuallet is a tool to act as your virtual wallet. Wow...
+<TAB>Virtuallet is accessible via terminal and uses a Sqlite database to store all its data.
+<TAB>On first start Virtuallet will be configured and requires some input 
+<TAB>but you already know that unless you are currently studying the source code.
+
+<TAB>Virtuallet follows two important design principles:
+
+<TAB>- shit in shit out
+<TAB>- UTFSB (Use The F**king Sqlite Browser)
+
+<TAB>As a consequence everything in the database is considered valid.
+<TAB>Program behaviour is unspecified for any database content being invalid. Ouch...
+
+<TAB>As its primary feature Virtuallet will auto-add the configured income on start up
+<TAB>for all days in the past since the last registered regular income.
+<TAB>So if you have specified a monthly income and haven't run Virtuallet for three months
+<TAB>it will auto-create three regular incomes when you boot it the next time if you like it or not.
+
+<TAB>Virtuallet will also allow you to add irregular incomes and expenses manually.
+<TAB>It can also display the current balance and the 30 most recent transactions.
+
+<TAB>The configured overdraft will be considered if an expense is registered.
+<TAB>For instance if your overdraft equals the default value of 200 
+        `;
+    }
+
+    this.setupPreDatabase = function () {
+        return `
+<TAB>Database file not found.
+<TAB>Database will be initialized. This may take a while... NOT.`;
+    }
+
+    this.setupPostDatabase = function () {
+        return `
+<TAB>Database initialized.
+<TAB>Are you prepared for some configuration? If not I don't care. There is no way to exit, muhahahar.
+<TAB>Press enter to accept the default or input something else. There is no validation
+<TAB>because I know you will not make a mistake. No second chances. If you f**k up,
+<TAB>you will have to either delete the database file or edit it using a sqlite database browser.
+        `;
+    }
+
+    this.errorZeroOrInvalidAmount = function () {
+        return 'amount is zero or invalid -> action aborted';
+    }
+
+    this.errorNegativeAmount = function () {
+        return 'amount must be positive -> action aborted';
+    }
+
+    this.incomeBooked = function () {
+        return 'income booked';
+    }
+
+    this.expenseBooked = function () {
+        return 'expense booked successfully';
+    }
+
+    this.errorTooExpensive = function () {
+        return 'sorry, too expensive -> action aborted';
+    }
+
+    this.errorOmg = function () {
+        return 'OMFG RTFM YOU FOOL you are supposed to only enter + or - not anything else after that';
+    }
+
+    this.enterInput = function () {
+        return 'input > ';
+    }
+
+    this.enterDescription = function () {
+        return 'description (optional) > ';
+    }
+
+    this.enterAmount = function () {
+        return 'amount > ';
+    }
+
+    this.setupComplete = function () {
+        return 'setup complete, have fun';
+    }
+
+    this.bye = function () {
+        return 'see ya';
+    }
+
+    this.currentBalance = function (balance) {
+        return `
+<TAB>current balance: ${balance.toFixed(2)}
+        `;
+    }
+
+    this.formattedBalance = function (balance, formattedLastTransactions) {
+        return `
+<TAB>current balance: ${Number(balance).toFixed(2)}
+
+<TAB>last transactions (up to 30)
+<TAB>----------------------------
+${formattedLastTransactions}
+    `
+    }
+
+    this.setupDescription = function () {
+        return 'enter description for regular income';
+    }
+
+    this.setupIncome = function () {
+        return 'enter regular income';
+    }
+
+    this.setupOverdraft = function () {
+        return 'enter overdraft';
+    }
+
+    this.setupTemplate = function (description, standard) {
+        return `${description} [default: ${standard}}] > `;
+    }
+
 }
 
 const TextResources = new textResources();
