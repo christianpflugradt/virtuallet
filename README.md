@@ -181,8 +181,8 @@ Java is the reference language because it is both popular and verbose,
 so it is interesting to see how other languages compare to it.
 
 I measure verbosity in two ways:
-1.) Number of non-empty, non-comment lines ("lines of code")
-2.) Number of non-whitespace characters
+ 1. Number of non-empty, non-comment lines ("lines of code")
+ 2. Number of non-whitespace characters
 
 The unit "text resources" is not considered for comparison.
 It has a lot of text that is identical in all implementations
