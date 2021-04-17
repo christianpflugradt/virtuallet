@@ -195,7 +195,7 @@ but increases the language's verbosity in terms of lines of code
 * whitespace sensitive languages like Python have an advantage in non-whitespace character verbosity
 because whitespace characters used to make blocks are excluded from the verbosity calculation
 * CamelCaseImplementations have an advantage over snake_case_implementations because they need fewer letters
-* language features are not equally spread; there are a lot of functions for example but no inheritance at all
+* language features are not equally spread, e.g.: there are a lot of functions for example but no inheritance at all
 
 ### Lines of Code Verbosity
 
