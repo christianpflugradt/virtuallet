@@ -90,7 +90,7 @@ You need to install the sqlite3 driver using go get: `go get github.com/mattn/go
 You need to install the sqlite3 driver via node package manager: `npm install sqlite3`
 Additionally you need to install readline-sync via node package manager: `npm install readline-sync`
 
-#### Perl v5.32.1 dependencies
+#### Perl v5.32 dependencies
 
 Perl is already installed on most Unix-like operating systems and usually comes bundled with SQLite.
 However the installed version of SQLite might be old and not support `CREATE TABLE IF EXISTS`
