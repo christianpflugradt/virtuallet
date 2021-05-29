@@ -224,7 +224,7 @@ because whitespace characters used to make blocks are excluded from the verbosit
 |   3      |   Lua              |   69.62%      |   6241            |
 |   4      |   Perl             |   71.92%      |   6447            |
 |   4      |   Groovy           |   71.93%      |   6448            |
-|   6      |   Go               |   72.13%      |   6466            |
+|   6      |   Go               |   72.31%      |   6482            |
 |   7      |   JavaScript       |   83.17%      |   7455            |
 |   8      |   C                |   97.78%      |   8765            |
 |   9      |   Java (reference) |   100.00%     |   8964            |

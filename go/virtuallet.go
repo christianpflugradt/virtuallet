@@ -283,7 +283,7 @@ func (loop *Loop) addToLedger(signum int, printSuccessFunction printFunction) {
 	amount, _ := strconv.ParseFloat(input(printEnterAmount), 32)
 	if amount > 0 {
 		if signum == 1 || loop.database.isExpenseAcceptable(float32(amount)) {
-			loop.database.insertIntoLedger(description, float32(amount))
+			loop.database.insertIntoLedger(description, float32(signum) * float32(amount))
 			printSuccessFunction()
 			printCurrentBalance(loop.database.balance())
 		} else {
