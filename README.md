@@ -61,7 +61,7 @@ for details how to compile / run each implementation.
 #### Implementations without dependencies
 
 The following implementations do not have any further dependencies, which means sqlite3 is part of the language's system library.
- * Python 3
+ * Python 3.9
  * C GNU89
 
 #### Java 11 dependencies
@@ -85,7 +85,7 @@ You can download it here: http://lua.sqlite.org/index.cgi/home
 
 You need to install the sqlite3 driver using go get: `go get github.com/mattn/go-sqlite3`
 
-#### Node.js v15.10.0 dependencies
+#### Node.js v15.10 dependencies
 
 You need to install the sqlite3 driver via node package manager: `npm install sqlite3`
 Additionally you need to install readline-sync via node package manager: `npm install readline-sync`
@@ -96,6 +96,10 @@ Perl is already installed on most Unix-like operating systems and usually comes 
 However the installed version of SQLite might be old and not support `CREATE TABLE IF EXISTS`
 which will result in the following error: `DBD::SQLite::db do failed: not an error(21) at dbdimp.c line 398`
 To resolve the problem, update SQLite using cpan: `cpan DBD::SQLite`
+
+#### Groovy 3.0.8 dependencies
+
+Use the jdbc driver specified for the Java Edition
 
 ### Implementation challenges
 
@@ -115,14 +119,15 @@ Virtuallet can be implemented in any language as long as these aspects can be im
 ## Implementations
 
 Implemented:
- * Python 3
+ * Python 3.9
  * Java 11
  * C GNU89
  * Ruby 2.7
  * Lua 5.4
  * Go 1.15
- * Node.js v15.10.0
+ * Node.js v15.10
  * Perl v5.32
+ * Groovy 3.0
 
 Planned:
  * Ada
@@ -139,7 +144,6 @@ Planned:
  * Fortran
  * FreeBASIC
  * F#
- * Groovy
  * Haskell
  * Julia
  * Kotlin
@@ -201,24 +205,26 @@ because whitespace characters used to make blocks are excluded from the verbosit
 
 |   Pos    |   Language         |   Verbosity   |   Lines of Code   |
 | -------: | ------------------ | ------------: | ----------------: |
-|   1      |   Ruby             |   53.85%      |   154             |
-|   2      |   Python           |   62.59%      |   179             |
-|   3      |   Lua              |   82.51%      |   236             |
-|   4      |   JavaScript       |   93.36%      |   267             |
-|   4      |   Perl             |   93.36%      |   267             |
-|   6      |   Go               |   95.45%      |   273             |
-|   7      |   Java (reference) |   100.00%     |   286             |
-|   8      |   C                |   127.27%     |   364             |
+|   1      |   Ruby             |   53.66%      |   154             |
+|   2      |   Python           |   62.37%      |   179             |
+|   3      |   Lua              |   82.23%      |   236             |
+|   4      |   Groovy           |   83.28%      |   239             |
+|   5      |   JavaScript       |   93.03%      |   267             |
+|   5      |   Perl             |   93.03%      |   267             |
+|   7      |   Go               |   95.12%      |   273             |
+|   8      |   Java (reference) |   100.00%     |   287             |
+|   9      |   C                |   126.83%     |   364             |
 
 ### Character Verbosity
 
 |   Pos    |   Language         |   Verbosity   |   Characters      |
 | -------: | ------------------ | ------------: | ----------------: |
-|   1      |   Ruby             |   37.61%      |   3351            |
-|   2      |   Python           |   63.20%      |   5631            |
-|   3      |   Lua              |   70.04%      |   6241            |
-|   4      |   Perl             |   72.36%      |   6447            |
-|   5      |   Go               |   72.57%      |   6466            |
-|   6      |   JavaScript       |   83.67%      |   7455            |
-|   7      |   C                |   98.37%      |   8765            |
-|   8      |   Java (reference) |   100.00%     |   8910            |
+|   1      |   Ruby             |   37.38%      |   3351            |
+|   2      |   Python           |   62.82%      |   5631            |
+|   3      |   Lua              |   69.62%      |   6241            |
+|   4      |   Perl             |   71.92%      |   6447            |
+|   4      |   Groovy           |   71.93%      |   6448            |
+|   6      |   Go               |   72.13%      |   6466            |
+|   7      |   JavaScript       |   83.17%      |   7455            |
+|   8      |   C                |   97.78%      |   8765            |
+|   9      |   Java (reference) |   100.00%     |   8964            |
