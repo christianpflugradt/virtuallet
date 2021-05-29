@@ -97,7 +97,7 @@ However the installed version of SQLite might be old and not support `CREATE TAB
 which will result in the following error: `DBD::SQLite::db do failed: not an error(21) at dbdimp.c line 398`
 To resolve the problem, update SQLite using cpan: `cpan DBD::SQLite`
 
-#### Groovy 3.0.8 dependencies
+#### Groovy 3.0 dependencies
 
 Use the jdbc driver specified for the Java Edition
 
