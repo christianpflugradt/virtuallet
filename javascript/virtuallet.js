@@ -86,7 +86,7 @@ const database = function () {
 
     this.insertIntoLedger = function (description, amount, callback) {
         return this.executeStatement(`INSERT INTO ledger (description, amount, auto_income, created_at, created_by) 
-                    VALUES ('${description}', ${amount}, 0, datetime('now'), 'Node.js v15.10.0 Edition')
+                    VALUES ('${description}', ${amount}, 0, datetime('now'), 'Node.js v15.10 Edition')
                 `, callback);
     }
 
@@ -112,7 +112,7 @@ const database = function () {
             return this.incomeAmount((err, row2) => {
                 const amount = row2.v;
                 return this.executeStatement(`INSERT INTO ledger (description, amount, auto_income, created_at, created_by) 
-                    VALUES ('${description}', ${amount}, 1, datetime('now'), 'Node.js v15.10.0 Edition')
+                    VALUES ('${description}', ${amount}, 1, datetime('now'), 'Node.js v15.10 Edition')
                 `, callback);
             })
         })
@@ -315,7 +315,7 @@ const textResources = function () {
 <TAB>  |   |  |  /  |  |  |   |  /  |  |/  |/  |/  |  
 <TAB>   \_/   |_/   |_/|_/ \_/|_/\_/|_/|__/|__/|__/|_/
                                                      
-<TAB>Node.js v15.10.0 Edition                                                 
+<TAB>Node.js v15.10 Edition
                                                      
         `;
     }

@@ -220,11 +220,11 @@ because whitespace characters used to make blocks are excluded from the verbosit
 |   Pos    |   Language         |   Verbosity   |   Characters      |
 | -------: | ------------------ | ------------: | ----------------: |
 |   1      |   Ruby             |   37.38%      |   3351            |
-|   2      |   Python           |   62.82%      |   5631            |
+|   2      |   Python           |   62.88%      |   5637            |
 |   3      |   Lua              |   69.62%      |   6241            |
 |   4      |   Perl             |   71.92%      |   6447            |
 |   4      |   Groovy           |   71.93%      |   6448            |
 |   6      |   Go               |   72.31%      |   6482            |
-|   7      |   JavaScript       |   83.17%      |   7455            |
+|   7      |   JavaScript       |   83.10%      |   7449            |
 |   8      |   C                |   97.78%      |   8765            |
 |   9      |   Java (reference) |   100.00%     |   8964            |
