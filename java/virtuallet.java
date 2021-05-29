@@ -129,7 +129,7 @@ class Database {
     private BigDecimal overdraft() throws SQLException {
         try (var statement = connection.createStatement()) {
             final var result = statement.executeQuery(String.format(
-                    " SELECT v FROM configuration WHERE k = '%s'", virtuallet.CONF_INCOME_AMOUNT));
+                    " SELECT v FROM configuration WHERE k = '%s'", virtuallet.CONF_OVERDRAFT));
             return result.next() ? result.getBigDecimal(1) : BigDecimal.valueOf(200);
         }
     }
@@ -284,7 +284,8 @@ class Loop {
 
     private void addToLedger(final int signum, final String successMessage) throws SQLException {
         final var description = Util.input(TextResources.enterDescription());
-        final var amount = new BigDecimal(Util.inputOrDefault(TextResources.enterAmount(), "0"));
+        final var input = Util.inputOrDefault(TextResources.enterAmount(), "0");
+        final var amount = new BigDecimal(input.matches("-?\\d+(\\.\\d+)?") ? input : "0");
         if (amount.signum() == 1) {
             if (signum == 1 || database.isExpenseAcceptable(amount)) {
                 database.insertIntoLedger(description, amount.multiply(BigDecimal.valueOf(signum)));
