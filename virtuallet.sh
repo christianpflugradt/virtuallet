@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 RND=$$
-EDITIONS_COUNT=8
+EDITIONS_COUNT=9
 SELECTED_EDITION=$(($(($RND%$EDITIONS_COUNT))+1))
 
 if [ $SELECTED_EDITION == 1 ]; then
@@ -31,4 +31,7 @@ elif [ $SELECTED_EDITION == 7 ]; then
 elif [ $SELECTED_EDITION == 8 ]; then
   cd perl
   perl virtuallet.pl
+elif [ $SELECTED_EDITION == 9 ]; then
+  cd groovy
+  groovy -cp sqlite-jdbc.jar virtuallet.groovy
 fi
