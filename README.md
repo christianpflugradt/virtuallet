@@ -64,26 +64,25 @@ The following implementations do not have any further dependencies, which means 
  * Python 3.9
  * C GNU89
 
-#### Java 11 dependencies
-
-You must have a sqlite3 jdbc driver in your classpath.
-I used this one, which is also available on Maven Central: https://github.com/xerial/sqlite-jdbc
-
-#### Ruby 2.7 dependencies
-
-You must have sqlite3 gem installed which can be done using RubyGems package manager: `gem install sqlite3`.
-See also: https://rubygems.org/gems/sqlite3
-
-#### Lua 5.4 dependencies
-
-You need to install a specific sqlite3 driver. You can install it using LuaRocks package manager 
-but at the time of my implementation it was not yet officially compatible with Lua 5.4, 
-so I had to compile it manually using `make` which fortunately worked for me without any further configuration.
-You can download it here: http://lua.sqlite.org/index.cgi/home
-
 #### Go 1.15 dependencies
 
 You need to install the sqlite3 driver using go get: `go get github.com/mattn/go-sqlite3`
+
+#### Groovy 3.0 dependencies
+
+Use the jdbc driver specified for the Java Edition
+
+#### Java 11 dependencies
+
+You must have a sqlite3 jdbc driver in your classpath.
+I used this one, which is also available on Maven Central: `https://github.com/xerial/sqlite-jdbc`
+
+#### Lua 5.4 dependencies
+
+You need to install a specific sqlite3 driver. You can install it using LuaRocks package manager
+but at the time of my implementation it was not yet officially compatible with Lua 5.4,
+so I had to compile it manually using `make` which fortunately worked for me without any further configuration.
+You can download it here: `http://lua.sqlite.org/index.cgi/home`
 
 #### Node.js v15.10 dependencies
 
@@ -97,9 +96,15 @@ However the installed version of SQLite might be old and not support `CREATE TAB
 which will result in the following error: `DBD::SQLite::db do failed: not an error(21) at dbdimp.c line 398`
 To resolve the problem, update SQLite using cpan: `cpan DBD::SQLite`
 
-#### Groovy 3.0 dependencies
+#### PHP 8.0 dependencies
 
-Use the jdbc driver specified for the Java Edition
+The line `extension=sqlite3` must be in your `php.ini`. It' usually disabled, with a semi colon in front of it.
+My php.ini resides in `/etc/php/`. Under Manjaro I also had to install the library by running `pacman -S php-sqlite`.
+
+#### Ruby 2.7 dependencies
+
+You must have sqlite3 gem installed which can be done using RubyGems package manager: `gem install sqlite3`.
+See also: https://rubygems.org/gems/sqlite3
 
 ### Implementation challenges
 
@@ -128,6 +133,7 @@ Implemented:
  * Node.js v15.10
  * Perl v5.32
  * Groovy 3.0
+ * PHP 8.0
 
 Planned:
  * Ada
@@ -152,7 +158,6 @@ Planned:
  * Objective-C
  * OCaml
  * Pascal
- * PHP
  * Pike
  * Prolog
  * R
@@ -207,13 +212,14 @@ because whitespace characters used to make blocks are excluded from the verbosit
 | -------: | ------------------ | ------------: | ----------------: |
 |   1      |   Ruby             |   53.66%      |   154             |
 |   2      |   Python           |   62.37%      |   179             |
-|   3      |   Lua              |   82.23%      |   236             |
-|   4      |   Groovy           |   83.28%      |   239             |
-|   5      |   JavaScript       |   93.03%      |   267             |
-|   5      |   Perl             |   93.03%      |   267             |
-|   7      |   Go               |   95.12%      |   273             |
-|   8      |   Java (reference) |   100.00%     |   287             |
-|   9      |   C                |   126.83%     |   364             |
+|   3      |   PHP              |   77.00%      |   221             |
+|   4      |   Lua              |   82.23%      |   236             |
+|   5      |   Groovy           |   83.28%      |   239             |
+|   6      |   JavaScript       |   93.03%      |   267             |
+|   7      |   Perl             |   93.03%      |   267             |
+|   8      |   Go               |   95.12%      |   273             |
+|   9      |   Java (reference) |   100.00%     |   287             |
+|   10     |   C                |   126.83%     |   364             |
 
 ### Character Verbosity
 
@@ -225,6 +231,7 @@ because whitespace characters used to make blocks are excluded from the verbosit
 |   4      |   Perl             |   71.92%      |   6447            |
 |   4      |   Groovy           |   71.93%      |   6448            |
 |   6      |   Go               |   72.31%      |   6482            |
-|   7      |   JavaScript       |   83.10%      |   7449            |
-|   8      |   C                |   97.78%      |   8765            |
-|   9      |   Java (reference) |   100.00%     |   8964            |
+|   7      |   PHP              |   72.94%      |   6538            |
+|   8      |   JavaScript       |   83.10%      |   7449            |
+|   9      |   C                |   97.78%      |   8765            |
+|   10     |   Java (reference) |   100.00%     |   8964            |
