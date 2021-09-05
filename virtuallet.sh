@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 RND=$$
-EDITIONS_COUNT=10
+EDITIONS_COUNT=11
 SELECTED_EDITION=$(($(($RND%$EDITIONS_COUNT))+1))
 
 if [ $SELECTED_EDITION == 1 ]; then
@@ -37,4 +37,8 @@ elif [ $SELECTED_EDITION == 9 ]; then
 elif [ $SELECTED_EDITION == 10 ]; then
   cd php
   php virtuallet.php
+elif [ $SELECTED_EDITION == 11 ]; then
+  cd pascal
+  fpc virtuallet
+  ./virtuallet
 fi

@@ -64,6 +64,13 @@ The following implementations do not have any further dependencies, which means 
  * Python 3.9
  * C GNU89
 
+#### Free Pascal 3.2 dependencies
+
+Sqlite is already part of the Free Pascal Compiler's standard libraries and it uses the sqlite3 library on your system,
+something like sqlite3.so on unixoid systems and sqlite3.dll on Windows.
+
+Many Pascal functions are compiler specific so the code won't compile with anything but the Free Pascal Compiler (fpc).
+
 #### Go 1.15 dependencies
 
 You need to install the sqlite3 driver using go get: `go get github.com/mattn/go-sqlite3`
@@ -134,6 +141,7 @@ Implemented:
  * Perl v5.32
  * Groovy 3.0
  * PHP 8.0
+ * Free Pascal 3.2
 
 Planned:
  * Ada
@@ -157,7 +165,6 @@ Planned:
  * Nim
  * Objective-C
  * OCaml
- * Pascal
  * Pike
  * Prolog
  * R
@@ -177,6 +184,7 @@ To Be Evaluated
  * Limbo
  * Oberon
  * QBASIC
+ * Self
 
 Not Planned
  * ABAP
@@ -220,6 +228,7 @@ because whitespace characters used to make blocks are excluded from the verbosit
 |   8      |   Go               |   95.12%      |   273             |
 |   9      |   Java (reference) |   100.00%     |   287             |
 |   10     |   C                |   126.83%     |   364             |
+|   10     |   Pascal           |   145.99%     |   419             |
 
 ### Character Verbosity
 
@@ -235,3 +244,4 @@ because whitespace characters used to make blocks are excluded from the verbosit
 |   8      |   JavaScript       |   83.10%      |   7449            |
 |   9      |   C                |   97.78%      |   8765            |
 |   10     |   Java (reference) |   100.00%     |   8964            |
+|   11     |   Pascal           |   112.85%     |   10116           |
