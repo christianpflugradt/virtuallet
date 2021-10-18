@@ -63,6 +63,7 @@ for details how to compile / run each implementation.
 The following implementations do not have any further dependencies, which means sqlite3 is part of the language's system library.
  * Python 3.9
  * C GNU89
+ * C++
 
 #### Free Pascal 3.2 dependencies
 
@@ -142,10 +143,10 @@ Implemented:
  * Groovy 3.0
  * PHP 8.0
  * Free Pascal 3.2
+ * C++17
 
 Planned:
  * Ada
- * C++
  * C#
  * Clojure
  * Cobol
@@ -227,6 +228,7 @@ because whitespace characters used to make blocks are excluded from the verbosit
 |   7      |   Perl             |   93.03%      |   267             |
 |   8      |   Go               |   95.12%      |   273             |
 |   9      |   Java (reference) |   100.00%     |   287             |
+|   10     |   C++              |   125.78%     |   361             |
 |   10     |   C                |   126.83%     |   364             |
 |   10     |   Pascal           |   145.99%     |   419             |
 
@@ -244,4 +246,5 @@ because whitespace characters used to make blocks are excluded from the verbosit
 |   8      |   JavaScript       |   83.10%      |   7449            |
 |   9      |   C                |   97.78%      |   8765            |
 |   10     |   Java (reference) |   100.00%     |   8964            |
+|   10     |   C++              |   107.54%     |   9640            |
 |   11     |   Pascal           |   112.85%     |   10116           |

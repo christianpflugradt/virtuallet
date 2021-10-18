@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 RND=$$
-EDITIONS_COUNT=11
+EDITIONS_COUNT=12
 SELECTED_EDITION=$(($(($RND%$EDITIONS_COUNT))+1))
 
 if [ $SELECTED_EDITION == 1 ]; then
@@ -41,4 +41,8 @@ elif [ $SELECTED_EDITION == 11 ]; then
   cd pascal
   fpc virtuallet
   ./virtuallet
+elif [ $SELECTED_EDITION == 12 ]; then
+  cd c++
+  gcc -std=c++17 virtuallet.cpp -o virtuallet.out -lstdc++ -lsqlite3 -lm
+  ./virtuallet.out
 fi
