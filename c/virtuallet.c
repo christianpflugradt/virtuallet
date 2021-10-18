@@ -117,7 +117,6 @@ int currentMonth() {
 }
 
 int currentYear() {
-    int year = now()->tm_year + 1900;
     return now()->tm_year + 1900;
 }
 
