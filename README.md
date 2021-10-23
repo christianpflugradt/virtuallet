@@ -132,66 +132,20 @@ Virtuallet can be implemented in any language as long as these aspects can be im
 ## Implementations
 
 Implemented:
- * Python 3.9
- * Java 11
  * C GNU89
- * Ruby 2.7
- * Lua 5.4
- * Go 1.15
- * Node.js v15.10
- * Perl v5.32
- * Groovy 3.0
- * PHP 8.0
- * Free Pascal 3.2
  * C++17
+ * Go 1.15
+ * Groovy 3.0
+ * Java 11
+ * Node.js v15.10
+ * Lua 5.4
+ * Free Pascal 3.2
+ * Perl v5.32
+ * PHP 8.0
+ * Python 3.9
+ * Ruby 2.7
 
-Planned:
- * Ada
- * C#
- * Clojure
- * Cobol
- * Crystal
- * D
- * Dart
- * Eiffel
- * Elixir
- * Erlang
- * Fortran
- * FreeBASIC
- * F#
- * Haskell
- * Julia
- * Kotlin
- * Lisp
- * Nim
- * Objective-C
- * OCaml
- * Pike
- * Prolog
- * R
- * Racket
- * Raku
- * Rust
- * S-Lang
- * Scala
- * Seed7
- * Smalltalk
- * Swift
- * Vala
- * VB
- * VB.NET
-
-To Be Evaluated
- * Limbo
- * Oberon
- * QBASIC
- * Self
-
-Not Planned
- * ABAP
- * Algol family
- * Apex
- * Matlab
+ [list of planned implementations](LANGUAGES.md)
 
 ## Language Verbosity
 
