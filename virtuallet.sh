@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 RND=$$
-EDITIONS_COUNT=12
+EDITIONS_COUNT=13
 SELECTED_EDITION=$(($(($RND%$EDITIONS_COUNT))+1))
 
 if [ $SELECTED_EDITION == 1 ]; then
@@ -45,4 +45,7 @@ elif [ $SELECTED_EDITION == 12 ]; then
   cd c++
   gcc -std=c++17 virtuallet.cpp -o virtuallet.out -lstdc++ -lsqlite3 -lm
   ./virtuallet.out
+elif [ $SELECTED_EDITION == 13 ]; then
+  cd lisp
+  sbcl --script virtuallet.lisp
 fi

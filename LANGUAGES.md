@@ -20,7 +20,6 @@ or are confirmed to be suitable for virtuallet.
  * Haxe
  * Kotlin
  * Julia
- * Lisp
  * LiveCode
  * Nim
  * Objective-C
