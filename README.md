@@ -114,6 +114,10 @@ My php.ini resides in `/etc/php/`. Under Manjaro I also had to install the libra
 You must have sqlite3 gem installed which can be done using RubyGems package manager: `gem install sqlite3`.
 See also: https://rubygems.org/gems/sqlite3
 
+#### Steel Bank Common Lisp 2.1 dependencies
+
+You must have `quicklisp` and `asdf` set up. The sqlite dependency will then be automatically downloaded and installed.
+
 ### Implementation challenges
 
 This is a list of of aspects that must be considered when implementing Virtuallet in an arbitrary programming language. These aspects can be more or less challenging depending on the language and how experienced one is with it.
@@ -144,6 +148,7 @@ Implemented:
  * PHP 8.0
  * Python 3.9
  * Ruby 2.7
+ * Steel Bank Common Lisp 2.1
 
  [list of planned implementations](LANGUAGES.md)
 
@@ -175,16 +180,17 @@ because whitespace characters used to make blocks are excluded from the verbosit
 | -------: | ------------------ | ------------: | ----------------: |
 |   1      |   Ruby             |   53.66%      |   154             |
 |   2      |   Python           |   62.37%      |   179             |
-|   3      |   PHP              |   77.00%      |   221             |
-|   4      |   Lua              |   82.23%      |   236             |
-|   5      |   Groovy           |   83.28%      |   239             |
-|   6      |   JavaScript       |   93.03%      |   267             |
-|   7      |   Perl             |   93.03%      |   267             |
-|   8      |   Go               |   95.12%      |   273             |
-|   9      |   Java (reference) |   100.00%     |   287             |
-|   10     |   C++              |   125.78%     |   361             |
-|   10     |   C                |   126.83%     |   364             |
-|   10     |   Pascal           |   145.99%     |   419             |
+|   3      |   Common Lisp      |   70.38%      |   202             |
+|   4      |   PHP              |   77.00%      |   221             |
+|   5      |   Lua              |   82.23%      |   236             |
+|   6      |   Groovy           |   83.28%      |   239             |
+|   7      |   JavaScript       |   93.03%      |   267             |
+|   8      |   Perl             |   93.03%      |   267             |
+|   9      |   Go               |   95.12%      |   273             |
+|   10     |   Java (reference) |   100.00%     |   287             |
+|   11     |   C++              |   125.78%     |   361             |
+|   12     |   C                |   126.83%     |   364             |
+|   13     |   Pascal           |   145.99%     |   419             |
 
 ### Character Verbosity
 
@@ -194,11 +200,12 @@ because whitespace characters used to make blocks are excluded from the verbosit
 |   2      |   Python           |   62.88%      |   5637            |
 |   3      |   Lua              |   69.62%      |   6241            |
 |   4      |   Perl             |   71.92%      |   6447            |
-|   4      |   Groovy           |   71.93%      |   6448            |
-|   6      |   Go               |   72.31%      |   6482            |
-|   7      |   PHP              |   72.94%      |   6538            |
-|   8      |   JavaScript       |   83.10%      |   7449            |
-|   9      |   C                |   97.78%      |   8765            |
-|   10     |   Java (reference) |   100.00%     |   8964            |
-|   10     |   C++              |   107.54%     |   9640            |
-|   11     |   Pascal           |   112.85%     |   10116           |
+|   5      |   Groovy           |   71.93%      |   6448            |
+|   6      |   Common Lisp      |   72.23%      |   6475            |
+|   7      |   Go               |   72.31%      |   6482            |
+|   8      |   PHP              |   72.94%      |   6538            |
+|   9      |   JavaScript       |   83.10%      |   7449            |
+|   10     |   C                |   97.78%      |   8765            |
+|   11     |   Java (reference) |   100.00%     |   8964            |
+|   12     |   C++              |   107.54%     |   9640            |
+|   13     |   Pascal           |   112.85%     |   10116           |
