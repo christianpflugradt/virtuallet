@@ -85,6 +85,10 @@ Use the jdbc driver specified for the Java Edition
 You must have a sqlite3 jdbc driver in your classpath.
 I used this one, which is also available on Maven Central: `https://github.com/xerial/sqlite-jdbc`
 
+#### Kotlin 1.6 dependencies
+
+Use the jdbc driver specified for the Java Edition
+
 #### Lua 5.4 dependencies
 
 You need to install a specific sqlite3 driver. You can install it using LuaRocks package manager
@@ -138,12 +142,13 @@ Virtuallet can be implemented in any language as long as these aspects can be im
 Implemented:
  * C GNU89
  * C++17
+ * Free Pascal 3.2
  * Go 1.15
  * Groovy 3.0
  * Java 11
- * Node.js v15.10
+ * Kotlin 1.6
  * Lua 5.4
- * Free Pascal 3.2
+ * Node.js v15.10
  * Perl v5.32
  * PHP 8.0
  * Python 3.9
@@ -184,13 +189,14 @@ because whitespace characters used to make blocks are excluded from the verbosit
 |   4      |   PHP              |   77.00%      |   221             |
 |   5      |   Lua              |   82.23%      |   236             |
 |   6      |   Groovy           |   83.28%      |   239             |
-|   7      |   JavaScript       |   93.03%      |   267             |
-|   8      |   Perl             |   93.03%      |   267             |
-|   9      |   Go               |   95.12%      |   273             |
-|   10     |   Java (reference) |   100.00%     |   287             |
-|   11     |   C++              |   125.78%     |   361             |
-|   12     |   C                |   126.83%     |   364             |
-|   13     |   Pascal           |   145.99%     |   419             |
+|   7      |   Kotlin           |   83.97%      |   241             |
+|   8      |   JavaScript       |   93.03%      |   267             |
+|   9      |   Perl             |   93.03%      |   267             |
+|   10     |   Go               |   95.12%      |   273             |
+|   11     |   Java (reference) |   100.00%     |   287             |
+|   12     |   C++              |   125.78%     |   361             |
+|   13     |   C                |   126.83%     |   364             |
+|   14     |   Pascal           |   145.99%     |   419             |
 
 ### Character Verbosity
 
@@ -204,8 +210,9 @@ because whitespace characters used to make blocks are excluded from the verbosit
 |   6      |   Common Lisp      |   72.23%      |   6475            |
 |   7      |   Go               |   72.31%      |   6482            |
 |   8      |   PHP              |   72.94%      |   6538            |
-|   9      |   JavaScript       |   83.10%      |   7449            |
-|   10     |   C                |   97.78%      |   8765            |
-|   11     |   Java (reference) |   100.00%     |   8964            |
-|   12     |   C++              |   107.54%     |   9640            |
-|   13     |   Pascal           |   112.85%     |   10116           |
+|   9      |   Kotlin           |   77.70%      |   6965            |
+|   10     |   JavaScript       |   83.10%      |   7449            |
+|   11     |   C                |   97.78%      |   8765            |
+|   12     |   Java (reference) |   100.00%     |   8964            |
+|   13     |   C++              |   107.54%     |   9640            |
+|   14     |   Pascal           |   112.85%     |   10116           |

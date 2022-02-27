@@ -18,7 +18,6 @@ or are confirmed to be suitable for virtuallet.
  * FreeBASIC
  * Haskell
  * Haxe
- * Kotlin
  * Julia
  * LiveCode
  * Nim
