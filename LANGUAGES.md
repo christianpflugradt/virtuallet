@@ -43,7 +43,6 @@ or are confirmed to be suitable for virtuallet.
  * Crystal
  * Eiffel
  * Erlang
- * Fortran
  * Io
  * K
  * Limbo

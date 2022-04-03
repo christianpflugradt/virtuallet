@@ -65,6 +65,12 @@ The following implementations do not have any further dependencies, which means 
  * C GNU89
  * C++
 
+#### Fortran 2018 dependencies
+
+You need to install the Fortran binding to SQLite3: `https://github.com/interkosmos/fortran-sqlite3`
+
+The shell script `virtuallet.sh` expects the dependency to be located as `libfortran-sqlite3.a` in the same directory as the Fortran implementation of virtuallet.
+
 #### Free Pascal 3.2 dependencies
 
 Sqlite is already part of the Free Pascal Compiler's standard libraries and it uses the sqlite3 library on your system,
@@ -142,6 +148,7 @@ Virtuallet can be implemented in any language as long as these aspects can be im
 Implemented:
  * C GNU89
  * C++17
+ * Fortran 2018
  * Free Pascal 3.2
  * Go 1.15
  * Groovy 3.0
@@ -197,6 +204,7 @@ because whitespace characters used to make blocks are excluded from the verbosit
 |   12     |   C++              |   125.78%     |   361             |
 |   13     |   C                |   126.83%     |   364             |
 |   14     |   Pascal           |   145.99%     |   419             |
+|   15     |   Fortran          |   155.75%     |   447             |
 
 ### Character Verbosity
 
@@ -216,3 +224,4 @@ because whitespace characters used to make blocks are excluded from the verbosit
 |   12     |   Java (reference) |   100.00%     |   8964            |
 |   13     |   C++              |   107.54%     |   9640            |
 |   14     |   Pascal           |   112.85%     |   10116           |
+|   15     |   Fortran          |   141.79%     |   12710           |
