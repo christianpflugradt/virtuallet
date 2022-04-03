@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 RND=$$
-EDITIONS_COUNT=14
+EDITIONS_COUNT=15
 SELECTED_EDITION=$(($(($RND%$EDITIONS_COUNT))+1))
 
 if [ $SELECTED_EDITION == 1 ]; then
@@ -52,4 +52,8 @@ elif [ $SELECTED_EDITION == 14 ]; then
   cd kotlin
   kotlinc virtuallet.kt -include-runtime -d virtuallet.jar
   java -cp virtuallet.jar:sqlite-jdbc.jar Virtuallet
+elif [ $SELECTED_EDITION == 15 ]; then
+  cd fortran
+  gfortran -std=f2018 virtuallet.f90 libfortran-sqlite3.a -lsqlite3 -o virtuallet.out
+  ./virtuallet.out
 fi
