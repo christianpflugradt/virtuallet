@@ -14,25 +14,18 @@ fun BigDecimal.normalize(): BigDecimal = this.setScale(2, RoundingMode.HALF_UP)
 
 internal object Util {
 
-    fun prnt(message: String) {
-        print(message.replace(Virtuallet.TAB, "\t"))
-    }
+    fun prnt(message: String) = print(message.replace(Virtuallet.TAB, "\t"))
 
     fun input(message: String): String {
         print(message)
         return readLine() ?: ""
     }
 
-    fun inputOrDefault(message: String, standard: String): String {
-        return input(message).let { if (it.isBlank()) standard else it }
-    }
+    fun inputOrDefault(message: String, standard: String) = input(message).let { if (it.isBlank()) standard else it }
 
-    fun readConfigInput(description: String, standard: Any): String {
-        return input(TextResources.setupTemplate(description, standard.toString())).let {
-            if (it.isBlank()) standard.toString() else it
-        }
-    }
-
+    fun readConfigInput(description: String, standard: Any) =
+        input(TextResources.setupTemplate(description, standard.toString()))
+            .let { if (it.isBlank()) standard.toString() else it }
 }
 
 internal class Database {
@@ -45,120 +38,118 @@ internal class Database {
         }
     }
 
-    fun disconnect() {
-        connection?.close()
-    }
+    fun disconnect() = connection?.close()
 
-    private fun execute(sql: String) {
-        connection!!.createStatement().execute(sql)
-    }
+    private fun execute(sql: String) = connection!!.createStatement().execute(sql)
 
     fun createTables() {
-        execute("""
+        execute(
+            """
             CREATE TABLE ledger (
                 description TEXT,
                 amount REAL NOT NULL, 
                 auto_income INTEGER NOT NULL,
                 created_by TEXT, 
                 created_at TIMESTAMP NOT NULL, 
-                modified_at TIMESTAMP)""")
+                modified_at TIMESTAMP)"""
+        )
         execute("CREATE TABLE configuration (k TEXT NOT NULL, v TEXT NOT NULL)")
     }
 
-    fun insertConfiguration(key: String, value: Any) {
+    fun insertConfiguration(key: String, value: Any) =
         execute("INSERT INTO configuration (k, v) VALUES ('$key', '$value')")
-    }
 
-    fun insertIntoLedger(description: String, amount: BigDecimal) {
-        execute("""INSERT INTO ledger (description, amount, auto_income, created_at, created_by)
-            VALUES ('$description', ${amount.toDouble()}, 0, datetime('now'), 'Kotlin 1.6 Edition')""")
-    }
+    fun insertIntoLedger(description: String, amount: BigDecimal) =
+        execute(
+            """INSERT INTO ledger (description, amount, auto_income, created_at, created_by)
+            VALUES ('$description', ${amount.toDouble()}, 0, datetime('now'), 'Kotlin 1.6 Edition')"""
+        )
 
-    fun balance(): BigDecimal {
+    fun balance(): BigDecimal =
         with(connection!!) {
-            return query(" SELECT ROUND(COALESCE(SUM(amount), 0), 2) FROM ledger ").let {
+            query(" SELECT ROUND(COALESCE(SUM(amount), 0), 2) FROM ledger ").let {
                 if (it.next()) it.bd(1).normalize() else 0.toBigDecimal()
             }
         }
-    }
 
-    fun transactions(): String {
+    fun transactions(): String =
         with(connection!!) {
             val result = query(" SELECT created_at, amount, description FROM ledger ORDER BY ROWID DESC LIMIT 30 ")
             val rows = mutableListOf<String>()
             while (result.next()) {
-                rows.add("\t" + listOf(result.str(1), result.bd(2).normalize().toString(), result.str(3)).joinToString(separator="\t"))
+                rows.add(
+                    "\t" + listOf(
+                        result.str(1),
+                        result.bd(2).normalize().toString(),
+                        result.str(3)
+                    ).joinToString(separator = "\t")
+                )
             }
-            return "${rows.joinToString(separator="\n")}\n"
+            "${rows.joinToString(separator = "\n")}\n"
         }
-    }
 
-    private fun incomeDescription(): String {
+    private fun incomeDescription(): String =
         with(connection!!) {
-            return query(" SELECT v FROM configuration WHERE k = '${Virtuallet.CONF_INCOME_DESCRIPTION}'").let {
-                if (it.next()) it.str(1) else "pocket money"
-            }
+            query(" SELECT v FROM configuration WHERE k = '${Virtuallet.CONF_INCOME_DESCRIPTION}'")
+                .let { if (it.next()) it.str(1) else "pocket money" }
         }
-    }
 
-    private fun incomeAmount(): BigDecimal {
+    private fun incomeAmount(): BigDecimal =
         with(connection!!) {
-            return query(" SELECT v FROM configuration WHERE k = '${Virtuallet.CONF_INCOME_AMOUNT}'").let {
-                if (it.next()) it.bd(1) else 100.toBigDecimal()
-            }
+            query(" SELECT v FROM configuration WHERE k = '${Virtuallet.CONF_INCOME_AMOUNT}'")
+                .let { if (it.next()) it.bd(1) else 100.toBigDecimal() }
         }
-    }
 
-    private fun overdraft(): BigDecimal {
+    private fun overdraft(): BigDecimal =
         with(connection!!) {
-            val result = query(" SELECT v FROM configuration WHERE k = '${Virtuallet.CONF_OVERDRAFT}'")
-            return if (result.next()) result.bd(1) else 200.toBigDecimal()
+            query(" SELECT v FROM configuration WHERE k = '${Virtuallet.CONF_OVERDRAFT}'")
+                .let { if (it.next()) it.bd(1) else 200.toBigDecimal() }
         }
-    }
 
-    fun isExpenseAcceptable(expense: BigDecimal): Boolean {
-        return balance().add(overdraft()).subtract(expense).signum() != -1
-    }
+    fun isExpenseAcceptable(expense: BigDecimal) = (balance() + overdraft() - expense).signum() != -1
 
     fun insertAllDueIncomes() {
         class MonthAndYear(val month: Int, val year: Int)
+
         val dueDates = mutableListOf<MonthAndYear>()
         var dueDate = MonthAndYear(
-                LocalDate.now().getMonthValue(),
-                LocalDate.now().getYear())
+            LocalDate.now().getMonthValue(),
+            LocalDate.now().getYear()
+        )
         while (!hasAutoIncomeForMonth(dueDate.month, dueDate.year)) {
             dueDates.add(dueDate)
             dueDate = MonthAndYear(
-                    if (dueDate.month > 1) dueDate.month - 1 else 12,
-                    if (dueDate.month > 1) dueDate.year else dueDate.year - 1)
+                if (dueDate.month > 1) dueDate.month - 1 else 12,
+                if (dueDate.month > 1) dueDate.year else dueDate.year - 1
+            )
         }
         dueDates.reversed().forEach { insertAutoIncome(it.month, it.year) }
     }
 
-    fun insertAutoIncome(month: Int, year: Int) {
-        execute("""INSERT INTO ledger (description, amount, auto_income, created_at, created_by)
+    fun insertAutoIncome(month: Int, year: Int) =
+        execute(
+            """INSERT INTO ledger (description, amount, auto_income, created_at, created_by)
             VALUES ('${incomeDescription()} ${"%02d".format(month)}/$year', ${incomeAmount()}, 
-            1, datetime('now'), 'Kotlin 1.6 Edition')""")
-    }
+            1, datetime('now'), 'Kotlin 1.6 Edition')"""
+        )
 
-    fun hasAutoIncomeForMonth(month: Int, year: Int): Boolean {
+    fun hasAutoIncomeForMonth(month: Int, year: Int): Boolean =
         with(connection!!) {
-            query("""
+            query(
+                """
                 SELECT EXISTS(
                 SELECT auto_income FROM ledger
                 WHERE auto_income = 1
-                AND description LIKE '% ${"%02d".format(month)}/$year')""")
-                    .let { return it.next() && it.bd(1).signum() == 1 }
+                AND description LIKE '% ${"%02d".format(month)}/$year')"""
+            )
+                .let { it.next() && it.bd(1).signum() == 1 }
         }
-    }
 }
 
 internal class Setup(private val database: Database) {
 
     fun setupOnFirstRun() {
-        if (Files.notExists(Paths.get(Virtuallet.DB_FILE))) {
-            initialize()
-        }
+        if (Files.notExists(Paths.get(Virtuallet.DB_FILE))) { initialize() }
     }
 
     private fun initialize() {
@@ -179,19 +170,16 @@ internal class Setup(private val database: Database) {
         database.insertConfiguration(Virtuallet.CONF_OVERDRAFT, overdraft)
         database.insertAutoIncome(LocalDate.now().getMonthValue(), LocalDate.now().getYear())
     }
-
 }
 
 internal class Loop(private val database: Database) {
 
     companion object {
-
         private const val KEY_ADD = '+'
         private const val KEY_SUB = '-'
         private const val KEY_SHOW = '='
         private const val KEY_HELP = '?'
         private const val KEY_QUIT = ':'
-
     }
 
     fun loop() {
@@ -221,13 +209,9 @@ internal class Loop(private val database: Database) {
         println(TextResources.bye())
     }
 
-    private fun handleAdd() {
-        addToLedger(1, TextResources.incomeBooked())
-    }
+    private fun handleAdd() = addToLedger(1, TextResources.incomeBooked())
 
-    private fun handleSub() {
-        addToLedger(-1, TextResources.expenseBooked())
-    }
+    private fun handleSub() = addToLedger(-1, TextResources.expenseBooked())
 
     private fun addToLedger(signum: Int, successMessage: String) {
         val description = Util.input(TextResources.enterDescription())
@@ -248,27 +232,17 @@ internal class Loop(private val database: Database) {
         }
     }
 
-    private fun omg() {
-        println(TextResources.errorOmg())
-    }
+    private fun omg() = println(TextResources.errorOmg())
 
-    private fun handleInfo() {
-        Util.prnt(TextResources.info())
-    }
+    private fun handleInfo() = Util.prnt(TextResources.info())
 
-    private fun handleHelp() {
-        Util.prnt(TextResources.help())
-    }
+    private fun handleHelp() = Util.prnt(TextResources.help())
 
-    private fun handleShow() {
-        Util.prnt(TextResources.formattedBalance(database.balance(), database.transactions()))
-    }
-
+    private fun handleShow() = Util.prnt(TextResources.formattedBalance(database.balance(), database.transactions()))
 }
 
 internal object TextResources {
-    fun banner(): String {
-        return """
+    fun banner() = """
 <TAB> _                                 _   _
 <TAB>(_|   |_/o                        | | | |
 <TAB>  |   |      ,_  _|_         __,  | | | |  _ _|_
@@ -279,10 +253,8 @@ internal object TextResources {
 
 
 """
-    }
 
-    fun info(): String {
-        return """
+    fun info() = """
 <TAB>Commands:
 <TAB>- press plus (+) to add an irregular income
 <TAB>- press minus (-) to add an expense
@@ -291,10 +263,8 @@ internal object TextResources {
 <TAB>- press colon (:) to exit
 
 """
-    }
 
-    fun help(): String {
-        return """
+    fun help() = """
 <TAB>Virtuallet is a tool to act as your virtual wallet. Wow...
 <TAB>Virtuallet is accessible via terminal and uses a Sqlite database to store all its data.
 <TAB>On first start Virtuallet will be configured and requires some input
@@ -326,17 +296,13 @@ internal object TextResources {
 <TAB>As a free gift to you I have added a modified_at field in the ledger table. Feel free to make use of it.
 
 """
-    }
 
-    fun setupPreDatabase(): String {
-        return """
+    fun setupPreDatabase() = """
 <TAB>Database file not found.
 <TAB>Database will be initialized. This may take a while... NOT.
 """
-    }
 
-    fun setupPostDatabase(): String {
-        return """
+    fun setupPostDatabase() = """
 <TAB>Database initialized.
 <TAB>Are you prepared for some configuration? If not I don't care. There is no way to exit, muhahahar.
 <TAB>Press enter to accept the default or input something else. There is no validation
@@ -344,85 +310,50 @@ internal object TextResources {
 <TAB>you will have to either delete the database file or edit it using a sqlite database browser.
 
 """
-    }
 
-    fun errorZeroOrInvalidAmount(): String {
-        return "amount is zero or invalid -> action aborted"
-    }
+    fun errorZeroOrInvalidAmount() = "amount is zero or invalid -> action aborted"
 
-    fun errorNegativeAmount(): String {
-        return "amount must be positive -> action aborted"
-    }
+    fun errorNegativeAmount() = "amount must be positive -> action aborted"
 
-    fun incomeBooked(): String {
-        return "income booked"
-    }
+    fun incomeBooked() = "income booked"
 
-    fun expenseBooked(): String {
-        return "expense booked successfully"
-    }
+    fun expenseBooked() = "expense booked successfully"
 
-    fun errorTooExpensive(): String {
-        return "sorry, too expensive -> action aborted"
-    }
+    fun errorTooExpensive() = "sorry, too expensive -> action aborted"
 
-    fun errorOmg(): String {
-        return "OMFG RTFM YOU FOOL you are supposed to only enter + or - not anything else after that"
-    }
+    fun errorOmg() = "OMFG RTFM YOU FOOL you are supposed to only enter + or - not anything else after that"
 
-    fun enterInput(): String {
-        return "input > "
-    }
+    fun enterInput() = "input > "
 
-    fun enterDescription(): String {
-        return "description (optional) > "
-    }
+    fun enterDescription() = "description (optional) > "
 
-    fun enterAmount(): String {
-        return "amount > "
-    }
+    fun enterAmount() = "amount > "
 
-    fun setupComplete(): String {
-        return "setup complete, have fun"
-    }
+    fun setupComplete() = "setup complete, have fun"
 
-    fun bye(): String {
-        return "see ya"
-    }
+    fun bye() = "see ya"
 
-    fun currentBalance(balance: BigDecimal): String {
-        return """
+    fun currentBalance(balance: BigDecimal) = """
 <TAB>current balance: $balance           
 """
-    }
 
-    fun formattedBalance(balance: BigDecimal, formattedLastTransactions: String): String {
-        return """${TextResources.currentBalance(balance)}
+    fun formattedBalance(balance: BigDecimal, formattedLastTransactions: String) =
+        """${TextResources.currentBalance(balance)}
 <TAB>last transactions (up to 30)
 <TAB>----------------------------
 $formattedLastTransactions
 """
-    }
 
-    fun setupDescription(): String {
-        return "enter description for regular income"
-    }
+    fun setupDescription() = "enter description for regular income"
 
-    fun setupIncome(): String {
-        return "enter regular income"
-    }
+    fun setupIncome() = "enter regular income"
 
-    fun setupOverdraft(): String {
-        return "enter overdraft"
-    }
+    fun setupOverdraft() = "enter overdraft"
 
-    fun setupTemplate(description: String, standard: String): String {
-        return "$description [default: $standard] > "
-    }
+    fun setupTemplate(description: String, standard: String) = "$description [default: $standard] > "
 }
 
 object Virtuallet {
-
     const val DB_FILE = "../db_virtuallet.db"
     const val CONF_INCOME_DESCRIPTION = "income_description"
     const val CONF_INCOME_AMOUNT = "income_amount"
@@ -438,5 +369,4 @@ object Virtuallet {
         setup.setupOnFirstRun()
         loop.loop()
     }
-
 }

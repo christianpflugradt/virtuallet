@@ -193,10 +193,10 @@ because whitespace characters used to make blocks are excluded from the verbosit
 |   1      |   Ruby             |   53.66%      |   154             |
 |   2      |   Python           |   62.37%      |   179             |
 |   3      |   Common Lisp      |   70.38%      |   202             |
-|   4      |   PHP              |   77.00%      |   221             |
-|   5      |   Lua              |   82.23%      |   236             |
-|   6      |   Groovy           |   83.28%      |   239             |
-|   7      |   Kotlin           |   83.97%      |   241             |
+|   4      |   Kotlin           |   76.66%      |   220             |
+|   5      |   PHP              |   77.00%      |   221             |
+|   6      |   Lua              |   82.23%      |   236             |
+|   7      |   Groovy           |   83.28%      |   239             |
 |   8      |   JavaScript       |   93.03%      |   267             |
 |   9      |   Perl             |   93.03%      |   267             |
 |   10     |   Go               |   95.12%      |   273             |
@@ -218,7 +218,7 @@ because whitespace characters used to make blocks are excluded from the verbosit
 |   6      |   Common Lisp      |   72.23%      |   6475            |
 |   7      |   Go               |   72.31%      |   6482            |
 |   8      |   PHP              |   72.94%      |   6538            |
-|   9      |   Kotlin           |   77.70%      |   6965            |
+|   9      |   Kotlin           |   76.34%      |   6843            |
 |   10     |   JavaScript       |   83.10%      |   7449            |
 |   11     |   C                |   97.78%      |   8765            |
 |   12     |   Java (reference) |   100.00%     |   8964            |
