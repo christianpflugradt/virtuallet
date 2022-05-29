@@ -124,6 +124,10 @@ My php.ini resides in `/etc/php/`. Under Manjaro I also had to install the libra
 You must have sqlite3 gem installed which can be done using RubyGems package manager: `gem install sqlite3`.
 See also: https://rubygems.org/gems/sqlite3
 
+#### Rust 1.61 dependencies
+
+You must install chrono (to obtain current month and year) and rusqlite. `virtuallet.sh` uses `cargo` but in theory it is possible to compile the program with both dependencies using `rustc` too.
+
 #### Steel Bank Common Lisp 2.1 dependencies
 
 You must have `quicklisp` and `asdf` set up. The sqlite dependency will then be automatically downloaded and installed.
@@ -160,6 +164,7 @@ Implemented:
  * PHP 8.0
  * Python 3.9
  * Ruby 2.7
+ * Rust 1.61
  * Steel Bank Common Lisp 2.1
 
  [list of planned implementations](LANGUAGES.md)
@@ -197,14 +202,15 @@ because whitespace characters used to make blocks are excluded from the verbosit
 |   5      |   PHP              |   77.00%      |   221             |
 |   6      |   Lua              |   82.23%      |   236             |
 |   7      |   Groovy           |   83.28%      |   239             |
-|   8      |   JavaScript       |   93.03%      |   267             |
+|   8      |   Rust             |   91.29%      |   262             |
+|   9      |   JavaScript       |   93.03%      |   267             |
 |   9      |   Perl             |   93.03%      |   267             |
-|   10     |   Go               |   95.12%      |   273             |
-|   11     |   Java (reference) |   100.00%     |   287             |
-|   12     |   C++              |   125.78%     |   361             |
-|   13     |   C                |   126.83%     |   364             |
-|   14     |   Pascal           |   145.99%     |   419             |
-|   15     |   Fortran          |   155.75%     |   447             |
+|   11     |   Go               |   95.12%      |   273             |
+|   12     |   Java (reference) |   100.00%     |   287             |
+|   13     |   C++              |   125.78%     |   361             |
+|   14     |   C                |   126.83%     |   364             |
+|   15     |   Pascal           |   145.99%     |   419             |
+|   16     |   Fortran          |   155.75%     |   447             |
 
 ### Character Verbosity
 
@@ -220,8 +226,9 @@ because whitespace characters used to make blocks are excluded from the verbosit
 |   8      |   PHP              |   72.94%      |   6538            |
 |   9      |   Kotlin           |   76.34%      |   6843            |
 |   10     |   JavaScript       |   83.10%      |   7449            |
-|   11     |   C                |   97.78%      |   8765            |
-|   12     |   Java (reference) |   100.00%     |   8964            |
-|   13     |   C++              |   107.54%     |   9640            |
-|   14     |   Pascal           |   112.85%     |   10116           |
-|   15     |   Fortran          |   141.79%     |   12710           |
+|   11     |   Rust             |   87.88%      |   7878            |
+|   12     |   C                |   97.78%      |   8765            |
+|   13     |   Java (reference) |   100.00%     |   8964            |
+|   14     |   C++              |   107.54%     |   9640            |
+|   15     |   Pascal           |   112.85%     |   10116           |
+|   16     |   Fortran          |   141.79%     |   12710           |
