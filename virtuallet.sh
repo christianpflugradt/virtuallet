@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 RND=$$
-EDITIONS_COUNT=15
+EDITIONS_COUNT=16
 SELECTED_EDITION=$(($(($RND%$EDITIONS_COUNT))+1))
 
 if [ $SELECTED_EDITION == 1 ]; then
@@ -56,4 +56,26 @@ elif [ $SELECTED_EDITION == 15 ]; then
   cd fortran
   gfortran -std=f2018 virtuallet.f90 libfortran-sqlite3.a -lsqlite3 -o virtuallet.out
   ./virtuallet.out
+elif [ $SELECTED_EDITION == 16 ]; then
+  cd rust
+  echo "
+[package]
+name = \"virtuallet\"
+version = \"0.1.0\"
+edition = \"2021\"
+
+[[bin]]
+name = \"virtuallet\"
+path = \"virtuallet.rs\"
+
+[dependencies]
+chrono = \"0.4\"
+rusqlite = { version = \"0.27.0\", features = [\"bundled\"] }
+
+" > Cargo.toml
+  RUSTFLAGS=-Awarnings cargo build # --offline # offline accelerates compilation significantly if dependencies are already downloaded
+  cp target/debug/virtuallet .
+  rm -r target
+  rm Cargo*
+  ./virtuallet
 fi

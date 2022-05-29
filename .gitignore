@@ -17,6 +17,7 @@ node_modules
 *.out
 *.mod
 pascal/virtuallet
+rust/virtuallet
 
 # runtime files
 *.bak
