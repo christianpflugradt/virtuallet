@@ -5,17 +5,19 @@ out
 
 # dependencies
 *.jar
+*.dll
 go/*/*
+node_modules
 package.json
 package-lock.json
-node_modules
 
 # compiled files
-*.class
 *.a
+*.class
+*.exe
+*.mod
 *.o
 *.out
-*.mod
 pascal/virtuallet
 rust/virtuallet
 

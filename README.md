@@ -102,6 +102,10 @@ but at the time of my implementation it was not yet officially compatible with L
 so I had to compile it manually using `make` which fortunately worked for me without any further configuration.
 You can download it here: `http://lua.sqlite.org/index.cgi/home`
 
+#### Mono 6.12.0 dependencies
+
+`System.Data.SQLite` must be included. It was not part of mono for my linux distro. I downloaded the sqlite source code, at that time via `https://system.data.sqlite.org/downloads/1.0.116.0/sqlite-netFx-full-source-1.0.116.0.zip` and compiled the respective dll by executing `xbuild /p:Configuration=Release /p:UseInteropDll=false /p:UseSqliteStandard=true ./System.Data.SQLite/System.Data.SQLite.2017.csproj` from the location I unpacked the zip file.
+
 #### Node.js v15.10 dependencies
 
 You need to install the sqlite3 driver via node package manager: `npm install sqlite3`
@@ -159,6 +163,7 @@ Implemented:
  * Java 11
  * Kotlin 1.6
  * Lua 5.4
+ * Mono 6.12.0
  * Node.js v15.10
  * Perl v5.32
  * PHP 8.0
@@ -205,12 +210,13 @@ because whitespace characters used to make blocks are excluded from the verbosit
 |   8      |   Rust             |   91.29%      |   262             |
 |   9      |   JavaScript       |   93.03%      |   267             |
 |   9      |   Perl             |   93.03%      |   267             |
-|   11     |   Go               |   95.12%      |   273             |
-|   12     |   Java (reference) |   100.00%     |   287             |
-|   13     |   C++              |   125.78%     |   361             |
-|   14     |   C                |   126.83%     |   364             |
-|   15     |   Pascal           |   145.99%     |   419             |
-|   16     |   Fortran          |   155.75%     |   447             |
+|   11     |   C#               |   94.77%      |   272             |
+|   12     |   Go               |   95.12%      |   273             |
+|   13     |   Java (reference) |   100.00%     |   287             |
+|   14     |   C++              |   125.78%     |   361             |
+|   15     |   C                |   126.83%     |   364             |
+|   16     |   Pascal           |   145.99%     |   419             |
+|   17     |   Fortran          |   155.75%     |   447             |
 
 ### Character Verbosity
 
@@ -225,10 +231,11 @@ because whitespace characters used to make blocks are excluded from the verbosit
 |   7      |   Go               |   72.31%      |   6482            |
 |   8      |   PHP              |   72.94%      |   6538            |
 |   9      |   Kotlin           |   76.34%      |   6843            |
-|   10     |   JavaScript       |   83.10%      |   7449            |
-|   11     |   Rust             |   87.88%      |   7878            |
-|   12     |   C                |   97.78%      |   8765            |
-|   13     |   Java (reference) |   100.00%     |   8964            |
-|   14     |   C++              |   107.54%     |   9640            |
-|   15     |   Pascal           |   112.85%     |   10116           |
-|   16     |   Fortran          |   141.79%     |   12710           |
+|   10     |   C#               |   81.65%      |   7319            |
+|   11     |   JavaScript       |   83.10%      |   7449            |
+|   12     |   Rust             |   87.88%      |   7878            |
+|   13     |   C                |   97.78%      |   8765            |
+|   14     |   Java (reference) |   100.00%     |   8964            |
+|   15     |   C++              |   107.54%     |   9640            |
+|   16     |   Pascal           |   112.85%     |   10116           |
+|   17     |   Fortran          |   141.79%     |   12710           |

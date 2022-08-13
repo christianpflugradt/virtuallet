@@ -7,7 +7,6 @@ or are confirmed to be suitable for virtuallet.
 
 # YES - languages that probably have a sqlite3 binding
  * Ada
- * C#
  * Clojure
  * Curl
  * D
