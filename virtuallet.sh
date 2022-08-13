@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 RND=$$
-EDITIONS_COUNT=16
+EDITIONS_COUNT=17
 SELECTED_EDITION=$(($(($RND%$EDITIONS_COUNT))+1))
 
 if [ $SELECTED_EDITION == 1 ]; then
@@ -78,4 +78,8 @@ rusqlite = { version = \"0.27.0\", features = [\"bundled\"] }
   rm -r target
   rm Cargo*
   ./virtuallet
+elif [ $SELECTED_EDITION == 17 ]; then
+  cd c#
+  mcs /reference:System.Data /reference:System.Data.SQLite virtuallet.cs
+  ./virtuallet.exe
 fi
