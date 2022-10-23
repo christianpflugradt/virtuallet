@@ -106,7 +106,7 @@
         formatted))
 
 (defmethod is-expense-acceptable ((d database) expense)
-    (- (+ (balance d) (overdraft d)) expense))
+    (> (- (+ (balance d) (overdraft d)) expense) 0))
 
 (defmethod insert-auto-income ((d database) month year)
     (let ((description (format nil "~a ~a/~d"
