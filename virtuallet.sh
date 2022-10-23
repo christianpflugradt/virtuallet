@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 RND=$$
-EDITIONS_COUNT=17
+EDITIONS_COUNT=18
 SELECTED_EDITION=$(($(($RND%$EDITIONS_COUNT))+1))
 
 if [ $SELECTED_EDITION == 1 ]; then
@@ -82,4 +82,7 @@ elif [ $SELECTED_EDITION == 17 ]; then
   cd c#
   mcs /reference:System.Data /reference:System.Data.SQLite virtuallet.cs
   ./virtuallet.exe
+elif [ $SELECTED_EDITION == 18 ]; then
+  cd scheme
+  chicken-csi -s virtuallet.scm
 fi

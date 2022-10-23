@@ -28,7 +28,6 @@ or are confirmed to be suitable for virtuallet.
  * Racket
  * REBOL
  * Scala
- * Scheme
  * Smalltalk
  * Swift
  * Tcl
