@@ -60,10 +60,11 @@ for details how to compile / run each implementation.
 
 #### Implementations without dependencies
 
-The following implementations do not have any further dependencies, which means sqlite3 is part of the language's system library.
+The following implementations do not have any further dependencies, which means sqlite3 is part of the language's system library. Julia has an integrated package manager, so the sqlite dependency is automatically downloaded (or updated) on program start.
  * Python 3.9
  * C GNU89
- * C++
+ * C++ 17
+ * Julia 1.8
 
 #### CHICKEN Scheme 5.3 dependencies
 
@@ -159,13 +160,14 @@ Virtuallet can be implemented in any language as long as these aspects can be im
 
 Implemented:
  * C GNU89
- * C++17
+ * C++ 17
  * CHICKEN Scheme 5.3
  * Fortran 2018
  * Free Pascal 3.2
  * Go 1.15
  * Groovy 3.0
  * Java 11
+ * Julia 1.8
  * Kotlin 1.6
  * Lua 5.4
  * Mono 6.12.0
@@ -206,23 +208,24 @@ because whitespace characters used to make blocks are excluded from the verbosit
 |   Pos    |   Language         |   Verbosity   |   Lines of Code   |
 | -------: | ------------------ | ------------: | ----------------: |
 |   1      |   Ruby             |   53.66%      |   154             |
-|   2      |   Python           |   62.37%      |   179             |
-|   3      |   Scheme           |   67.60%      |   194             |
-|   4      |   Common Lisp      |   70.38%      |   202             |
-|   5      |   Kotlin           |   76.66%      |   220             |
-|   6      |   PHP              |   77.00%      |   221             |
-|   7      |   Lua              |   82.23%      |   236             |
-|   8      |   Groovy           |   83.28%      |   239             |
-|   9      |   Rust             |   91.29%      |   262             |
-|   10     |   JavaScript       |   93.03%      |   267             |
-|   10     |   Perl             |   93.03%      |   267             |
-|   12     |   C#               |   94.77%      |   272             |
-|   13     |   Go               |   95.12%      |   273             |
-|   14     |   Java (reference) |   100.00%     |   287             |
-|   15     |   C++              |   125.78%     |   361             |
-|   16     |   C                |   126.83%     |   364             |
-|   17     |   Pascal           |   145.99%     |   419             |
-|   18     |   Fortran          |   155.75%     |   447             |
+|   2      |   Julia            |   59.58%      |   171             |
+|   3      |   Python           |   62.37%      |   179             |
+|   4      |   Scheme           |   67.60%      |   194             |
+|   5      |   Common Lisp      |   70.38%      |   202             |
+|   6      |   Kotlin           |   76.66%      |   220             |
+|   7      |   PHP              |   77.00%      |   221             |
+|   8      |   Lua              |   82.23%      |   236             |
+|   9      |   Groovy           |   83.28%      |   239             |
+|   10     |   Rust             |   91.29%      |   262             |
+|   11     |   JavaScript       |   93.03%      |   267             |
+|   11     |   Perl             |   93.03%      |   267             |
+|   13     |   C#               |   94.77%      |   272             |
+|   14     |   Go               |   95.12%      |   273             |
+|   15     |   Java (reference) |   100.00%     |   287             |
+|   16     |   C++              |   125.78%     |   361             |
+|   17     |   C                |   126.83%     |   364             |
+|   18     |   Pascal           |   145.99%     |   419             |
+|   19     |   Fortran          |   155.75%     |   447             |
 
 ### Character Verbosity
 
@@ -231,18 +234,20 @@ because whitespace characters used to make blocks are excluded from the verbosit
 |   1      |   Ruby             |   37.38%      |   3351            |
 |   2      |   Python           |   62.88%      |   5637            |
 |   3      |   Scheme           |   64.88%      |   5816            |
-|   4      |   Lua              |   69.62%      |   6241            |
-|   5      |   Perl             |   71.92%      |   6447            |
-|   6      |   Groovy           |   71.93%      |   6448            |
-|   7      |   Common Lisp      |   72.23%      |   6475            |
-|   8      |   Go               |   72.31%      |   6482            |
-|   9      |   PHP              |   72.94%      |   6538            |
-|   10     |   Kotlin           |   76.34%      |   6843            |
-|   11     |   C#               |   81.65%      |   7319            |
-|   12     |   JavaScript       |   83.10%      |   7449            |
-|   13     |   Rust             |   87.88%      |   7878            |
-|   14     |   C                |   97.78%      |   8765            |
-|   15     |   Java (reference) |   100.00%     |   8964            |
-|   16     |   C++              |   107.54%     |   9640            |
-|   17     |   Pascal           |   112.85%     |   10116           |
-|   18     |   Fortran          |   141.79%     |   12710           |
+|   4      |   Julia            |   64.99%      |   5826            |
+|   5      |   Lua              |   69.62%      |   6241            |
+|   6      |   Perl             |   71.92%      |   6447            |
+|   7      |   Groovy           |   71.93%      |   6448            |
+|   8      |   Common Lisp      |   72.23%      |   6475            |
+|   9      |   Go               |   72.31%      |   6482            |
+|   10     |   PHP              |   72.94%      |   6538            |
+|   11     |   Kotlin           |   76.34%      |   6843            |
+|   12     |   C#               |   81.65%      |   7319            |
+|   13     |   JavaScript       |   83.10%      |   7449            |
+|   14     |   Rust             |   87.88%      |   7878            |
+|   15     |   C                |   97.78%      |   8765            |
+|   16     |   Java (reference) |   100.00%     |   8964            |
+|   17     |   C++              |   107.54%     |   9640            |
+|   18     |   Pascal           |   112.85%     |   10116           |
+|   19     |   Fortran          |   141.79%     |   12710           |
+

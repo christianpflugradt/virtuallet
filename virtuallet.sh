@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 RND=$$
-EDITIONS_COUNT=18
+EDITIONS_COUNT=19
 SELECTED_EDITION=$(($(($RND%$EDITIONS_COUNT))+1))
 
 if [ $SELECTED_EDITION == 1 ]; then
@@ -85,4 +85,7 @@ elif [ $SELECTED_EDITION == 17 ]; then
 elif [ $SELECTED_EDITION == 18 ]; then
   cd scheme
   chicken-csi -s virtuallet.scm
+elif [ $SELECTED_EDITION == 19 ]; then
+  cd julia
+  julia virtuallet.jl
 fi
