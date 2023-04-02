@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 RND=$$
-EDITIONS_COUNT=19
+EDITIONS_COUNT=20
 SELECTED_EDITION=$(($(($RND%$EDITIONS_COUNT))+1))
 
 if [ $SELECTED_EDITION == 1 ]; then
@@ -88,4 +88,8 @@ elif [ $SELECTED_EDITION == 18 ]; then
 elif [ $SELECTED_EDITION == 19 ]; then
   cd julia
   julia virtuallet.jl
+elif [ $SELECTED_EDITION == 20 ]; then
+  cd haskell
+  ghc -dynamic virtuallet.hs
+  ./virtuallet
 fi

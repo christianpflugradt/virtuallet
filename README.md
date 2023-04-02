@@ -83,6 +83,14 @@ something like sqlite3.so on unixoid systems and sqlite3.dll on Windows.
 
 Many Pascal functions are compiler specific so the code won't compile with anything but the Free Pascal Compiler (fpc).
 
+#### GHC 9.4 dependencies
+
+You need to install the sqlite-simple package from Hackage: `https://hackage.haskell.org/package/sqlite-simple`
+
+I used Haskell Cabal to install it: `cabal install --lib sqlite-simple --ghc-option=-dynamic`
+
+I had to add the `ghc-option=-dynamic` option so that ghc wouldn't complain that some files are missing in the `data-array-byte` package.
+
 #### Go 1.15 dependencies
 
 You need to install the sqlite3 driver using go get: `go get github.com/mattn/go-sqlite3`
@@ -164,6 +172,7 @@ Implemented:
  * CHICKEN Scheme 5.3
  * Fortran 2018
  * Free Pascal 3.2
+ * GHC 9.4
  * Go 1.15
  * Groovy 3.0
  * Java 11
@@ -210,22 +219,23 @@ because whitespace characters used to make blocks are excluded from the verbosit
 |   1      |   Ruby             |   53.66%      |   154             |
 |   2      |   Julia            |   59.58%      |   171             |
 |   3      |   Python           |   62.37%      |   179             |
-|   4      |   Scheme           |   67.60%      |   194             |
-|   5      |   Common Lisp      |   70.38%      |   202             |
-|   6      |   Kotlin           |   76.66%      |   220             |
-|   7      |   PHP              |   77.00%      |   221             |
-|   8      |   Lua              |   82.23%      |   236             |
-|   9      |   Groovy           |   83.28%      |   239             |
-|   10     |   Rust             |   91.29%      |   262             |
-|   11     |   JavaScript       |   93.03%      |   267             |
-|   11     |   Perl             |   93.03%      |   267             |
-|   13     |   C#               |   94.77%      |   272             |
-|   14     |   Go               |   95.12%      |   273             |
-|   15     |   Java (reference) |   100.00%     |   287             |
-|   16     |   C++              |   125.78%     |   361             |
-|   17     |   C                |   126.83%     |   364             |
-|   18     |   Pascal           |   145.99%     |   419             |
-|   19     |   Fortran          |   155.75%     |   447             |
+|   4      |   Haskell          |   64.11%      |   184             |
+|   5      |   Scheme           |   67.60%      |   194             |
+|   6      |   Common Lisp      |   70.38%      |   202             |
+|   7      |   Kotlin           |   76.66%      |   220             |
+|   8      |   PHP              |   77.00%      |   221             |
+|   9      |   Lua              |   82.23%      |   236             |
+|   10     |   Groovy           |   83.28%      |   239             |
+|   11     |   Rust             |   91.29%      |   262             |
+|   12     |   JavaScript       |   93.03%      |   267             |
+|   13     |   Perl             |   93.03%      |   267             |
+|   14     |   C#               |   94.77%      |   272             |
+|   15     |   Go               |   95.12%      |   273             |
+|   16     |   Java (reference) |   100.00%     |   287             |
+|   17     |   C++              |   125.78%     |   361             |
+|   18     |   C                |   126.83%     |   364             |
+|   19     |   Pascal           |   145.99%     |   419             |
+|   20     |   Fortran          |   155.75%     |   447             |
 
 ### Character Verbosity
 
@@ -235,19 +245,20 @@ because whitespace characters used to make blocks are excluded from the verbosit
 |   2      |   Python           |   62.88%      |   5637            |
 |   3      |   Scheme           |   64.88%      |   5816            |
 |   4      |   Julia            |   64.99%      |   5826            |
-|   5      |   Lua              |   69.62%      |   6241            |
-|   6      |   Perl             |   71.92%      |   6447            |
-|   7      |   Groovy           |   71.93%      |   6448            |
-|   8      |   Common Lisp      |   72.23%      |   6475            |
-|   9      |   Go               |   72.31%      |   6482            |
-|   10     |   PHP              |   72.94%      |   6538            |
-|   11     |   Kotlin           |   76.34%      |   6843            |
-|   12     |   C#               |   81.65%      |   7319            |
-|   13     |   JavaScript       |   83.10%      |   7449            |
-|   14     |   Rust             |   87.88%      |   7878            |
-|   15     |   C                |   97.78%      |   8765            |
-|   16     |   Java (reference) |   100.00%     |   8964            |
-|   17     |   C++              |   107.54%     |   9640            |
-|   18     |   Pascal           |   112.85%     |   10116           |
-|   19     |   Fortran          |   141.79%     |   12710           |
+|   5      |   Haskell          |   68.94%      |   6180            |
+|   6      |   Lua              |   69.62%      |   6241            |
+|   7      |   Perl             |   71.92%      |   6447            |
+|   8      |   Groovy           |   71.93%      |   6448            |
+|   9      |   Common Lisp      |   72.23%      |   6475            |
+|   10     |   Go               |   72.31%      |   6482            |
+|   11     |   PHP              |   72.94%      |   6538            |
+|   12     |   Kotlin           |   76.34%      |   6843            |
+|   13     |   C#               |   81.65%      |   7319            |
+|   14     |   JavaScript       |   83.10%      |   7449            |
+|   15     |   Rust             |   87.88%      |   7878            |
+|   16     |   C                |   97.78%      |   8765            |
+|   17     |   Java (reference) |   100.00%     |   8964            |
+|   18     |   C++              |   107.54%     |   9640            |
+|   19     |   Pascal           |   112.85%     |   10116           |
+|   20     |   Fortran          |   141.79%     |   12710           |
 

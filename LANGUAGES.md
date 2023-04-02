@@ -15,7 +15,6 @@ or are confirmed to be suitable for virtuallet.
  * F#
  * Forth
  * FreeBASIC
- * Haskell
  * Haxe
  * LiveCode
  * Nim

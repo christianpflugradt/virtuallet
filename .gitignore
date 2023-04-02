@@ -15,11 +15,11 @@ package-lock.json
 *.a
 *.class
 *.exe
+*.hi
 *.mod
 *.o
 *.out
-pascal/virtuallet
-rust/virtuallet
+*/virtuallet
 
 # runtime files
 *.bak
