@@ -10,7 +10,6 @@ or are confirmed to be suitable for virtuallet.
  * Clojure
  * Curl
  * D
- * Dart
  * Elixir
  * F#
  * Forth

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 RND=$$
-EDITIONS_COUNT=20
+EDITIONS_COUNT=21
 SELECTED_EDITION=$(($(($RND%$EDITIONS_COUNT))+1))
 
 if [ $SELECTED_EDITION == 1 ]; then
@@ -92,4 +92,15 @@ elif [ $SELECTED_EDITION == 20 ]; then
   cd haskell
   ghc -dynamic virtuallet.hs
   ./virtuallet
+elif [ $SELECTED_EDITION == 21 ]; then
+  cd dart
+   echo "
+  name: virtuallet
+  version: 0.1.0
+  environment:
+    sdk: ^3.0.0
+  " > pubspec.yaml
+  dart pub add sqlite3
+  dart virtuallet.dart
+  rm pubspec.*
 fi

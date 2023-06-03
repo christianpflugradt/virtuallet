@@ -70,6 +70,10 @@ The following implementations do not have any further dependencies, which means 
 
 You need to install `sql-de-lite` and `format` using `chicken-install`. The first dependency is for SQLite3. The second dependency is for basic string formatting functionality such as adding leading zeroes to a string.
 
+#### Dart 3.0 dependencies
+
+Dart depends on `sqlite3/sqlite3.dart` but no manual action is required. The dependency will be downloaded/updated on program start.
+
 #### Fortran 2018 dependencies
 
 You need to install the Fortran binding to SQLite3: `https://github.com/interkosmos/fortran-sqlite3`
@@ -170,6 +174,7 @@ Implemented:
  * C GNU89
  * C++ 17
  * CHICKEN Scheme 5.3
+ * Dart 3.0
  * Fortran 2018
  * Free Pascal 3.2
  * GHC 9.4
@@ -222,43 +227,45 @@ because whitespace characters used to make blocks are excluded from the verbosit
 |   4      |   Haskell          |   64.11%      |   184             |
 |   5      |   Scheme           |   67.60%      |   194             |
 |   6      |   Common Lisp      |   70.38%      |   202             |
-|   7      |   Kotlin           |   76.66%      |   220             |
-|   8      |   PHP              |   77.00%      |   221             |
-|   9      |   Lua              |   82.23%      |   236             |
-|   10     |   Groovy           |   83.28%      |   239             |
-|   11     |   Rust             |   91.29%      |   262             |
-|   12     |   JavaScript       |   93.03%      |   267             |
+|   7      |   Dart             |   70.73%      |   203             |
+|   8      |   Kotlin           |   76.66%      |   220             |
+|   9      |   PHP              |   77.00%      |   221             |
+|   10     |   Lua              |   82.23%      |   236             |
+|   11     |   Groovy           |   83.28%      |   239             |
+|   12     |   Rust             |   91.29%      |   262             |
+|   13     |   JavaScript       |   93.03%      |   267             |
 |   13     |   Perl             |   93.03%      |   267             |
-|   14     |   C#               |   94.77%      |   272             |
-|   15     |   Go               |   95.12%      |   273             |
-|   16     |   Java (reference) |   100.00%     |   287             |
-|   17     |   C++              |   125.78%     |   361             |
-|   18     |   C                |   126.83%     |   364             |
-|   19     |   Pascal           |   145.99%     |   419             |
-|   20     |   Fortran          |   155.75%     |   447             |
+|   15     |   C#               |   94.77%      |   272             |
+|   16     |   Go               |   95.12%      |   273             |
+|   17     |   Java (reference) |   100.00%     |   287             |
+|   18     |   C++              |   125.78%     |   361             |
+|   19     |   C                |   126.83%     |   364             |
+|   20     |   Pascal           |   145.99%     |   419             |
+|   21     |   Fortran          |   155.75%     |   447             |
 
 ### Character Verbosity
 
 |   Pos    |   Language         |   Verbosity   |   Characters      |
 | -------: | ------------------ | ------------: | ----------------: |
 |   1      |   Ruby             |   37.38%      |   3351            |
-|   2      |   Python           |   62.88%      |   5637            |
-|   3      |   Scheme           |   64.88%      |   5816            |
-|   4      |   Julia            |   64.99%      |   5826            |
-|   5      |   Haskell          |   68.94%      |   6180            |
-|   6      |   Lua              |   69.62%      |   6241            |
-|   7      |   Perl             |   71.92%      |   6447            |
-|   8      |   Groovy           |   71.93%      |   6448            |
-|   9      |   Common Lisp      |   72.23%      |   6475            |
-|   10     |   Go               |   72.31%      |   6482            |
-|   11     |   PHP              |   72.94%      |   6538            |
-|   12     |   Kotlin           |   76.34%      |   6843            |
-|   13     |   C#               |   81.65%      |   7319            |
-|   14     |   JavaScript       |   83.10%      |   7449            |
-|   15     |   Rust             |   87.88%      |   7878            |
-|   16     |   C                |   97.78%      |   8765            |
-|   17     |   Java (reference) |   100.00%     |   8964            |
-|   18     |   C++              |   107.54%     |   9640            |
-|   19     |   Pascal           |   112.85%     |   10116           |
-|   20     |   Fortran          |   141.79%     |   12710           |
+|   2      |   Dart             |   61.84%      |   5543            |
+|   3      |   Python           |   62.88%      |   5637            |
+|   4      |   Scheme           |   64.88%      |   5816            |
+|   5      |   Julia            |   64.99%      |   5826            |
+|   6      |   Haskell          |   68.94%      |   6180            |
+|   7      |   Lua              |   69.62%      |   6241            |
+|   8      |   Perl             |   71.92%      |   6447            |
+|   9      |   Groovy           |   71.93%      |   6448            |
+|   10     |   Common Lisp      |   72.23%      |   6475            |
+|   11     |   Go               |   72.31%      |   6482            |
+|   12     |   PHP              |   72.94%      |   6538            |
+|   13     |   Kotlin           |   76.34%      |   6843            |
+|   14     |   C#               |   81.65%      |   7319            |
+|   15     |   JavaScript       |   83.10%      |   7449            |
+|   16     |   Rust             |   87.88%      |   7878            |
+|   17     |   C                |   97.78%      |   8765            |
+|   18     |   Java (reference) |   100.00%     |   8964            |
+|   19     |   C++              |   107.54%     |   9640            |
+|   20     |   Pascal           |   112.85%     |   10116           |
+|   21     |   Fortran          |   141.79%     |   12710           |
 
