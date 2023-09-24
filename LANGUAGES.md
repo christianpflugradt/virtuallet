@@ -17,7 +17,6 @@ or are confirmed to be suitable for virtuallet.
  * Haxe
  * LiveCode
  * Nim
- * Objective-C
  * OCaml
  * Pike
  * PureBasic

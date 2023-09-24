@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 RND=$$
-EDITIONS_COUNT=21
+EDITIONS_COUNT=22
 SELECTED_EDITION=$(($(($RND%$EDITIONS_COUNT))+1))
 
 if [ $SELECTED_EDITION == 1 ]; then
@@ -103,4 +103,8 @@ elif [ $SELECTED_EDITION == 21 ]; then
   dart pub add sqlite3
   dart virtuallet.dart
   rm pubspec.*
+elif [ $SELECTED_EDITION == 22 ]; then
+  cd objective-c
+  clang -o virtuallet virtuallet.m -I `gnustep-config --variable=GNUSTEP_SYSTEM_HEADERS` -L `gnustep-config --variable=GNUSTEP_SYSTEM_LIBRARIES` -lgnustep-base -fconstant-string-class=NSConstantString -D_NATIVE_OBJC_EXCEPTIONS -lobjc -lsqlite3
+  ./virtuallet
 fi

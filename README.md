@@ -4,7 +4,7 @@
 
 Virtuallet as in Virtual Wallet is a very simple offline console based tool to manage digital pocket money.
 It offers the following features:
- * automatically add a configurable pocket money to your wallet every month
+ * automatically add configurable pocket money to your wallet every month
  * ability to add pocket money for multiple months in the past (if you haven't launched the tool for a while)
  * manually add pocket money
  * manually add expenses
@@ -24,7 +24,7 @@ Virtuallet is designed to be very simple and to take very little of your time.
 I myself use it to manage my personal digital pocket money which I have negotiated with my wife.
 Since I pay for most of my personal expenses online I figured a tiny tool to manage my pocket money was in order.
 
-Virtuallet should hopefully be self explanatory. You will get a quick help right when you start it and can get
+Virtuallet should hopefully be self-explanatory. You will get a quick help right when you start it and can get
 more details by pressing the '?' key (question mark) and then enter. From the menu everything is accessed by pressing
 one key and then enter and Virtuallet will ask for further input when necessary,
 for example to enter a description and an amount when you want to add an expense.
@@ -45,7 +45,7 @@ This project does not only offer implementations in several programming language
 which randomly chooses an implementation. In that file you will also see how to get a specific implementation running.
 Keep in mind that you probably want to have a look at that script before you accept it blindly. For example you can
 run the Python 3 implementation by running `python3 virtuallet.py` but only if python3 is in your path. First of all
-a Python 3 runtime must be installed on your system and then it might not be available under that name, maybe you want
+a Python 3 runtime must be installed on your system, and then it might not be available under that name, maybe you want
 to specify the path instead and should actually invoke something like `/usr/bin/python3 virtuallet.py`. Just keep that in mind for any
 implementation you would like to run. You can simply edit the shell script to reflect these changes. Also the shell script
 is so simple that even without programming experience you can probably just edit it to exclude specific implementations
@@ -64,6 +64,7 @@ The following implementations do not have any further dependencies, which means 
  * Python 3.9
  * C GNU89
  * C++ 17
+ * GNUstep 1.29
  * Julia 1.8
 
 #### CHICKEN Scheme 5.3 dependencies
@@ -155,7 +156,7 @@ You must have `quicklisp` and `asdf` set up. The sqlite dependency will then be 
 
 ### Implementation challenges
 
-This is a list of of aspects that must be considered when implementing Virtuallet in an arbitrary programming language. These aspects can be more or less challenging depending on the language and how experienced one is with it.
+This is a list of aspects that must be considered when implementing Virtuallet in an arbitrary programming language. These aspects can be more or less challenging depending on the language and how experienced one is with it.
  * opening a connection to a sqlite database
  * executing parametrized statements against a sqlite database
  * querying multiple rows from a sqlite database
@@ -178,6 +179,7 @@ Implemented:
  * Fortran 2018
  * Free Pascal 3.2
  * GHC 9.4
+ * GNUstep 1.29
  * Go 1.15
  * Groovy 3.0
  * Java 11
@@ -219,53 +221,55 @@ because whitespace characters used to make blocks are excluded from the verbosit
 
 ### Lines of Code Verbosity
 
-|   Pos    |   Language         |   Verbosity   |   Lines of Code   |
-| -------: | ------------------ | ------------: | ----------------: |
-|   1      |   Ruby             |   53.66%      |   154             |
-|   2      |   Julia            |   59.58%      |   171             |
-|   3      |   Python           |   62.37%      |   179             |
-|   4      |   Haskell          |   64.11%      |   184             |
-|   5      |   Scheme           |   67.60%      |   194             |
-|   6      |   Common Lisp      |   70.38%      |   202             |
-|   7      |   Dart             |   70.73%      |   203             |
-|   8      |   Kotlin           |   76.66%      |   220             |
-|   9      |   PHP              |   77.00%      |   221             |
-|   10     |   Lua              |   82.23%      |   236             |
-|   11     |   Groovy           |   83.28%      |   239             |
-|   12     |   Rust             |   91.29%      |   262             |
-|   13     |   JavaScript       |   93.03%      |   267             |
-|   13     |   Perl             |   93.03%      |   267             |
-|   15     |   C#               |   94.77%      |   272             |
-|   16     |   Go               |   95.12%      |   273             |
-|   17     |   Java (reference) |   100.00%     |   287             |
-|   18     |   C++              |   125.78%     |   361             |
-|   19     |   C                |   126.83%     |   364             |
-|   20     |   Pascal           |   145.99%     |   419             |
-|   21     |   Fortran          |   155.75%     |   447             |
+| Pos | Language         | Verbosity | Lines of Code |
+|----:|------------------|----------:|--------------:|
+|   1 | Ruby             |    53.66% |           154 |
+|   2 | Julia            |    59.58% |           171 |
+|   3 | Python           |    62.37% |           179 |
+|   4 | Haskell          |    64.11% |           184 |
+|   5 | Scheme           |    67.60% |           194 |
+|   6 | Common Lisp      |    70.38% |           202 |
+|   7 | Dart             |    70.73% |           203 |
+|   8 | Kotlin           |    76.66% |           220 |
+|   9 | PHP              |    77.00% |           221 |
+|  10 | Lua              |    82.23% |           236 |
+|  11 | Groovy           |    83.28% |           239 |
+|  12 | Rust             |    91.29% |           262 |
+|  13 | JavaScript       |    93.03% |           267 |
+|  13 | Perl             |    93.03% |           267 |
+|  15 | C#               |    94.77% |           272 |
+|  16 | Go               |    95.12% |           273 |
+|  17 | Java (reference) |   100.00% |           287 |
+|  18 | Objective-C      |   104.53% |           300 |
+|  19 | C++              |   125.78% |           361 |
+|  20 | C                |   126.83% |           364 |
+|  21 | Pascal           |   145.99% |           419 |
+|  22 | Fortran          |   155.75% |           447 |
 
 ### Character Verbosity
 
-|   Pos    |   Language         |   Verbosity   |   Characters      |
-| -------: | ------------------ | ------------: | ----------------: |
-|   1      |   Ruby             |   37.38%      |   3351            |
-|   2      |   Dart             |   61.84%      |   5543            |
-|   3      |   Python           |   62.88%      |   5637            |
-|   4      |   Scheme           |   64.88%      |   5816            |
-|   5      |   Julia            |   64.99%      |   5826            |
-|   6      |   Haskell          |   68.94%      |   6180            |
-|   7      |   Lua              |   69.62%      |   6241            |
-|   8      |   Perl             |   71.92%      |   6447            |
-|   9      |   Groovy           |   71.93%      |   6448            |
-|   10     |   Common Lisp      |   72.23%      |   6475            |
-|   11     |   Go               |   72.31%      |   6482            |
-|   12     |   PHP              |   72.94%      |   6538            |
-|   13     |   Kotlin           |   76.34%      |   6843            |
-|   14     |   C#               |   81.65%      |   7319            |
-|   15     |   JavaScript       |   83.10%      |   7449            |
-|   16     |   Rust             |   87.88%      |   7878            |
-|   17     |   C                |   97.78%      |   8765            |
-|   18     |   Java (reference) |   100.00%     |   8964            |
-|   19     |   C++              |   107.54%     |   9640            |
-|   20     |   Pascal           |   112.85%     |   10116           |
-|   21     |   Fortran          |   141.79%     |   12710           |
+| Pos | Language         | Verbosity | Characters |
+|----:|------------------|----------:|-----------:|
+|   1 | Ruby             |    37.38% |       3351 |
+|   2 | Dart             |    61.84% |       5543 |
+|   3 | Python           |    62.88% |       5637 |
+|   4 | Scheme           |    64.88% |       5816 |
+|   5 | Julia            |    64.99% |       5826 |
+|   6 | Haskell          |    68.94% |       6180 |
+|   7 | Lua              |    69.62% |       6241 |
+|   8 | Perl             |    71.92% |       6447 |
+|   9 | Groovy           |    71.93% |       6448 |
+|  10 | Common Lisp      |    72.23% |       6475 |
+|  11 | Go               |    72.31% |       6482 |
+|  12 | PHP              |    72.94% |       6538 |
+|  13 | Kotlin           |    76.34% |       6843 |
+|  14 | C#               |    81.65% |       7319 |
+|  15 | JavaScript       |    83.10% |       7449 |
+|  16 | Rust             |    87.88% |       7878 |
+|  17 | C                |    97.78% |       8765 |
+|  18 | Java (reference) |   100.00% |       8964 |
+|  19 | C++              |   107.54% |       9640 |
+|  20 | Pascal           |   112.85% |      10116 |
+|  21 | Objective-C      |   124.13% |      11127 |
+|  22 | Fortran          |   141.79% |      12710 |
 
