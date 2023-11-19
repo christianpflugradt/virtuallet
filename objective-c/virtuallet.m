@@ -383,7 +383,7 @@ static char const KEY_QUIT = ':';
     NSNumber* amount = [Util numberValueOf:[Util input:[TextResources enterAmount]]];
     if (amount != nil && [amount floatValue] > 0.0) {
         if ((long)signum == 1 || [database isExpenseAcceptable:amount]) {
-            [database insertIntoLedgerWithDescription:description andAmount:amount];
+            [database insertIntoLedgerWithDescription:description andAmount:@([amount floatValue] * signum)];
             [Util println:successMessage];
             [Util println:[TextResources currentBalance:[database balance]]];
         } else {

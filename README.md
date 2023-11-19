@@ -270,6 +270,6 @@ because whitespace characters used to make blocks are excluded from the verbosit
 |  18 | Java (reference) |   100.00% |       8964 |
 |  19 | C++              |   107.54% |       9640 |
 |  20 | Pascal           |   112.85% |      10116 |
-|  21 | Objective-C      |   124.13% |      11127 |
+|  21 | Objective-C      |   124.38% |      11149 |
 |  22 | Fortran          |   141.79% |      12710 |
 
