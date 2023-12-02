@@ -141,6 +141,10 @@ To resolve the problem, update SQLite using cpan: `cpan DBD::SQLite`
 The line `extension=sqlite3` must be in your `php.ini`. It' usually disabled, with a semi colon in front of it.
 My php.ini resides in `/etc/php/`. Under Manjaro I also had to install the library by running `pacman -S php-sqlite`.
 
+#### R 4.3 dependencies
+
+SQLite must be installed. I started the R shell via `R` and then entered `install.packages('RSQLite')` to achieve this.
+
 #### Ruby 2.7 dependencies
 
 You must have sqlite3 gem installed which can be done using RubyGems package manager: `gem install sqlite3`.
@@ -191,6 +195,7 @@ Implemented:
  * Perl v5.32
  * PHP 8.0
  * Python 3.9
+ * R 4.3
  * Ruby 2.7
  * Rust 1.61
  * Steel Bank Common Lisp 2.1
@@ -232,19 +237,20 @@ because whitespace characters used to make blocks are excluded from the verbosit
 |   7 | Dart             |    70.73% |           203 |
 |   8 | Kotlin           |    76.66% |           220 |
 |   9 | PHP              |    77.00% |           221 |
-|  10 | Lua              |    82.23% |           236 |
-|  11 | Groovy           |    83.28% |           239 |
-|  12 | Rust             |    91.29% |           262 |
-|  13 | JavaScript       |    93.03% |           267 |
-|  13 | Perl             |    93.03% |           267 |
-|  15 | C#               |    94.77% |           272 |
-|  16 | Go               |    95.12% |           273 |
-|  17 | Java (reference) |   100.00% |           287 |
-|  18 | Objective-C      |   104.53% |           300 |
-|  19 | C++              |   125.78% |           361 |
-|  20 | C                |   126.83% |           364 |
-|  21 | Pascal           |   145.99% |           419 |
-|  22 | Fortran          |   155.75% |           447 |
+|  10 | R                |    77.35% |           222 |
+|  11 | Lua              |    82.23% |           236 |
+|  12 | Groovy           |    83.28% |           239 |
+|  13 | Rust             |    91.29% |           262 |
+|  14 | JavaScript       |    93.03% |           267 |
+|  14 | Perl             |    93.03% |           267 |
+|  16 | C#               |    94.77% |           272 |
+|  17 | Go               |    95.12% |           273 |
+|  18 | Java (reference) |   100.00% |           287 |
+|  19 | Objective-C      |   104.53% |           300 |
+|  20 | C++              |   125.78% |           361 |
+|  21 | C                |   126.83% |           364 |
+|  22 | Pascal           |   145.99% |           419 |
+|  23 | Fortran          |   155.75% |           447 |
 
 ### Character Verbosity
 
@@ -255,21 +261,21 @@ because whitespace characters used to make blocks are excluded from the verbosit
 |   3 | Python           |    62.88% |       5637 |
 |   4 | Scheme           |    64.88% |       5816 |
 |   5 | Julia            |    64.99% |       5826 |
-|   6 | Haskell          |    68.94% |       6180 |
-|   7 | Lua              |    69.62% |       6241 |
-|   8 | Perl             |    71.92% |       6447 |
-|   9 | Groovy           |    71.93% |       6448 |
-|  10 | Common Lisp      |    72.23% |       6475 |
-|  11 | Go               |    72.31% |       6482 |
-|  12 | PHP              |    72.94% |       6538 |
-|  13 | Kotlin           |    76.34% |       6843 |
-|  14 | C#               |    81.65% |       7319 |
-|  15 | JavaScript       |    83.10% |       7449 |
-|  16 | Rust             |    87.88% |       7878 |
-|  17 | C                |    97.78% |       8765 |
-|  18 | Java (reference) |   100.00% |       8964 |
-|  19 | C++              |   107.54% |       9640 |
-|  20 | Pascal           |   112.85% |      10116 |
-|  21 | Objective-C      |   124.38% |      11149 |
-|  22 | Fortran          |   141.79% |      12710 |
-
+|   6 | R                |    67.31% |       6034 |
+|   7 | Haskell          |    68.94% |       6180 |
+|   8 | Lua              |    69.62% |       6241 |
+|   9 | Perl             |    71.92% |       6447 |
+|  10 | Groovy           |    71.93% |       6448 |
+|  11 | Common Lisp      |    72.23% |       6475 |
+|  12 | Go               |    72.31% |       6482 |
+|  13 | PHP              |    72.94% |       6538 |
+|  14 | Kotlin           |    76.34% |       6843 |
+|  15 | C#               |    81.65% |       7319 |
+|  16 | JavaScript       |    83.10% |       7449 |
+|  17 | Rust             |    87.88% |       7878 |
+|  18 | C                |    97.78% |       8765 |
+|  19 | Java (reference) |   100.00% |       8964 |
+|  20 | C++              |   107.54% |       9640 |
+|  21 | Pascal           |   112.85% |      10116 |
+|  22 | Objective-C      |   124.38% |      11149 |
+|  23 | Fortran          |   141.79% |      12710 |

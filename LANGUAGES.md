@@ -20,7 +20,6 @@ or are confirmed to be suitable for virtuallet.
  * OCaml
  * Pike
  * PureBasic
- * R
  * Racket
  * REBOL
  * Scala
