@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 RND=$$
-EDITIONS_COUNT=22
+EDITIONS_COUNT=23
 SELECTED_EDITION=$(($(($RND%$EDITIONS_COUNT))+1))
 
 if [ $SELECTED_EDITION == 1 ]; then
@@ -107,4 +107,7 @@ elif [ $SELECTED_EDITION == 22 ]; then
   cd objective-c
   clang -o virtuallet virtuallet.m -I `gnustep-config --variable=GNUSTEP_SYSTEM_HEADERS` -L `gnustep-config --variable=GNUSTEP_SYSTEM_LIBRARIES` -lgnustep-base -fconstant-string-class=NSConstantString -D_NATIVE_OBJC_EXCEPTIONS -lobjc -lsqlite3
   ./virtuallet
+elif [ $SELECTED_EDITION == 23 ]; then
+    cd r
+    Rscript virtuallet.R
 fi
