@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 RND=$$
-EDITIONS_COUNT=23
+EDITIONS_COUNT=24
 SELECTED_EDITION=$(($(($RND%$EDITIONS_COUNT))+1))
 
 if [ $SELECTED_EDITION == 1 ]; then
@@ -110,4 +110,12 @@ elif [ $SELECTED_EDITION == 22 ]; then
 elif [ $SELECTED_EDITION == 23 ]; then
     cd r
     Rscript virtuallet.R
+elif [ $SELECTED_EDITION == 24 ]; then
+    cd typescript
+    echo "{\"dependencies\": {\"readline-sync\": \"^1.0.0\",\"sqlite3\": \"^5.0.0\"}}" > package.json
+    echo "{\"compilerOptions\": {\"target\": \"ES2022\"}}" > tsconfig.json
+    npm install
+    ts-node virtuallet.ts
+    rm -r node_modules
+    rm *.json
 fi

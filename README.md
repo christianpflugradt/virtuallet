@@ -38,8 +38,8 @@ but also because I use it as an opportunity to get to know other programming lan
 
 For that second reason I will provide an implementation of Virtuallet in several programming languages
 and if you actually want to use this tiny but really handy tool, you can choose an implementation you feel comfortable with.
-It certainly doesn't hurt to have some "computer knowledge" if you want to use this tool
-but you probably have if you found this gitlab project.
+It certainly doesn't hurt to have some "computer knowledge" if you want to use this tool,
+but you probably have if you found this project.
 
 This project does not only offer implementations in several programming languages but also a shell script `virtuallet.sh`
 which randomly chooses an implementation. In that file you will also see how to get a specific implementation running.
@@ -132,13 +132,13 @@ Additionally you need to install readline-sync via node package manager: `npm in
 #### Perl v5.32 dependencies
 
 Perl is already installed on most Unix-like operating systems and usually comes bundled with SQLite.
-However the installed version of SQLite might be old and not support `CREATE TABLE IF EXISTS`
+However, the installed version of SQLite might be old and not support `CREATE TABLE IF EXISTS`
 which will result in the following error: `DBD::SQLite::db do failed: not an error(21) at dbdimp.c line 398`
 To resolve the problem, update SQLite using cpan: `cpan DBD::SQLite`
 
 #### PHP 8.0 dependencies
 
-The line `extension=sqlite3` must be in your `php.ini`. It' usually disabled, with a semi colon in front of it.
+The line `extension=sqlite3` must be in your `php.ini`. It' usually disabled, with a semicolon in front of it.
 My php.ini resides in `/etc/php/`. Under Manjaro I also had to install the library by running `pacman -S php-sqlite`.
 
 #### R 4.3 dependencies
@@ -157,6 +157,10 @@ You must install chrono (to obtain current month and year) and rusqlite. `virtua
 #### Steel Bank Common Lisp 2.1 dependencies
 
 You must have `quicklisp` and `asdf` set up. The sqlite dependency will then be automatically downloaded and installed.
+
+#### TypeScript 5.3 dependencies
+
+Node.js is used under the hood but a `package.json` is also temporarily generated, so the dependencies don´t need to be manually preinstalled. For execution `ts-node` is used which can be installed via `npm install ts-node`, alternatively the shell script can be very easily rewritten to use tsc and node directly.
 
 ### Implementation challenges
 
@@ -199,6 +203,7 @@ Implemented:
  * Ruby 2.7
  * Rust 1.61
  * Steel Bank Common Lisp 2.1
+ * TypeScript 5.3
 
  [list of planned implementations](LANGUAGES.md)
 
@@ -241,16 +246,17 @@ because whitespace characters used to make blocks are excluded from the verbosit
 |  11 | Lua              |    82.23% |           236 |
 |  12 | Groovy           |    83.28% |           239 |
 |  13 | Rust             |    91.29% |           262 |
-|  14 | JavaScript       |    93.03% |           267 |
-|  14 | Perl             |    93.03% |           267 |
-|  16 | C#               |    94.77% |           272 |
-|  17 | Go               |    95.12% |           273 |
-|  18 | Java (reference) |   100.00% |           287 |
-|  19 | Objective-C      |   104.53% |           300 |
-|  20 | C++              |   125.78% |           361 |
-|  21 | C                |   126.83% |           364 |
-|  22 | Pascal           |   145.99% |           419 |
-|  23 | Fortran          |   155.75% |           447 |
+|  14 | TypeScript       |    91.64% |           263 |
+|  15 | JavaScript       |    93.03% |           267 |
+|  15 | Perl             |    93.03% |           267 |
+|  17 | C#               |    94.77% |           272 |
+|  18 | Go               |    95.12% |           273 |
+|  19 | Java (reference) |   100.00% |           287 |
+|  20 | Objective-C      |   104.53% |           300 |
+|  21 | C++              |   125.78% |           361 |
+|  22 | C                |   126.83% |           364 |
+|  23 | Pascal           |   145.99% |           419 |
+|  24 | Fortran          |   155.75% |           447 |
 
 ### Character Verbosity
 
@@ -270,12 +276,13 @@ because whitespace characters used to make blocks are excluded from the verbosit
 |  12 | Go               |    72.31% |       6482 |
 |  13 | PHP              |    72.94% |       6538 |
 |  14 | Kotlin           |    76.34% |       6843 |
-|  15 | C#               |    81.65% |       7319 |
-|  16 | JavaScript       |    83.10% |       7449 |
-|  17 | Rust             |    87.88% |       7878 |
-|  18 | C                |    97.78% |       8765 |
-|  19 | Java (reference) |   100.00% |       8964 |
-|  20 | C++              |   107.54% |       9640 |
-|  21 | Pascal           |   112.85% |      10116 |
-|  22 | Objective-C      |   124.38% |      11149 |
-|  23 | Fortran          |   141.79% |      12710 |
+|  15 | TypeScript       |    80.00% |       7172 |
+|  16 | C#               |    81.65% |       7319 |
+|  17 | JavaScript       |    83.18% |       7456 |
+|  18 | Rust             |    87.88% |       7878 |
+|  19 | C                |    97.78% |       8765 |
+|  20 | Java (reference) |   100.00% |       8964 |
+|  21 | C++              |   107.54% |       9640 |
+|  22 | Pascal           |   112.85% |      10116 |
+|  23 | Objective-C      |   124.38% |      11149 |
+|  24 | Fortran          |   141.79% |      12710 |
