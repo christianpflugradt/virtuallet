@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 RND=$$
-EDITIONS_COUNT=24
+EDITIONS_COUNT=25
 SELECTED_EDITION=$(($(($RND%$EDITIONS_COUNT))+1))
 
 if [ $SELECTED_EDITION == 1 ]; then
@@ -118,4 +118,7 @@ elif [ $SELECTED_EDITION == 24 ]; then
     ts-node virtuallet.ts
     rm -r node_modules
     rm *.json
+elif [ $SELECTED_EDITION == 25 ]; then
+    cd freebasic
+    fbc virtuallet.bas && ./virtuallet
 fi

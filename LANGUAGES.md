@@ -13,13 +13,11 @@ or are confirmed to be suitable for virtuallet.
  * Elixir
  * F#
  * Forth
- * FreeBASIC
  * Haxe
  * LiveCode
  * Nim
  * OCaml
  * Pike
- * PureBasic
  * Racket
  * REBOL
  * Scala
@@ -27,7 +25,6 @@ or are confirmed to be suitable for virtuallet.
  * Swift
  * Tcl
  * Vala
- * Visual Basic .NET
 
 # MAYBE - languages that may or may not have a sqlite3 binding
  * Ceylon

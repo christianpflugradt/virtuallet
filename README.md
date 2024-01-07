@@ -64,6 +64,7 @@ The following implementations do not have any further dependencies, which means 
  * Python 3.9
  * C GNU89
  * C++ 17
+ * FreeBASIC 1.10
  * GNUstep 1.29
  * Julia 1.8
 
@@ -186,6 +187,7 @@ Implemented:
  * Dart 3.0
  * Fortran 2018
  * Free Pascal 3.2
+ * FreeBASIC 1.10
  * GHC 9.4
  * GNUstep 1.29
  * Go 1.15
@@ -253,10 +255,11 @@ because whitespace characters used to make blocks are excluded from the verbosit
 |  18 | Go               |    95.12% |           273 |
 |  19 | Java (reference) |   100.00% |           287 |
 |  20 | Objective-C      |   104.53% |           300 |
-|  21 | C++              |   125.78% |           361 |
-|  22 | C                |   126.83% |           364 |
-|  23 | Pascal           |   145.99% |           419 |
-|  24 | Fortran          |   155.75% |           447 |
+|  21 | FreeBASIC        |   122.30% |           351 |
+|  22 | C++              |   125.78% |           361 |
+|  23 | C                |   126.83% |           364 |
+|  24 | Pascal           |   145.99% |           419 |
+|  25 | Fortran          |   155.75% |           447 |
 
 ### Character Verbosity
 
@@ -284,5 +287,6 @@ because whitespace characters used to make blocks are excluded from the verbosit
 |  20 | Java (reference) |   100.00% |       8964 |
 |  21 | C++              |   107.54% |       9640 |
 |  22 | Pascal           |   112.85% |      10116 |
-|  23 | Objective-C      |   124.38% |      11149 |
-|  24 | Fortran          |   141.79% |      12710 |
+|  23 | FreeBASIC        |   119.48% |      10710 |
+|  24 | Objective-C      |   124.38% |      11149 |
+|  25 | Fortran          |   141.79% |      12710 |
