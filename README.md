@@ -155,6 +155,10 @@ See also: https://rubygems.org/gems/sqlite3
 
 You must install chrono (to obtain current month and year) and rusqlite. `virtuallet.sh` uses `cargo` but in theory it is possible to compile the program with both dependencies using `rustc` too.
 
+#### Scala 3.1 dependencies
+
+Use the jdbc driver specified for the Java Edition
+
 #### Steel Bank Common Lisp 2.1 dependencies
 
 You must have `quicklisp` and `asdf` set up. The sqlite dependency will then be automatically downloaded and installed.
@@ -204,6 +208,7 @@ Implemented:
  * R 4.3
  * Ruby 2.7
  * Rust 1.61
+ * Scala 3.1
  * Steel Bank Common Lisp 2.1
  * TypeScript 5.3
 
@@ -239,54 +244,56 @@ because whitespace characters used to make blocks are excluded from the verbosit
 |   2 | Julia            |    59.58% |           171 |
 |   3 | Python           |    62.37% |           179 |
 |   4 | Haskell          |    64.11% |           184 |
-|   5 | Scheme           |    67.60% |           194 |
-|   6 | Common Lisp      |    70.38% |           202 |
-|   7 | Dart             |    70.73% |           203 |
-|   8 | Kotlin           |    76.66% |           220 |
-|   9 | PHP              |    77.00% |           221 |
-|  10 | R                |    77.35% |           222 |
-|  11 | Lua              |    82.23% |           236 |
-|  12 | Groovy           |    83.28% |           239 |
-|  13 | Rust             |    91.29% |           262 |
-|  14 | TypeScript       |    91.64% |           263 |
-|  15 | JavaScript       |    93.03% |           267 |
-|  15 | Perl             |    93.03% |           267 |
-|  17 | C#               |    94.77% |           272 |
-|  18 | Go               |    95.12% |           273 |
-|  19 | Java (reference) |   100.00% |           287 |
-|  20 | Objective-C      |   104.53% |           300 |
-|  21 | FreeBASIC        |   122.30% |           351 |
-|  22 | C++              |   125.78% |           361 |
-|  23 | C                |   126.83% |           364 |
-|  24 | Pascal           |   145.99% |           419 |
-|  25 | Fortran          |   155.75% |           447 |
+|   4 | Scala            |    64.11% |           184 |
+|   6 | Scheme           |    67.60% |           194 |
+|   7 | Common Lisp      |    70.38% |           202 |
+|   8 | Dart             |    70.73% |           203 |
+|   9 | Kotlin           |    76.66% |           220 |
+|  10 | PHP              |    77.00% |           221 |
+|  11 | R                |    77.35% |           222 |
+|  12 | Lua              |    82.23% |           236 |
+|  13 | Groovy           |    83.28% |           239 |
+|  14 | Rust             |    91.29% |           262 |
+|  15 | TypeScript       |    91.64% |           263 |
+|  16 | JavaScript       |    93.03% |           267 |
+|  16 | Perl             |    93.03% |           267 |
+|  18 | C#               |    94.77% |           272 |
+|  19 | Go               |    95.12% |           273 |
+|  20 | Java (reference) |   100.00% |           287 |
+|  21 | Objective-C      |   104.53% |           300 |
+|  22 | FreeBASIC        |   122.30% |           351 |
+|  23 | C++              |   125.78% |           361 |
+|  24 | C                |   126.83% |           364 |
+|  25 | Pascal           |   145.99% |           419 |
+|  26 | Fortran          |   155.75% |           447 |
 
 ### Character Verbosity
 
-| Pos | Language         | Verbosity | Characters |
-|----:|------------------|----------:|-----------:|
-|   1 | Ruby             |    37.38% |       3351 |
-|   2 | Dart             |    61.84% |       5543 |
-|   3 | Python           |    62.88% |       5637 |
-|   4 | Scheme           |    64.88% |       5816 |
-|   5 | Julia            |    64.99% |       5826 |
-|   6 | R                |    67.31% |       6034 |
-|   7 | Haskell          |    68.94% |       6180 |
-|   8 | Lua              |    69.62% |       6241 |
-|   9 | Perl             |    71.92% |       6447 |
-|  10 | Groovy           |    71.93% |       6448 |
-|  11 | Common Lisp      |    72.23% |       6475 |
-|  12 | Go               |    72.31% |       6482 |
-|  13 | PHP              |    72.94% |       6538 |
-|  14 | Kotlin           |    76.34% |       6843 |
-|  15 | TypeScript       |    80.00% |       7172 |
-|  16 | C#               |    81.65% |       7319 |
-|  17 | JavaScript       |    83.18% |       7456 |
-|  18 | Rust             |    87.88% |       7878 |
-|  19 | C                |    97.78% |       8765 |
-|  20 | Java (reference) |   100.00% |       8964 |
-|  21 | C++              |   107.54% |       9640 |
-|  22 | Pascal           |   112.85% |      10116 |
-|  23 | FreeBASIC        |   119.48% |      10710 |
-|  24 | Objective-C      |   124.38% |      11149 |
-|  25 | Fortran          |   141.79% |      12710 |
+| Pos | Language          | Verbosity | Characters |
+|----:|-------------------|----------:|-----------:|
+|   1 | Ruby              |    37.38% |       3351 |
+|   2 | Dart              |    61.84% |       5543 |
+|   3 | Python            |    62.88% |       5637 |
+|   4 | Scheme            |    64.88% |       5816 |
+|   5 | Julia             |    64.99% |       5826 |
+|   6 | R                 |    67.31% |       6034 |
+|   7 | Scala             |    67.65% |       6064 |
+|   8 | Haskell           |    68.94% |       6180 |
+|   9 | Lua               |    69.62% |       6241 |
+|  10 | Perl              |    71.92% |       6447 |
+|  11 | Groovy            |    71.93% |       6448 |
+|  12 | Common Lisp       |    72.23% |       6475 |
+|  13 | Go                |    72.31% |       6482 |
+|  14 | PHP               |    72.94% |       6538 |
+|  15 | Kotlin            |    76.34% |       6843 |
+|  16 | TypeScript        |    80.00% |       7172 |
+|  17 | C#                |    81.65% |       7319 |
+|  18 | JavaScript        |    83.18% |       7456 |
+|  19 | Rust              |    87.88% |       7878 |
+|  20 | C                 |    97.78% |       8765 |
+|  21 | Java (reference)  |   100.00% |       8964 |
+|  22 | C++               |   107.54% |       9640 |
+|  23 | Pascal            |   112.85% |      10116 |
+|  24 | FreeBASIC         |   119.48% |      10710 |
+|  25 | Objective-C       |   124.38% |      11149 |
+|  26 | Fortran           |   141.79% |      12710 |

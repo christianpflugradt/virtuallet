@@ -20,7 +20,6 @@ or are confirmed to be suitable for virtuallet.
  * Pike
  * Racket
  * REBOL
- * Scala
  * Smalltalk
  * Swift
  * Tcl
@@ -36,7 +35,6 @@ or are confirmed to be suitable for virtuallet.
  * K
  * Limbo
  * Oberon
- * QBASIC
  * Raku
  * S
  * Seed7

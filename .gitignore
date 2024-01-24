@@ -19,6 +19,7 @@ package-lock.json
 *.mod
 *.o
 *.out
+*.tasty
 */virtuallet
 
 # runtime files
