@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 RND=$$
-EDITIONS_COUNT=26
+EDITIONS_COUNT=27
 SELECTED_EDITION=$(($(($RND%$EDITIONS_COUNT))+1))
 
 if [ $SELECTED_EDITION == 1 ]; then
@@ -125,4 +125,8 @@ elif [ $SELECTED_EDITION == 26 ]; then
   cd scala
   scalac3 -cp sqlite-jdbc.jar:. virtuallet.scala
   scala3 -cp sqlite-jdbc.jar:. virtuallet
+elif [ $SELECTED_EDITION == 27 ]; then
+  cd ada
+  /opt/gcc-14.2.0-3-aarch64/bin/gnatmake virtuallet.adb -I/opt/sqlite-ada/src/ -largs /opt/sqlite-ada/src/sqlite_free_wrappers.o /opt/sqlite-ada/src/sqlite_transient.o -lsqlite3
+  ./virtuallet
 fi

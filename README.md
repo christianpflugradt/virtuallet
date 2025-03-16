@@ -68,6 +68,12 @@ The following implementations do not have any further dependencies, which means 
  * GNUstep 1.29
  * Julia 1.8
 
+#### Ada 2012 dependencies
+
+You need to install sqlite-ada from: https://git.sr.ht/~nytpu/sqlite-ada
+
+I did not manage to install it globally using `gprbuild`, so I just cloned the repo and compiled `sqlite_free_wrappers.c` and `sqlite_transient.c` manually using `gcc -c <filename>`.
+
 #### CHICKEN Scheme 5.3 dependencies
 
 You need to install `sql-de-lite` and `format` using `chicken-install`. The first dependency is for SQLite3. The second dependency is for basic string formatting functionality such as adding leading zeroes to a string.
@@ -185,6 +191,7 @@ Virtuallet can be implemented in any language as long as these aspects can be im
 ## Implementations
 
 Implemented:
+ * Ada 2022
  * C GNU89
  * C++ 17
  * CHICKEN Scheme 5.3
@@ -262,38 +269,40 @@ because whitespace characters used to make blocks are excluded from the verbosit
 |  20 | Java (reference) |   100.00% |           287 |
 |  21 | Objective-C      |   104.53% |           300 |
 |  22 | FreeBASIC        |   122.30% |           351 |
-|  23 | C++              |   125.78% |           361 |
-|  24 | C                |   126.83% |           364 |
-|  25 | Pascal           |   145.99% |           419 |
-|  26 | Fortran          |   155.75% |           447 |
+|  23 | Ada              |   124.39% |           357 |
+|  24 | C++              |   125.78% |           361 |
+|  25 | C                |   126.83% |           364 |
+|  26 | Pascal           |   145.99% |           419 |
+|  27 | Fortran          |   155.75% |           447 |
 
 ### Character Verbosity
 
-| Pos | Language          | Verbosity | Characters |
-|----:|-------------------|----------:|-----------:|
-|   1 | Ruby              |    37.38% |       3351 |
-|   2 | Dart              |    61.84% |       5543 |
-|   3 | Python            |    62.88% |       5637 |
-|   4 | Scheme            |    64.88% |       5816 |
-|   5 | Julia             |    64.99% |       5826 |
-|   6 | R                 |    67.31% |       6034 |
-|   7 | Scala             |    67.65% |       6064 |
-|   8 | Haskell           |    68.94% |       6180 |
-|   9 | Lua               |    69.62% |       6241 |
-|  10 | Perl              |    71.92% |       6447 |
-|  11 | Groovy            |    71.93% |       6448 |
-|  12 | Common Lisp       |    72.23% |       6475 |
-|  13 | Go                |    72.31% |       6482 |
-|  14 | PHP               |    72.94% |       6538 |
-|  15 | Kotlin            |    76.34% |       6843 |
-|  16 | TypeScript        |    80.00% |       7172 |
-|  17 | C#                |    81.65% |       7319 |
-|  18 | JavaScript        |    83.18% |       7456 |
-|  19 | Rust              |    87.88% |       7878 |
-|  20 | C                 |    97.78% |       8765 |
-|  21 | Java (reference)  |   100.00% |       8964 |
-|  22 | C++               |   107.54% |       9640 |
-|  23 | Pascal            |   112.85% |      10116 |
-|  24 | FreeBASIC         |   119.48% |      10710 |
-|  25 | Objective-C       |   124.38% |      11149 |
-|  26 | Fortran           |   141.79% |      12710 |
+| Pos | Language         | Verbosity | Characters |
+|----:|------------------|----------:|-----------:|
+|   1 | Ruby             |    37.38% |       3351 |
+|   2 | Dart             |    61.84% |       5543 |
+|   3 | Python           |    62.88% |       5637 |
+|   4 | Scheme           |    64.88% |       5816 |
+|   5 | Julia            |    64.99% |       5826 |
+|   6 | R                |    67.31% |       6034 |
+|   7 | Scala            |    67.65% |       6064 |
+|   8 | Haskell          |    68.94% |       6180 |
+|   9 | Lua              |    69.62% |       6241 |
+|  10 | Perl             |    71.92% |       6447 |
+|  11 | Groovy           |    71.93% |       6448 |
+|  12 | Common Lisp      |    72.23% |       6475 |
+|  13 | Go               |    72.31% |       6482 |
+|  14 | PHP              |    72.94% |       6538 |
+|  15 | Kotlin           |    76.34% |       6843 |
+|  16 | TypeScript       |    80.00% |       7172 |
+|  17 | C#               |    81.65% |       7319 |
+|  18 | JavaScript       |    83.18% |       7456 |
+|  19 | Rust             |    87.88% |       7878 |
+|  20 | C                |    97.78% |       8765 |
+|  21 | Java (reference) |   100.00% |       8964 |
+|  22 | C++              |   107.54% |       9640 |
+|  23 | Pascal           |   112.85% |      10116 |
+|  24 | FreeBASIC        |   119.48% |      10710 |
+|  25 | Ada              |   119.86% |      10744 |
+|  26 | Objective-C      |   124.38% |      11149 |
+|  27 | Fortran          |   141.79% |      12710 |
