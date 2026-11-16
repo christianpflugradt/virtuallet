@@ -1,5 +1,12 @@
 # virtuallet
 
+> [!NOTE]
+> **This project is archived.** I used virtuallet myself for years, but since early 2026 I hardly
+> write any code by hand anymore, because working with AI agents makes me far more productive. That
+> takes away the point of maintaining and extending this multi-language collection by hand, so I have
+> stopped developing it. The code remains available for reference. If this changes, I might unarchive
+> it. Please don't confuse it with my active projects.
+
 ## About virtuallet as a program
 
 Virtuallet as in Virtual Wallet is a very simple offline console based tool to manage digital pocket money.
